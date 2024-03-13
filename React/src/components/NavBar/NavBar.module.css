@@ -1,0 +1,7 @@
+.NavBar{
+    background-color: #000;
+}
+.btn:hover{background-color: #BA0000;}
+.user{width: 30px;height: 30px;display: inline-block;}
+.formControl:focus{border-color: transparent;
+box-shadow: none;}
