@@ -14,7 +14,7 @@ import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Notification from "./components/Notification/Notification";
-import ProductItem from "./components/ProductItem/ProductItem";
+// import ProductItem from "./components/ProductItem/ProductItem";
 import { Fragment } from "react";
 import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
 function App() {
