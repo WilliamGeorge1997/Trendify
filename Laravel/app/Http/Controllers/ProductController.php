@@ -66,6 +66,66 @@ class ProductController extends Controller
         }
     }
 
+    public function show(string $id)
+    {
+        $product = Product::with('images')->find($id);
+        if ($product) {
+            return response()->json([
+                'status' => 200,
+                'message' => $product,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'product not found',
+            ], 404);
+        }
+    }
+    public function update(ProductRequest $request, int $id)
+    {
+        try {
+            $product = Product::find($id);
+
+            if ($product) {
+                $product->update([
+                    'title' => $request->title,
+                    'price' => $request->price,
+                    'location' => $request->location,
+                    'description' => $request->description,
+                    'user_id' => $request->user_id,
+                    'category_id' => $request->category_id,
+                ]);
+                if ($request->hasFile('images')) {
+                    $product->images()->delete();
+                    $imageUrls = [];
+                    foreach ($request->file('images') as $image) {
+                        $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('public/images', $imageName);
+                        $product->images()->create([
+                            'image_path' => 'images/' . $imageName,
+                        ]);
+                        $imageUrls[] = $imageName;
+                    }
+                }
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product updated successfully',
+                    'product' => $product,
+                    'image_urls' => $imageUrls ?? [],
+                ], 200);
+            } else {
+                return response()->json([
+                    'error' => 'No such product found',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while updating product: ' . $e->getMessage()
+            ], 400);
+        }
+    }
+
+
 
 
     public function destroy(string $id)
