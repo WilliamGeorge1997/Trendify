@@ -14,11 +14,13 @@ import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Notification from "./components/Notification/Notification";
+
 import { Fragment } from "react";
-import FavProduct from './components/FavProduct/FavProduct';
-import MyAds from './components/MyAds/MyAds';
-import MyProfile from './components/MyProfile/MyProfile';
-import Cart from './components/Cart/Cart';
+import FavProduct from "./components/FavProduct/FavProduct";
+import MyAds from "./components/MyAds/MyAds";
+import MyProfile from "./components/MyProfile/MyProfile";
+import Cart from "./components/Cart/Cart";
+
 function App() {
   let routes = createBrowserRouter([
     {
