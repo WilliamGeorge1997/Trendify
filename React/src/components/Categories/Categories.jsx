@@ -1,10 +1,17 @@
-import React from 'react'
+import React from 'react';
 import styles from './Categories.module.css';
+import CategoryProductItem from '../CategoryProductItem/CategoryProductItem';
 
 export default function Categories() {
+  const items = [];
+
+  for (let index = 0; index < 10; index++) {
+    items.push(<CategoryProductItem key={index} />);
+  }
+
   return (
-    <h2 className={styles.Categories}>
-    Categories
-    </h2>
-  )
+    <div className={styles.Categories}>
+      {items}
+    </div>
+  );
 }
