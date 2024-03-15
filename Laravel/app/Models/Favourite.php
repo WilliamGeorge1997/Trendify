@@ -9,6 +9,8 @@ class Favourite extends Model
 {
     use HasFactory;
 
+    protected $table = 'favourite_products';
+
     protected $fillable = [
         'user_id',
         'product_id',
@@ -23,5 +25,5 @@ class Favourite extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
 }
