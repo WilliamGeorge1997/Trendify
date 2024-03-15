@@ -12,7 +12,6 @@ export default function NavBar() {
     setUserToken(null);
     navigate("/login");
   }
-  
 
   return (
     <Fragment>
@@ -20,8 +19,8 @@ export default function NavBar() {
         <div className="container">
           <Link className="navbar-brand" to={"Home"}>
             Logo
-          </Link> 
-       
+          </Link>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -51,18 +50,58 @@ export default function NavBar() {
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-
-              {/* -----------------Logout button----------------------- */}
+              {/* ----------------- Profile Logout button----------------------- */}
               {userToken !== null ? (
                 <>
-                  <li>
-                    <span
-                      onClick={() => logout()}
-                      className="nav-link cursor-pointer"
-                      style={{cursor:"pointer"}}
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle"
+                      to={""}
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
                     >
-                      logout
-                    </span>
+                      <span
+                        className={`main-color ${styles.user} text-center `}
+                      >
+                        U
+                      </span>
+                    </Link>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <Link className="dropdown-item" to={"MyProfile"}>
+                          <i className="fa-solid fa-user me-2"></i>
+                          profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to={"MyAds"}>
+                          <i className="fa-solid fa-rectangle-ad me-2"></i>
+                          My Ads
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item" to={"FavProduct"}>
+                          <i className="fa-solid fa-heart me-2"></i>
+                          Favorite Products
+                        </Link>
+                      </li>
+
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+
+                      <li>
+                        <span
+                          onClick={() => logout()}
+                          className="dropdown-item main-color cursor-pointer"
+                          style={{ cursor: "pointer" }}
+                        >
+                          <i className="fa-solid fa-right-from-bracket me-2"></i>{" "}
+                          logout
+                        </span>
+                      </li>
+                    </ul>
                   </li>
                 </>
               ) : (
@@ -80,42 +119,8 @@ export default function NavBar() {
                   </li>
                 </>
               )}
-              {/* -----------------End Logout button----------------------- */}
 
-              <li className="nav-item dropdown">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to={""}
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span className={`main-color ${styles.user} text-center `}>
-                    U
-                  </span>
-                </Link>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to={"MyProfile"}>
-                      <i className="fa-solid fa-user me-2"></i>
-                      profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to={"MyAds"}>
-                      <i className="fa-solid fa-rectangle-ad me-2"></i>
-                      My Ads
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to={"FavProduct"}>
-                      <i className="fa-solid fa-heart me-2"></i>
-                      Favorite Products
-                    </Link>
-                  </li>
-       
-                </ul>
-              </li>
+              {/* -----------------End Logout button----------------------- */}
 
               <li className="nav-item mx-2">
                 <Link className="nav-link" to={"Cart"}>

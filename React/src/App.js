@@ -14,25 +14,25 @@ import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Notification from "./components/Notification/Notification";
-import ProductItem from "./components/ProductItem/ProductItem";
+// import ProductItem from "./components/ProductItem/ProductItem";
 import { Fragment, useContext, useEffect } from "react";
-import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
+// import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
 import { UserContext } from "./Context/UserContext.js";
 
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
-
   let { setUserToken } = useContext(UserContext);
 
   useEffect(() => {
-    if (localStorage.getItem('userToken') !== null) {
-      setUserToken(localStorage.getItem('userToken'));
+    if (localStorage.getItem("userToken") !== null) {
+      setUserToken(localStorage.getItem("userToken"));
     }
-  } , []);
+  }, []);
   let routes = createBrowserRouter([
     {
       path: "",
@@ -43,16 +43,54 @@ function App() {
         { path: "Home", element: <Home /> },
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
-        { path: "Notification", element: <Notification /> },
         { path: "*", element: <ErrorPage /> },
-        { path: "FavProduct", element: <FavProduct /> },
-        { path: "MyProfile", element: <MyProfile /> },
-        { path: "Cart", element: <Cart /> },
-
-        { path: "MyAds", element: <MyAds /> },
+        {
+          path: "FavProduct",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <FavProduct />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "MyProfile",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <MyProfile />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "Cart",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <Cart />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "MyAds",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <MyAds />{" "}
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
-    { path: "sell", element: <Sell /> },
+    {
+      path: "sell",
+      element: (
+        <ProtectedRoute>
+          {" "}
+          <Sell />{" "}
+        </ProtectedRoute>
+      ),
+    },
   ]);
 
   return (
@@ -63,5 +101,3 @@ function App() {
 }
 
 export default App;
-
-
