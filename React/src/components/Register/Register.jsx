@@ -153,8 +153,7 @@ function Register() {
             <p className="text-danger">{formik.errors.password_confirmation}</p>
           ) : null}
 
-                    {error ? <div className="alert alert-danger">{error}</div> : null}
-
+          {error ? <div className="alert alert-danger">{error}</div> : null}
 
           {isLoading ? (
             <button

@@ -45,8 +45,8 @@ function Login() {
       .required("Email is required."),
     password: Yup.string()
       .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character."
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,30}$/,
+        "Minimum 8 characters, at least one uppercase and one lowercase letter, one digit and one special character."
       )
       .required("Password is required"),
   });
@@ -66,8 +66,6 @@ function Login() {
         <h2 className={` main-color`}>Login Now</h2>
 
         {/* <h3>{userName} </h3> */}
-
-        {error ? <div className="alert alert-danger">{error}</div> : null}
 
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="email">Email:</label>
@@ -99,6 +97,8 @@ function Login() {
           {formik.touched.password && formik.errors.password ? (
             <p className="text-danger">{formik.errors.password}</p>
           ) : null}
+
+          {error ? <div className="alert alert-danger">{error}</div> : null}
 
           {isLoading ? (
             <button
