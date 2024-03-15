@@ -24,7 +24,7 @@ export default function NavBar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <form class="d-flex" role="search">
+            <form className="d-flex" role="search">
               <input
                 className={`form-control ${styles.formControl}`}
                 type="search"
@@ -32,20 +32,20 @@ export default function NavBar() {
                 aria-label="Search"
               />
               <button
-                class={` btn main-bg-color text-white ${styles.btn}`}
+                className={` btn main-bg-color text-white ${styles.btn}`}
                 type="submit"
               >
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link class="nav-link" to={"Login"}>
+              <li className="nav-item">
+                <Link className="nav-link" to={"Login"}>
                   login
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to={"Register"}>
+              <li className="nav-item">
+                <Link className="nav-link" to={"Register"}>
                   Register
                 </Link>
               </li>
@@ -57,26 +57,26 @@ export default function NavBar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <span class={`main-color ${styles.user} text-center `}>
+                  <span className={`main-color ${styles.user} text-center `}>
                     U
                   </span>
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to={"MyProfile"}>
-                      <i class="fa-solid fa-user me-2"></i>
+                      <i className="fa-solid fa-user me-2"></i>
                       profile
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to={"MyAds"}>
-                      <i class="fa-solid fa-rectangle-ad me-2"></i>
+                      <i className="fa-solid fa-rectangle-ad me-2"></i>
                       My Ads
                     </Link>
                   </li>
                   <li>
-                    <Link class="dropdown-item" to={"FavProduct"}>
-                      <i class="fa-solid fa-heart me-2"></i>
+                    <Link className="dropdown-item" to={"FavProduct"}>
+                      <i className="fa-solid fa-heart me-2"></i>
                       Favorite Products
                     </Link>
                   </li>
@@ -85,16 +85,16 @@ export default function NavBar() {
                   </li>
                   <li>
                     <Link className="dropdown-item main-color" to={"LogOut"}>
-                      <i class="fa-solid fa-right-from-bracket me-2"></i>
+                      <i className="fa-solid fa-right-from-bracket me-2"></i>
                       logout
                     </Link>
                   </li>
                 </ul>
               </li>
 
-              <li class="nav-item mx-2">
-                <Link class="nav-link" to={"Cart"}>
-                  <i class="fa-solid fa-cart-shopping"></i>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to={"Cart"}>
+                  <i className="fa-solid fa-cart-shopping"></i>
                 </Link>
               </li>
               <div className="nav-item">
