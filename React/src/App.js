@@ -14,14 +14,25 @@ import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Notification from "./components/Notification/Notification";
+import ProductItem from "./components/ProductItem/ProductItem";
+import { Fragment, useContext, useEffect } from "react";
+import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
+import { UserContext } from "./Context/UserContext.js";
 
-import { Fragment } from "react";
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 
 function App() {
+
+  let { setUserToken } = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem('userToken') !== null) {
+      setUserToken(localStorage.getItem('userToken'));
+    }
+  } , []);
   let routes = createBrowserRouter([
     {
       path: "",
@@ -52,3 +63,5 @@ function App() {
 }
 
 export default App;
+
+

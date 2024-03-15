@@ -1,3 +1,17 @@
 .Login{
-    background-color: #000;
+    background-color: #000 !important;
+} 
+
+.loginButton{
+    color: white !important;
+    background-color: #CD0000 !important;
+}
+
+.loginButton:hover {
+background-color:#7e0606!important;
+} 
+
+.loginDisabledButton{
+    color: white !important;
+    background-color: #CD0000 !important;
 }
