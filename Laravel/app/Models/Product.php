@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $table = 'ads';
     protected $fillable = [
         'title',
         'description',
         'location',
         'price',
         'user_id',
-        'category_id',];
-    public function user()
+        'category_id',
+    ];
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'favourite_products', 'product_id', 'user_id')->withTimestamps();
     }
 
     public function category()
@@ -27,11 +27,12 @@ class Product extends Model
     }
 
     public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
+{
+    return $this->hasMany(Image::class);
+}
 
-    public function carts(){
+    public function carts()
+    {
         return $this->belongsToMany(Cart::class);
     }
 }
