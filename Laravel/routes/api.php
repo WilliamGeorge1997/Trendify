@@ -35,7 +35,7 @@ Route::middleware('jwt.auth')->get('/user', [UserController::class, 'profile']);
 Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/updateuser', [UserController::class, 'updateuser'])->name('updateuser');
-//Route::middleware('jwt.auth')->post('/favourite', [FavouriteController::class, 'store'])->name('favourite.store');
-//Route::middleware('jwt.auth')->get('/favourites', [FavouriteController::class, 'userFavourites']);
-//Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteController::class, 'removeFavoriteProduct']);
+Route::middleware('jwt.auth')->post('/favourite', [FavouriteController::class, 'store'])->name('favourite.store');
+Route::middleware('jwt.auth')->get('/favourites', [FavouriteController::class, 'userFavourites']);
+Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteController::class, 'removeFavoriteProduct']);
 
