@@ -1,15 +1,27 @@
-import React, { Fragment } from 'react'
-import styles from './NavBar.module.css';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext } from "react";
+import styles from "./NavBar.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
 
 export default function NavBar() {
+  let { userToken, setUserToken } = useContext(UserContext);
+  let navigate = useNavigate();
+
+  function logout() {
+    localStorage.removeItem("userToken");
+    setUserToken(null);
+    navigate("/login");
+  }
+  
+
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link className="navbar-brand" to={""}>
             Logo
-          </Link>
+          </Link> 
+       
           <button
             className="navbar-toggler"
             type="button"
@@ -21,6 +33,7 @@ export default function NavBar() {
           >
             <span className="navbar-toggler-icon" />
           </button>
+
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item dropdown">
@@ -70,12 +83,37 @@ export default function NavBar() {
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link class="nav-link" to={"Login"}>
-                  login
-                </Link>
-              </li>
-          
+
+              {/* -----------------Logout button----------------------- */}
+              {userToken !== null ? (
+                <>
+                  <li>
+                    <span
+                      onClick={() => logout()}
+                      className="nav-link cursor-pointer"
+                      style={{cursor:"pointer"}}
+                    >
+                      logout
+                    </span>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li class="nav-item">
+                    <Link class="nav-link" to={"Register"}>
+                      Register
+                    </Link>
+                  </li>
+
+                  <li class="nav-item">
+                    <Link class="nav-link" to={"Login"}>
+                      Login
+                    </Link>
+                  </li>
+                </>
+              )}
+              {/* -----------------End Logout button----------------------- */}
+
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle"
@@ -84,7 +122,11 @@ export default function NavBar() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-               <span class={`bg-danger rounded-circle ${styles.user} text-center `}>U</span>
+                  <span
+                    class={`bg-danger rounded-circle ${styles.user} text-center `}
+                  >
+                    U
+                  </span>
                 </Link>
                 <ul className="dropdown-menu">
                   <li>
@@ -97,21 +139,9 @@ export default function NavBar() {
                       Another action
                     </Link>
                   </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to={""}>
-                      logout
-                    </Link>
-                  </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to={"Register"}>
-                  Register
-                </Link>
-              </li>
+
               <li class="nav-item">
                 <Link class="nav-link" to={"Notification"}>
                   <i class="fa-regular fa-bell"></i>
@@ -122,7 +152,8 @@ export default function NavBar() {
                   className={`nav-link btn main-bg-color text-white ${styles.btn}`}
                   to={"Sell"}
                 >
-Sell                </Link>
+                  Sell{" "}
+                </Link>
               </div>
             </ul>
           </div>
