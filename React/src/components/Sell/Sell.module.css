@@ -1,3 +1,51 @@
 .Sell{
     background-color: #000;
 }
+
+.sellForm {
+    background-color: #fff;
+    border: 1px solid #BA0000; 
+    border-radius: 5px;
+    padding: 20px;
+  }
+  
+  .formTitle {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #000; 
+  }
+  
+  .btnSubmit {
+    background-color: #BA0000; 
+    border-color: #BA0000; 
+  }
+  
+  .btnSubmit:hover {
+    background-color: #e00000; 
+    border-color: #e00000; 
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .form-check-input {
+    margin-top: 0.3rem;
+  }
+  
+  .form-check-input:checked {
+    background-color: #BA0000; 
+  }
+
+  .form-control:focus {
+    border-color: #BA0000; 
+  }
+  
+  .form-control:invalid:focus {
+    border-color: #BA0000; 
+  }
+  
+  .form-control:valid {
+    border-color: #ced4da; 
+  }
+  
