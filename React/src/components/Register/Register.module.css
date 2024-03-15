@@ -1,3 +1,17 @@
 .Register{
     background-color: #000;
 }
+
+.registerButton{
+    color: white !important;
+    background-color: #CD0000 !important;
+}
+
+.registerButton:hover {
+background-color:#7e0606!important;
+} 
+
+.registerDisabledButton{
+    color: white !important;
+    background-color: #CD0000 !important;
+}
