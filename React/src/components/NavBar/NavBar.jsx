@@ -52,7 +52,7 @@ export default function NavBar() {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- Profile Logout button----------------------- */}
               {userToken !== null ? (
-                <>
+                <Fragment>
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle"
@@ -103,21 +103,21 @@ export default function NavBar() {
                       </li>
                     </ul>
                   </li>
-                </>
+                </Fragment>
               ) : (
-                <>
-                  <li class="nav-item">
-                    <Link class="nav-link" to={"Register"}>
+                <Fragment>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"Register"}>
                       Register
                     </Link>
                   </li>
 
-                  <li class="nav-item">
-                    <Link class="nav-link" to={"Login"}>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"Login"}>
                       Login
                     </Link>
                   </li>
-                </>
+                </Fragment>
               )}
 
               {/* -----------------End Logout button----------------------- */}

@@ -1,12 +1,15 @@
-import React from 'react'
-import styles from './ProductItem.module.css';
-import img1 from "../../assets/images/images.png";
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default function ProductItem({itemData}) {
+export default function ProductItem({ itemData }) {
   return (
-    <dev className={styles.ProductItem}>
+    <Link to={"/Details/" + itemData.id} className="text-decoration-none">
       <div className="card">
-        <img src={img1} className="card-img-top" alt="..." />
+        <img
+          src={`http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`}
+          className="card-img-top"
+          alt="..."
+        />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
@@ -18,9 +21,11 @@ export default function ProductItem({itemData}) {
           <h6 className="card-title ">{itemData.description}</h6>
 
           <p className="card-text mb-0">{itemData.location}</p>
-          <p className="card-text fs-6 ">{itemData.created_at}</p>
+          <p className="card-text fs-small small">
+            {itemData.created_at.split("T")[0]}
+          </p>
         </div>
       </div>
-    </dev>
+    </Link>
   );
 }

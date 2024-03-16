@@ -1,20 +1,14 @@
-import React, { useState } from "react";
-// import styles from './Home.module.css';
+import React, { useContext} from "react";
+import styles from './Home.module.css';
 import MainSlider from "../MainSlider/MainSlider";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useEffect } from "react";
+
 import ProductItem from "../ProductItem/ProductItem";
+import {AllProductContext} from '../../Context/ProductContext';
 export default function Home() {
-  let [product, setProduct] = useState([]);
-  async function getProduct() {
-    let { data } = await axios.get(`http://localhost:8000/api/products`);
-    console.log(data.products);
-    setProduct(data.products);
-  }
-  useEffect(() => {
-    getProduct();
-  }, []);
+ let {product} = useContext(AllProductContext);
+  console.log(product);
+  
   return (
     <div className="container">
       <MainSlider />
