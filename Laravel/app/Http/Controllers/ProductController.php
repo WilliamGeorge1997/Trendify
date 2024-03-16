@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProductController extends Controller
 {
@@ -36,12 +37,14 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
+            $user = JWTAuth::parseToken()->authenticate();
+
             $product = Product::create([
                 'title' => $request->title,
                 'price' => $request->price,
                 'location' => $request->location,
                 'description' => $request->description,
-                'user_id' => $request->user_id,
+                'user_id' => $user->id,
                 'category_id' => $request->category_id,
             ]);
 
@@ -61,7 +64,7 @@ class ProductController extends Controller
                         $imageUrls[] = $imageName;
                     }
                 }
-                return response()->json(['success' => true, 'message' => 'Prodcut Created Successfully', 'product' => $product, 'image_urls' => $imageUrls], 200);
+                return response()->json(['success' => true, 'message' => 'Product Created Successfully', 'product' => $product, 'image_urls' => $imageUrls], 200);
             } else {
                 return response()->json(['error' => 'An error occurred while creating product'], 400);
             }
@@ -134,18 +137,36 @@ class ProductController extends Controller
 
     public function destroy(string $id)
     {
-        $product = Product::with('images')->find($id);
-        if ($product) {
-            $product->delete();
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+
+            $product = Product::with('images')->find($id);
+
+            if ($product) {
+                if ($product->user_id != $user->id) {
+                    return response()->json([
+                        'status' => 403,
+                        'message' => 'You are not authorized to delete this product',
+                    ], 403);
+                }
+
+                $product->delete();
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Product deleted successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'No such product found',
+                ], 404);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                'status' => 200,
-                'message' => 'product deleted successfully',
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'No such an product found',
-            ]);
+                'status' => 500,
+                'message' => 'An error occurred: ' . $e->getMessage(),
+            ], 500);
         }
     }
 }
