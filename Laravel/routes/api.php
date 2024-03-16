@@ -39,3 +39,6 @@ Route::middleware('jwt.auth')->post('/favourite', [FavouriteController::class, '
 Route::middleware('jwt.auth')->get('/favourites', [FavouriteController::class, 'userFavourites']);
 Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteController::class, 'removeFavoriteProduct']);
 
+Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
+Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
+Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
