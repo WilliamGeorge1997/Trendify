@@ -15,12 +15,14 @@ import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
-
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import FilterProduct from './components/FilterProduct/FilterProduct';
+import Search from './components/Search/Search';
+import { CartContextProvider } from "./Context/CartContext.js";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -37,7 +39,11 @@ function App() {
       children: [
         { path: "Categories", element: <Categories /> },
         { path: "Details/:id", element: <Details /> },
+        { path: "Categories/:id", element: <Categories /> },
+        { path: "FilterProduct", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
+        { path: "Search/:key", element: <Search /> },
+
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
         { path: "*", element: <ErrorPage /> },
@@ -92,8 +98,9 @@ function App() {
 
   return (
     <Fragment>
+      <CartContextProvider>
       <RouterProvider router={routes}></RouterProvider>
-    </Fragment>
+    </CartContextProvider></Fragment>
   );
 }
 
