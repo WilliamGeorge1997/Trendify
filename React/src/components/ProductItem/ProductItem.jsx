@@ -1,12 +1,23 @@
-import React from 'react'
-import styles from './ProductItem.module.css';
-import img1 from "../../assets/images/images.png";
+import React from "react";
+import { Link } from "react-router-dom";
+import { cartContext } from "../../Context/CartContext";
+import { useContext } from "react";
+export default function ProductItem({ itemData }) {
+  let { addToCart } = useContext(cartContext);
 
-export default function ProductItem({itemData}) {
+  async function addProduct(productId) {
+    let res = await addToCart(productId);
+    console.log(res);
+  }
   return (
-    <dev className={styles.ProductItem}>
-      <div className="card">
-        <img src={img1} className="card-img-top" alt="..." />
+    <div className="card">
+      {" "}
+      <Link to={"/Details/" + itemData.id} className="text-decoration-none">
+        <img
+          src={`http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`}
+          className="card-img-top"
+          alt="..."
+        />
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
@@ -18,9 +29,12 @@ export default function ProductItem({itemData}) {
           <h6 className="card-title ">{itemData.description}</h6>
 
           <p className="card-text mb-0">{itemData.location}</p>
-          <p className="card-text fs-6 ">{itemData.created_at}</p>
+          <p className="card-text fs-small small">
+            {itemData.created_at.split("T")[0]}
+          </p>
         </div>
-      </div>
-    </dev>
+      </Link>
+      <button onClick={() => addProduct(itemData.id)}>Add to cart</button>
+    </div>
   );
 }
