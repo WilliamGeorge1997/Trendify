@@ -13,7 +13,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('images')->get();
+        $products = Product::with(['images' => function ($query) {
+            $query->select('product_id', 'image_path');
+                }])->get();
+
         if ($products->count() > 0) {
             $data = [
                 'status' => 200,
@@ -41,6 +44,7 @@ class ProductController extends Controller
                 'user_id' => $request->user_id,
                 'category_id' => $request->category_id,
             ]);
+
 
             if ($product) {
                 $imageUrls = [];

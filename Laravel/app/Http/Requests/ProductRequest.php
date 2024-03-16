@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
             'title' => 'required|string',
             'price' => 'required|numeric',
             'description' => 'required|string',
-            'location' => 'required|string',
+            'location' => 'string',
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'images' => 'required|array',
