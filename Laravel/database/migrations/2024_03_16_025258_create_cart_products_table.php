@@ -16,12 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('count')->default(1);
             $table->integer('total_product_price');
-            $table->foreign('cart_id')-> references('id')->on('carts')->constrained()->onDelete('cascade');
-            $table->foreign('product_id')-> references('id')->on('products')->constrained()->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->constrained()->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->constrained()->onDelete('cascade');
             $table->primary(['cart_id', 'product_id']);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
