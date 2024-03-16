@@ -2,25 +2,25 @@ import React from "react";
 import styles from "./CategoryProductItem.module.css";
 import img1 from "../../assets/images/images.png";
 
-export default function CategoryProductItem() {
+export default function CategoryProductItem(data) {
   return (
-    <div className={styles.CategoryProductItem}>
-      <div className="card mb-3" style={{ maxWidth: 540 }}>
+    <div>
+      <div className="card mb-3" >
         <div className="row g-0">
           <div className="col-md-4">
-            <img src={img1} className="img-fluid rounded-start" alt="..." />
+            <img
+              src={`http://127.0.0.1:8000/storage/${data.data.images[0].image_path}`}
+              className="img-fluid rounded-start"
+              alt="..."
+            />
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </p>
+              <h5 className="card-title">{data.data.title}</h5>
+              <p className="card-text">{data.data.description}</p>
               <p className="card-text">
                 <small Name="text-body-secondary">
-                  Last updated 3 mins ago
+                  {data.data.created_at.split("T")[0]}
                 </small>
               </p>
             </div>

@@ -57,7 +57,6 @@ class CartController extends Controller
 
         $validator = Validator::make($request->all(), [
             'product_id' => 'required|exists:products,id',
-            'count' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -72,7 +71,6 @@ class CartController extends Controller
             $cartProduct = CartProduct::create([
                 'cart_id' => $cart->id,
                 'product_id' => $request->product_id,
-                'count' => $request->count,
                 'total_product_price' => $product->price * $request->count,
             ]);
             $totalCartPrice = CartProduct::where('cart_id', $cart->id)->sum('total_product_price');

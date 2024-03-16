@@ -1,18 +1,28 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import styles from "./NavBar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
+    const [searchValue, setSearchValue] = useState(""); 
+
   let navigate = useNavigate();
+  useEffect(() => {  if (searchValue.trim() !== "") {
+    navigate(`/Search/${searchValue}`);
+  } else {
+    navigate("/Home");
+  }
+  }, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");
     setUserToken(null);
     navigate("/login");
   }
-
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg text-black bg-body-tertiary">
@@ -41,18 +51,20 @@ export default function NavBar() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={searchValue}
+                onChange={handleSearchChange}
               />
-              <button
+              <Link
+                to={"Search/" + searchValue}
                 className={` btn main-bg-color text-white ${styles.btn}`}
-                type="submit"
               >
                 <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
+              </Link>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- Profile Logout button----------------------- */}
               {userToken !== null ? (
-                <>
+                <Fragment>
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle"
@@ -103,21 +115,21 @@ export default function NavBar() {
                       </li>
                     </ul>
                   </li>
-                </>
+                </Fragment>
               ) : (
-                <>
-                  <li class="nav-item">
-                    <Link class="nav-link" to={"Register"}>
+                <Fragment>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"Register"}>
                       Register
                     </Link>
                   </li>
 
-                  <li class="nav-item">
-                    <Link class="nav-link" to={"Login"}>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"Login"}>
                       Login
                     </Link>
                   </li>
-                </>
+                </Fragment>
               )}
 
               {/* -----------------End Logout button----------------------- */}

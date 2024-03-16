@@ -1,9 +1,9 @@
-.NavBar {
+/* .NavBar {
   background-color: #000;
-}
+} */
 
 .btn:hover {
-  background-color: #BA0000;
+  background-color: #BA0000 !important;
 }
 
 .user {
