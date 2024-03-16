@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('favourite_products', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('user_id')-> references('id')-> on('users')->constrained()->onDelete('cascade');
-            $table->foreign('product_id')-> references('id')-> on('products')->constrained()->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->constrained()->onDelete('cascade');
             $table->primary(['user_id', 'product_id']);
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
