@@ -11,9 +11,8 @@ class Cart extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
     ];
-
+    
 
     public function user()
     {
@@ -22,5 +21,9 @@ class Cart extends Model
 
     public function products(){
         return $this->hasMany(Product::class);
+    }
+    public function cartProducts()
+    {
+        return $this->hasMany(CartProduct::class);
     }
 }
