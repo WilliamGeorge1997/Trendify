@@ -1,16 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { cartContext } from '../../Context/CartContext';
+import { cartContext } from "../../Context/CartContext";
 import { useContext } from "react";
 export default function ProductItem({ itemData }) {
   let { addToCart } = useContext(cartContext);
 
   async function addProduct(productId) {
     let res = await addToCart(productId);
+    console.log(res);
   }
   return (
-      <div className="card">    <Link to={"/Details/" + itemData.id} className="text-decoration-none">
-
+    <div className="card">
+      {" "}
+      <Link to={"/Details/" + itemData.id} className="text-decoration-none">
         <img
           src={`http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`}
           className="card-img-top"
@@ -30,11 +32,9 @@ export default function ProductItem({ itemData }) {
           <p className="card-text fs-small small">
             {itemData.created_at.split("T")[0]}
           </p>
-         
-        </div> 
-          </Link><button onClick={() => addProduct(itemData.id)}>
-            Add to cart
-          </button></div>
-
+        </div>
+      </Link>
+      <button onClick={() => addProduct(itemData.id)}>Add to cart</button>
+    </div>
   );
 }
