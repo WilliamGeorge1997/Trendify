@@ -1,10 +1,34 @@
 import React from 'react'
 import styles from './Search.module.css';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { AllProductContext } from '../../Context/ProductContext';
+import { useContext } from 'react';
+import ProductItem from '../ProductItem/ProductItem';
 
 export default function Search() {
+  let { key } = useParams();
+  console.log(key);
+     let { product } = useContext(AllProductContext);
+    const [searchResults, setSearchResults] = useState([]);
+  useEffect(() => {
+    const filteredResults = product.filter(
+      (item) =>
+        item.title.toLowerCase().includes(key.toLowerCase()) ||
+        item.description.toLowerCase().includes(key.toLowerCase())
+    );
+    setSearchResults(filteredResults);
+  }, [key]);
+  console.log(searchResults);
   return (
-    <div className={styles.Search}>
-    Search
+    <div className='container'>
+      <div className="row row-cols-lg-4 row-cols-md-3 ">
+        {searchResults.map((item) => (
+          <div className="p-3">
+            <ProductItem key={item.id} itemData={item} />
+          </div>
+        ))}
+      </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -29,7 +29,7 @@ function Login() {
       setisLoading(false);
       localStorage.setItem("userToken", data.token);
       setUserToken(data.token);
-      navigate("/home");
+      navigate("/Home");
 
       // console.log(data);
       // let userName = data.user.name; // for testing
@@ -44,10 +44,10 @@ function Login() {
       .email("Email is invalid.")
       .required("Email is required."),
     password: Yup.string()
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,30}$/,
-        "Minimum 8 characters, at least one uppercase and one lowercase letter, one digit and one special character."
-      )
+      // .matches(
+      //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,30}$/,
+      //   "Minimum 8 characters, at least one uppercase and one lowercase letter, one digit and one special character."
+      // )
       .required("Password is required"),
   });
 
@@ -61,7 +61,7 @@ function Login() {
   });
 
   return (
-    <>
+    <Fragment>
       <div className="w-50 mx-auto py-5">
         <h2 className={` main-color`}>Login Now</h2>
 
@@ -108,7 +108,7 @@ function Login() {
               <i className="fas fa-spinner fa-spin text-white "></i>
             </button>
           ) : (
-            <>
+            <Fragment>
               <button
                 disabled={!(formik.isValid && formik.dirty)}
                 type="submit"
@@ -125,11 +125,11 @@ function Login() {
                   Register now
                 </Link>{" "}
               </p>
-            </>
+            </Fragment>
           )}
         </form>
       </div>
-    </>
+    </Fragment>
   );
 }
 

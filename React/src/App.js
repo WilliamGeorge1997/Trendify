@@ -13,17 +13,16 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import Notification from "./components/Notification/Notification";
-// import ProductItem from "./components/ProductItem/ProductItem";
 import { Fragment, useContext, useEffect } from "react";
-// import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
 import { UserContext } from "./Context/UserContext.js";
-
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import FilterProduct from './components/FilterProduct/FilterProduct';
+import Search from './components/Search/Search';
+import { CartContextProvider } from "./Context/CartContext.js";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -39,8 +38,12 @@ function App() {
       element: <LayOut />,
       children: [
         { path: "Categories", element: <Categories /> },
-        { path: "Details", element: <Details /> },
+        { path: "Details/:id", element: <Details /> },
+        { path: "Categories/:id", element: <Categories /> },
+        { path: "FilterProduct", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
+        { path: "Search/:key", element: <Search /> },
+
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
         { path: "*", element: <ErrorPage /> },
@@ -96,8 +99,9 @@ function App() {
 
   return (
     <Fragment>
+      <CartContextProvider>
       <RouterProvider router={routes}></RouterProvider>
-    </Fragment>
+    </CartContextProvider></Fragment>
   );
 }
 
