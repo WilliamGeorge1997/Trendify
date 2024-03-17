@@ -1,94 +1,103 @@
 import React, { useState } from 'react';
-import styles from './Sell.module.css'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';  
+import axios from 'axios';
+import styles from './Sell.module.css'; // Import your CSS module file
 
-const Sell = () => {
+const SellPage = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [photos, setPhotos] = useState([]);
   const [isNegotiable, setIsNegotiable] = useState(false);
 
-  const handlePhotoUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setPhotos(files);
+  const handleChangePrice = (event) => {
+    const inputPrice = event.target.value;
+    // Allow only numeric values and a dot for decimal
+    if (/^\d*\.?\d*$/.test(inputPrice)) {
+      // If the entered value is a valid number and is greater than or equal to 50, update the state
+      if (parseFloat(inputPrice) >= 50 || inputPrice === '') {
+        setPrice(inputPrice);
+      }
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    const formData = {
-      title,
-      description,
-      price,
-      photos,
-      isNegotiable,
-    };
-    console.log(formData);
-    // Reset form fields after submission if needed
-    setTitle('');
-    setDescription('');
-    setPrice('');
-    setPhotos([]);
-    setIsNegotiable(false);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Your API endpoint for posting the product data
+      await axios.post('http://localhost:8000/api/products', {
+        title,
+        description,
+        price,
+        photos,
+        isNegotiable,
+      });
+      // Reset form fields after successful submission
+      setTitle('');
+      setDescription('');
+      setPrice('');
+      setPhotos([]);
+      setIsNegotiable(false);
+      alert('Product posted successfully!');
+    } catch (error) {
+      console.error('Error posting product:', error);
+      alert('Failed to post product. Please try again later.');
+    }
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className={styles.sellForm}> {}
-            <h2 className={styles.formTitle}>Post Your Ad</h2> {}
-            <form onSubmit={handleSubmit}>
-              <div className={styles.formGroup}> {}
-                <label>Title:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}> {}
-                <label>Description:</label>
-                <textarea
-                  className="form-control"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-              <div className={styles.formGroup}> {}
-                <label>Price:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  required
-                />
-              </div>
-              <div className={styles.formGroup}> {}
-                <label>Upload Photos:</label>
-                <input
-                  type="file"
-                  className="form-control"
-                  accept="image/*"
-                  multiple
-                  onChange={handlePhotoUpload}
-                />
-              </div>
-              <div className="text-center">
-                <button type="submit" className={`btn ${styles.btnSubmit}`}>Submit</button> {}
-              </div>
-            </form>
-          </div>
+    <div className={styles.sellPage}>
+      <h2>Post Your Product</h2>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+          <label>Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-      </div>
+        <div className={styles.formGroup}>
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Price:</label>
+          <input
+            type="text"
+            value={price}
+            onChange={handleChangePrice}
+            placeholder="Enter price"
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Upload Photos:</label>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setPhotos(e.target.files)}
+            required
+          />
+          <small>You can upload up to 20 photos</small>
+        </div>
+        <div className={styles.formGroup}>
+          <label>Negotiable:</label>
+          <input
+            type="checkbox"
+            checked={isNegotiable}
+            onChange={(e) => setIsNegotiable(e.target.checked)}
+          />
+        </div>
+        <button type="submit">Post Product</button>
+      </form>
     </div>
   );
 };
 
-export default Sell;
+export default SellPage;
