@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::get('products', [ProductController::class, 'index']) ;
+Route::get('products', [ProductController::class, 'index']);
 Route::post('products', [ProductController::class, 'store']);
 Route::get('products/{product_id}', [ProductController::class, 'show']);
 Route::post('products/{product_id}/edit', [ProductController::class, 'update']);
@@ -38,4 +38,3 @@ Route::post('/updateuser', [UserController::class, 'updateuser'])->name('updateu
 Route::middleware('jwt.auth')->post('/favourite', [FavouriteController::class, 'store'])->name('favourite.store');
 Route::middleware('jwt.auth')->get('/favourites', [FavouriteController::class, 'userFavourites']);
 Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteController::class, 'removeFavoriteProduct']);
-

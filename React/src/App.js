@@ -24,6 +24,9 @@ import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import EditProfile from "./components/EditProfile/EditProfile.jsx";
+
+
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -59,6 +62,14 @@ function App() {
             <ProtectedRoute>
               {" "}
               <MyProfile />{" "}
+            </ProtectedRoute>
+          ),
+        },  {
+          path: "EditProfile",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <EditProfile />{" "}
             </ProtectedRoute>
           ),
         },

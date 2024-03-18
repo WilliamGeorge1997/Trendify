@@ -50,7 +50,7 @@ export default function NavBar() {
               </button>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {/* ----------------- Profile Logout button----------------------- */}
+              {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (
                 <>
                   <li className="nav-item dropdown">
@@ -70,10 +70,19 @@ export default function NavBar() {
                     <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" to={"MyProfile"}>
-                          <i className="fa-solid fa-user me-2"></i>
+                          {/* <i class="fa-solid fa-eye me-2"></i> */}
+                          <i class="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
                       </li>
+
+                      <li>
+                        <Link className="dropdown-item" to={"EditProfile"}>
+                          <i class="fas fa-user-edit me-2"></i>
+                          Edit profile
+                        </Link>
+                      </li>
+
                       <li>
                         <Link className="dropdown-item" to={"MyAds"}>
                           <i className="fa-solid fa-rectangle-ad me-2"></i>

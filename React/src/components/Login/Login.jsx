@@ -44,10 +44,6 @@ function Login() {
       .email("Email is invalid.")
       .required("Email is required."),
     password: Yup.string()
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,30}$/,
-        "Minimum 8 characters, at least one uppercase and one lowercase letter, one digit and one special character."
-      )
       .required("Password is required"),
   });
 
