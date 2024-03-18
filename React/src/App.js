@@ -20,6 +20,9 @@ import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import EditProfile from "./components/EditProfile/EditProfile.jsx";
+
+
 import FilterProduct from './components/FilterProduct/FilterProduct';
 import Search from './components/Search/Search';
 import { CartContextProvider } from "./Context/CartContext.js";
@@ -62,6 +65,14 @@ function App() {
             <ProtectedRoute>
               {" "}
               <MyProfile />{" "}
+            </ProtectedRoute>
+          ),
+        },  {
+          path: "EditProfile",
+          element: (
+            <ProtectedRoute>
+              {" "}
+              <EditProfile />{" "}
             </ProtectedRoute>
           ),
         },

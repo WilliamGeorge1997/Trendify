@@ -14,13 +14,13 @@ import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 let queryClient = new QueryClient();
 root.render(
+      <UserContextProvider>
   <QueryClientProvider client={queryClient}>
     <AllProductContextProvider>
-      <UserContextProvider>
         <React.StrictMode>
           <App />
         </React.StrictMode>
-      </UserContextProvider>
     </AllProductContextProvider>
   </QueryClientProvider>
+      </UserContextProvider>
 );
