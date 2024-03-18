@@ -1,3 +1,16 @@
-.ProductItem{
+.ProductItem {
     background-color: #000;
 }
+
+.imgCard {
+    height: 300px;
+    object-fit: cover;
+}
+
+.card {
+    height: 600px!important;
+}
+/* .icon{position: absolute;
+
+bottom: 10px;
+right:10px;} */

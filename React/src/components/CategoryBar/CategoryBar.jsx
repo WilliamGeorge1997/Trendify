@@ -7,6 +7,14 @@ export default function CategoryBar() {
   return (
     <Fragment>
       <div className="d-flex text-black justify-content-around">
+        <div className="d-flex align-items-center">
+          <Link
+            to={"/FilterProduct"}
+            className="text-decoration-none text-black"
+          >
+            <i className="fa-solid fa-bars me-2"></i>filter
+          </Link>
+        </div>
         <div className="dropdown">
           <Link
             className="btn text-black dropdown-toggle"
@@ -38,7 +46,7 @@ export default function CategoryBar() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="fa-solid fa-gift"></i> Personal care
+            <i className="fa-solid fa-gift"></i> Personal care
           </Link>
           <ul className="dropdown-menu">
             <li>

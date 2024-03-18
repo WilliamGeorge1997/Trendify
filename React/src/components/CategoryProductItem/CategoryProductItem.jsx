@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "./CategoryProductItem.module.css";
 import img1 from "../../assets/images/images.png";
-
+import { cartContext } from "../../Context/CartContext";
+import { useContext } from "react";
 export default function CategoryProductItem(data) {
-  return (
+  let { addToCart } = useContext(cartContext);
+  async function addProduct(productId) {
+    let res = await addToCart(productId);
+  }return (
     <div>
-      <div className="card mb-3" >
+      <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
             <img
@@ -19,11 +23,17 @@ export default function CategoryProductItem(data) {
               <h5 className="card-title">{data.data.title}</h5>
               <p className="card-text">{data.data.description}</p>
               <p className="card-text">
-                <small Name="text-body-secondary">
+                <small className="text-body-secondary">
                   {data.data.created_at.split("T")[0]}
                 </small>
               </p>
-            </div>
+            </div>{" "}
+            <button
+              className="m-2 btn main-bg-color w-50 "
+              onClick={() => addProduct(data.data.id)}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

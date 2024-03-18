@@ -8,7 +8,6 @@ import ProductItem from '../ProductItem/ProductItem';
 
 export default function Search() {
   let { key } = useParams();
-  console.log(key);
      let { product } = useContext(AllProductContext);
     const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
@@ -19,7 +18,6 @@ export default function Search() {
     );
     setSearchResults(filteredResults);
   }, [key]);
-  console.log(searchResults);
   return (
     <div className='container'>
       <div className="row row-cols-lg-4 row-cols-md-3 ">

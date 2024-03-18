@@ -3,7 +3,10 @@ import axios from "axios";
 import styles from "./Details.module.css";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-
+import { cartContext } from "../../Context/CartContext";
+import { useContext } from "react";
+import Loading from '../Loading/Loading';
+import toast from "react-hot-toast";
 export default function Details() {
   function fetchProduct11(productId) {
     return axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
@@ -14,9 +17,15 @@ export default function Details() {
   const { data: prod, isLoading, isError } = useQuery(["details", id], () =>
     fetchProduct11(id)
   );
+  let { addToCart } = useContext(cartContext);
 
+  async function addProduct(productId) {
+    let res = await addToCart(productId);
+  
+
+  }
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   if (isError || !prod) {
@@ -46,7 +55,13 @@ export default function Details() {
                   {product.created_at.split("T")[0]}
                 </small>
               </p>
-            </div>
+            </div>{" "}
+            <button
+              className="m-2 btn main-bg-color w-50 "
+              onClick={() => addProduct(product.id)}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const Sell = () => {
       photos,
       isNegotiable,
     };
-    console.log(formData);
+    // console.log(formData);
     // Reset form fields after submission if needed
     setTitle('');
     setDescription('');

@@ -9,7 +9,7 @@ export default function AllProductContextProvider(props) {
   async function fetchProducts() {
     try {
       const response = await axios.get("http://localhost:8000/api/products");
-      setProducts(response.data.products);
+      setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }

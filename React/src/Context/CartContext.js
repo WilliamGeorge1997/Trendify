@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export let cartContext = createContext();
 
@@ -15,8 +16,11 @@ export function CartContextProvider(props) {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {    toast.success(res.data.message);
+   })
+      .catch((err) => { toast.error(err.response.data.message);
+    });
+ 
   }
   return (
     <cartContext.Provider value={{ addToCart }}>

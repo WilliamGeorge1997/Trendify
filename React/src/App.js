@@ -20,8 +20,8 @@ import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import FilterProduct from './components/FilterProduct/FilterProduct';
-import Search from './components/Search/Search';
+import FilterProduct from "./components/FilterProduct/FilterProduct";
+import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 
 function App() {
@@ -37,13 +37,11 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
-        { path: "Categories", element: <Categories /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id", element: <Categories /> },
         { path: "FilterProduct", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
         { path: "Search/:key", element: <Search /> },
-
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
         { path: "*", element: <ErrorPage /> },
@@ -99,8 +97,9 @@ function App() {
   return (
     <Fragment>
       <CartContextProvider>
-      <RouterProvider router={routes}></RouterProvider>
-    </CartContextProvider></Fragment>
+        <RouterProvider router={routes}></RouterProvider>
+      </CartContextProvider>
+    </Fragment>
   );
 }
 
