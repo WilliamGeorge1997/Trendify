@@ -17,11 +17,11 @@ export default function AllProductContextProvider(props) {
 
   useEffect(() => {
     fetchProducts();
-      }, []);
+  }, []);
 
   return (
     <AllProductContext.Provider value={{ product }}>
-          {props.children}
-      </AllProductContext.Provider>
+      {props.children}
+    </AllProductContext.Provider>
   );
 }

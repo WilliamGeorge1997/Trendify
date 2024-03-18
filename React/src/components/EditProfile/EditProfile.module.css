@@ -2,6 +2,13 @@
     background-color: #fff;
 }
 
+.editProfileForm
+{
+    border: 0.1rem solid rgba(0, 47, 52, .2);
+    max-width: 80%;
+    border-radius: 6px;
+    padding: 1.6rem 2.4rem;
+}
 
 .saveChangesButton{
     color: white !important;
@@ -13,6 +20,7 @@
 .saveChangesButton:hover {
 background-color:#BA0000!important;
 } 
+
 
 .date {
     padding: 10px;
@@ -33,12 +41,5 @@ background-color:#BA0000!important;
     font-size: 0.8em;
     color: #CD0000 !important;
     cursor: pointer;
-  }
-
-
-  .avatarImg { 
-   width: 150px;
-    height: 150px; 
-    border-radius: 50%;
-    object-fit: cover;
+    
   }

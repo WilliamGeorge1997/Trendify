@@ -20,11 +20,7 @@ export default function ProductItem({ itemData }) {
           className={`card-img-top ${styles.imgCard}`}
           alt="..."
         />
-        {itemData.stock > 0 ? (
-          ""
-        ) : (
-          <span className="badge rounded-pill main-bg-color">Out Of Stock</span>
-        )}
+
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
@@ -42,6 +38,13 @@ export default function ProductItem({ itemData }) {
           <h6 className="card-title ">
             {itemData.description.slice(0, 150) + "..."}
           </h6>
+          {itemData.stock > 0 ? (
+            ""
+          ) : (
+            <span className="badge rounded-pill main-bg-color ">
+              Out Of Stock
+            </span>
+          )}
           {itemData.location ? (
             <p className="card-text mb-0">{itemData.location}</p>
           ) : (
@@ -55,7 +58,7 @@ export default function ProductItem({ itemData }) {
       </Link>
       <div>
         <button
-          className="m-2 btn box-shadow w-25 position-absolute"
+          className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded"
           onClick={() => addProduct(itemData.id)}
         >
           <i className="fa-solid main-color fa-cart-plus"></i>

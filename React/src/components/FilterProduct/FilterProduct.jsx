@@ -45,7 +45,9 @@ export default function FilterProduct() {
     return priceInRange && locationMatch && stockMatch && rateMatch;
   };
 
-  const filteredProducts = product.filter((item) => filterProducts(item));
+  const filteredProducts = product.products.filter((item) =>
+    filterProducts(item)
+  );
 
   return (
     <div className=" container-fluid row m-auto">

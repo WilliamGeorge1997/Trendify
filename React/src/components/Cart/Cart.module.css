@@ -1,3 +1,23 @@
-.Cart{
-    background-color: #fff;
+.countBtn:hover {
+  background: #ba0000;
+}
+.btnClose:hover {
+  color: #ba0000 !important;
+}
+.btnClose:focus,
+.btnClose:focus-visible {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.continueBtn {
+  text-decoration: none;
+}
+.continueBtn:hover {
+  color: #ba0000;
+}
+
+.clearBtn:hover {
+  background-color: #ba0000 !important;
+  color: white !important;
 }
