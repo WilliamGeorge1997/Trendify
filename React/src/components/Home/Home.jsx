@@ -11,7 +11,11 @@ import Loading from "../Loading/Loading";
 import { Fragment } from "react";
 
 export default function Home() {
+  
   let { product } = useContext(AllProductContext);
+   const Products = product?.products?.filter(
+     (item) => item.user_id === 1
+   );
   return (
     <Fragment>
       <Helmet>
@@ -19,17 +23,16 @@ export default function Home() {
         <title>Home Page</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-
       <div className="container">
         <MainSlider />
-        <CategoryBar />
-        {product.status != 200 ? (
+        <CategoryBar label={1} />
+        {product.status !== 200 ? (
           <Loading />
         ) : (
           <div className="row row-cols-lg-4 row-cols-md-3 ">
-            {product.products.map((item) => (
-              <div className="p-1">
-                <ProductItem key={item.id} itemData={item} />
+            {Products.map((item) => (
+              <div className="p-1" key={item.id} >
+                <ProductItem itemData={item} />
               </div>
             ))}
           </div>

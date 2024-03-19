@@ -6,7 +6,7 @@ export default function Loading() {
     <div
       className={`${styles.Loading} main-color d-flex align-items-center justify-content-center`}
     >
-      <div class={styles.spinner}>
+      <div className={styles.spinner}>
         <div></div>
         <div></div>
         <div></div>

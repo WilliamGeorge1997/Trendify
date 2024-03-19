@@ -27,6 +27,8 @@ import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
+import Ads from './components/Ads/Ads';
+
 function App() {
   let { setUserToken } = useContext(UserContext);
 
@@ -41,9 +43,10 @@ function App() {
       element: <LayOut />,
       children: [
         { path: "Details/:id", element: <Details /> },
-        { path: "Categories/:id", element: <Categories /> },
-        { path: "FilterProduct", element: <FilterProduct /> },
+        { path: "Categories/:id/:label", element: <Categories /> },
+        { path: "FilterProduct/:pro", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
+        { path: "Ads", element: <Ads /> },
         { path: "Search/:key", element: <Search /> },
         { path: "success", element: <Success /> },
         { path: "Login", element: <Login /> },

@@ -15,14 +15,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with(['images' => function ($query) {
-            $query->select('product_id', 'image_path');
-        }])->get();
+        // $products = Product::with(['images' => function ($query) {
+        //     $query->select('product_id', 'image_path');
+        // }])->get();
         try {
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
-                return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
-            }
+            // $user = JWTAuth::parseToken()->authenticate();
+            // if (!$user) {
+            //     return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
+            // }
 
             $products = Product::with(['images' => function ($query) {
                 $query->select('product_id', 'image_path');

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styles from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { cartContext } from "./../../Context/CartContext";
@@ -30,7 +30,7 @@ export default function Cart() {
     getCart();
   }, []);
   return (
-    <Fragment>
+    <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Cart</title>
@@ -43,7 +43,7 @@ export default function Cart() {
             <div className="mt-5">
               {cartDetails.cart_products &&
               cartDetails.cart_products.length > 0 ? (
-               <Fragment>
+                <>
                   <div className="d-flex justify-content-between">
                     <h2>Your Cart</h2>
                     <button
@@ -53,7 +53,7 @@ export default function Cart() {
                       Clear cart
                     </button>
                   </div>
-               </Fragment>
+                </>
               ) : (
                 ""
               )}
@@ -61,7 +61,7 @@ export default function Cart() {
             <div className="row">
               {cartDetails.cart_products &&
               cartDetails.cart_products.length > 0 ? (
-               <Fragment>
+                <>
                   <div className="col-md-8">
                     {cartDetails.cart_products.map((product) => (
                       <div
@@ -162,7 +162,7 @@ export default function Cart() {
                       </Link>
                     </div>
                   </div>
-               </Fragment>
+                </>
               ) : (
                 <p className="text-danger">Your cart is empty.</p>
               )}
@@ -172,6 +172,6 @@ export default function Cart() {
           <p>Loading...</p>
         )}
       </div>
-    </Fragment>
+    </>
   );
 }

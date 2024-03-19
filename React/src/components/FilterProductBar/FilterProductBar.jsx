@@ -1,23 +1,22 @@
-
-import React, { useState ,useEffect } from "react";
+import React, { useState } from "react";
 export default function FilterProductBar({ product, onFilterChange }) {
+  console.log(product);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [location, setLocation] = useState("");
   const [stock, setStock] = useState("");
   const [rate, setRating] = useState(0);
 
-const handleMinPriceChange = (event) => {
-  const minPrice = parseInt(event.target.value);
-  setPriceRange([minPrice, priceRange[1]]);
-  filterAndUpdate(minPrice, priceRange[1], location, stock, rate);
-};
+  const handleMinPriceChange = (event) => {
+    const minPrice = parseInt(event.target.value);
+    setPriceRange([minPrice, priceRange[1]]);
+    filterAndUpdate(minPrice, priceRange[1], location, stock, rate);
+  };
 
-const handleMaxPriceChange = (event) => {
-  const maxPrice = parseInt(event.target.value);
-  setPriceRange([priceRange[0], maxPrice]);
-  filterAndUpdate(priceRange[0], maxPrice, location, stock, rate);
-};
-
+  const handleMaxPriceChange = (event) => {
+    const maxPrice = parseInt(event.target.value);
+    setPriceRange([priceRange[0], maxPrice]);
+    filterAndUpdate(priceRange[0], maxPrice, location, stock, rate);
+  };
 
   const handleLocationChange = (event) => {
     const loc = event.target.value;
@@ -50,7 +49,6 @@ const handleMaxPriceChange = (event) => {
     const itemLocation = item.location ? item.location.toLowerCase() : "";
     const itemStock = item.stock;
     const itemRate = item.rate ? parseInt(item.rate) : 0;
-
     const priceInRange = itemPrice >= minPrice && itemPrice <= maxPrice;
     const locationMatch = !loc || itemLocation.includes(loc.toLowerCase());
     const stockMatch = stockVal === 0 ? itemStock === 0 : itemStock > 0;
@@ -95,8 +93,8 @@ const handleMaxPriceChange = (event) => {
         />
         <div className="d-flex align-content-center my-3">
           <label className="form-check-label " htmlFor="Stock">
-            Stock{" "}
-          </label>{" "}
+            Stock
+          </label>
           <div className="form-check form-switch ms-3">
             <input
               className="form-check-input"
