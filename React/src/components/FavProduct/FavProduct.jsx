@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+
 import { favouriteContext } from "./../../Context/FavouriteContext";
 import { Link } from "react-router-dom";
 import styles from "./FavProduct.module.css";
@@ -100,6 +101,3 @@ export default function FavProduct() {
           )}
         </div>
       </section>
-    </>
-  );
-}
