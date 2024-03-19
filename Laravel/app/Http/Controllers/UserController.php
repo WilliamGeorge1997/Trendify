@@ -158,21 +158,25 @@ class UserController extends Controller
 
 
 
-    public function updateuser(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'gender' => 'nullable|in:male,female',
-            'about' => 'nullable|max:250',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'date_of_birth' => 'nullable|date',
-        ], [
-            'gender.in' => 'The gender must be either "male" or "female".',
-            'about.max' => 'The about field must not exceed 250 characters.',
-            'avatar.image' => 'The avatar must be an image file.',
-            'avatar.mimes' => 'The avatar must be a file of type: jpeg, png, jpg, gif, webp.',
-            'avatar.max' => 'The avatar may not be greater than 2MB in size.',
-            'date_of_birth.date' => 'The date of birth must be a valid date format.',
-        ]);
+public function updateuser(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'gender' => 'nullable|in:male,female',
+        'about' => 'nullable|max:250',
+        'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users',
+        'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        'date_of_birth' => 'nullable|date',
+    ], [
+        'gender.in' => 'The gender must be either "male" or "female".',
+        'about.max' => 'The about field must not exceed 250 characters.',
+        'phone.required' => 'The phone field is required.',
+        'phone.regex' => 'Please enter a valid phone number.',
+        'phone.unique' => 'Phone number already exists.',
+        'avatar.image' => 'The avatar must be an image file.',
+        'avatar.mimes' => 'The avatar must be a file of type: jpeg, png, jpg, gif, webp.',
+        'avatar.max' => 'The avatar may not be greater than 2MB in size.',
+        'date_of_birth.date' => 'The date of birth must be a valid date format.',
+    ]);
 
         if ($validator->fails()) {
             $errorMessage = $validator->errors()->first();

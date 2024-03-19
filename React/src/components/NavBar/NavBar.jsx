@@ -2,17 +2,21 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import styles from "./NavBar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
-
+import { useCartItemCount } from "./../../Context/CartContext";
+import logo from "../../assets/images/logo.png";
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
-    const [searchValue, setSearchValue] = useState(""); 
+  const [searchValue, setSearchValue] = useState("");
+
+  const { data: cartItemCount, isLoading, isError } = useCartItemCount();
 
   let navigate = useNavigate();
-  useEffect(() => {  if (searchValue.trim() !== "") {
-    navigate(`/Search/${searchValue}`);
-  } else {
-    navigate("/Home");
-  }
+  useEffect(() => {
+    if (searchValue.trim() !== "") {
+      navigate(`/Search/${searchValue}`);
+    } else {
+      navigate("/Home");
+    }
   }, [searchValue, navigate]);
 
   function logout() {
@@ -28,7 +32,7 @@ export default function NavBar() {
       <nav className="navbar navbar-expand-lg text-black bg-body-tertiary">
         <div className="container">
           <Link className="navbar-brand" to={"Home"}>
-            Logo
+            <img src={logo} width={120} alt="" />
           </Link>
 
           <button
@@ -62,7 +66,7 @@ export default function NavBar() {
               </Link>
             </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {/* ----------------- Profile Logout button----------------------- */}
+              {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (
                 <Fragment>
                   <li className="nav-item dropdown">
@@ -82,10 +86,19 @@ export default function NavBar() {
                     <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" to={"MyProfile"}>
-                          <i className="fa-solid fa-user me-2"></i>
+                          {/* <i class="fa-solid fa-eye me-2"></i> */}
+                          <i class="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
                       </li>
+
+                      <li>
+                        <Link className="dropdown-item" to={"EditProfile"}>
+                          <i class="fas fa-user-edit me-2"></i>
+                          Edit profile
+                        </Link>
+                      </li>
+
                       <li>
                         <Link className="dropdown-item" to={"MyAds"}>
                           <i className="fa-solid fa-rectangle-ad me-2"></i>
@@ -134,9 +147,13 @@ export default function NavBar() {
 
               {/* -----------------End Logout button----------------------- */}
 
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-4">
                 <Link className="nav-link" to={"Cart"}>
-                  <i className="fa-solid fa-cart-shopping"></i>
+                  <i className="fa-solid fa-cart-shopping position-relative">
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
+                      {cartItemCount}
+                    </span>
+                  </i>
                 </Link>
               </li>
               <div className="nav-item">

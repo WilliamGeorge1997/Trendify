@@ -12,51 +12,75 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProductController extends Controller
 {
+
     public function index()
     {
         $products = Product::with(['images' => function ($query) {
             $query->select('product_id', 'image_path');
-                }])->get();
+        }])->get();
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user) {
+                return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
+            }
 
-        if ($products->count() > 0) {
-            $data = [
-                'status' => 200,
-                'products' => $products
-            ];
-            return response()->json($data, 200);
-        } else {
-            $data = [
-                'status' => 404,
-                'message' => 'No products found'
-            ];
-            return response()->json($data, 404);
+            $products = Product::with(['images' => function ($query) {
+                $query->select('product_id', 'image_path');
+            }])->get();
+
+            if ($products->count() > 0) {
+                $data = [
+                    'status' => 200,
+                    'products' => $products
+                ];
+                return response()->json($data, 200);
+            } else {
+                $data = [
+                    'status' => 404,
+                    'message' => 'No products found'
+                ];
+                return response()->json($data, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to fetch products: ' . $e->getMessage(),
+            ], 500);
         }
     }
 
-
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         try {
+            $validatedData = $request->validate([
+                'title' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+                'location' => 'string|max:255',
+                'description' => 'required|string',
+                'category_id' => 'required|exists:categories,id',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+    
             $user = JWTAuth::parseToken()->authenticate();
-
+    
             $product = Product::create([
-                'title' => $request->title,
-                'price' => $request->price,
-                'location' => $request->location,
-                'description' => $request->description,
+                'title' => $validatedData['title'],
+                'price' => $validatedData['price'],
+                'location' => $validatedData['location'],
+                'description' => $validatedData['description'],
                 'user_id' => $user->id,
-                'category_id' => $request->category_id,
+                'category_id' => $validatedData['category_id'],
             ]);
 
 
             if ($product) {
                 $imageUrls = [];
-
+    
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
                         $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
                         $image->storeAs('public/images', $imageName);
-
+    
                         $productImage = Image::create([
                             'product_id' => $product->id,
                             'image_path' => 'images/' . $imageName,
@@ -72,48 +96,67 @@ class ProductController extends Controller
             return response()->json(['error' => 'An error occurred while creating product: ' . $e->getMessage()], 400);
         }
     }
+    
 
     public function show(string $id)
     {
-        $product = Product::with('images')->find($id);
-        if ($product) {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+    
+            $product = Product::with('images')->find($id);
+            if ($product) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => $product,
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Product not found',
+                ], 404);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                'status' => 200,
-                'message' => $product,
-            ], 200);
-        } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'product not found',
-            ], 404);
+                'status' => 401,
+                'message' => 'Unauthorized',
+            ], 401);
         }
     }
-    public function update(ProductRequest $request, int $id)
+    
+    public function update(Request $request, int $id)
     {
         try {
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+    
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'price' => 'required|numeric',
+                'description' => 'required|string',
+                'location' => 'string',
+                'category_id' => 'required|exists:categories,id',
+                'images' => 'required|array',
+                'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json(['error' => $validator->errors()], 400);
+            }
+    
             $product = Product::find($id);
-
+    
             if ($product) {
                 $product->update([
                     'title' => $request->title,
                     'price' => $request->price,
                     'location' => $request->location,
                     'description' => $request->description,
-                    'user_id' => $request->user_id,
+                    'user_id' => $user->id, 
                     'category_id' => $request->category_id,
                 ]);
-                if ($request->hasFile('images')) {
-                    $product->images()->delete();
-                    $imageUrls = [];
-                    foreach ($request->file('images') as $image) {
-                        $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
-                        $image->storeAs('public/images', $imageName);
-                        $product->images()->create([
-                            'image_path' => 'images/' . $imageName,
-                        ]);
-                        $imageUrls[] = $imageName;
-                    }
-                }
+    
                 return response()->json([
                     'success' => true,
                     'message' => 'Product updated successfully',
@@ -131,9 +174,7 @@ class ProductController extends Controller
             ], 400);
         }
     }
-
-
-
+    
 
     public function destroy(string $id)
     {
