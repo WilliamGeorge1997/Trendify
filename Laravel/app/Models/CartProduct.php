@@ -16,13 +16,15 @@ class CartProduct extends Model
         'count',
         'total_product_price',
     ];
+
+
     
     
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
-    
+
     public function cart()
     {
         return $this->belongsTo(Cart::class);

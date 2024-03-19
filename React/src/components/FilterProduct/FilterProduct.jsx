@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import ProductItem from "../ProductItem/ProductItem";
 import { AllProductContext } from "../../Context/ProductContext";
 import Categories from "../Categories/Categories";
+import { Helmet } from "react-helmet";
 
 export default function FilterProduct() {
   const { product } = useContext(AllProductContext);
@@ -46,7 +47,13 @@ export default function FilterProduct() {
 
   const filteredProducts = product.filter((item) => filterProducts(item));
 
-  return (
+  return <>
+
+<Helmet>
+        <meta charSet="utf-8" />
+        <title>Products Filter</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
     <div className="container">
       <div className="d-flex text-black justify-content-around">
         <div>
@@ -109,5 +116,5 @@ export default function FilterProduct() {
         ))}
       </div>
     </div>
-  );
+  </>
 }

@@ -1,10 +1,12 @@
-import React from 'react'
-import styles from './FavProduct.module.css';
+import React, { useContext, useState, useEffect } from "react";
+
 
 export default function FavProduct() {
+
+
   return (
-    <div className={styles.FavProduct}>
-    FavProduct
-    </div>
-  )
+    <>
+     
+    </>
+  );
 }

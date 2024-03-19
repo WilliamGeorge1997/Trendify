@@ -15,6 +15,9 @@ class ProductController extends Controller
 
     public function index()
     {
+        $products = Product::with(['images' => function ($query) {
+            $query->select('product_id', 'image_path');
+        }])->get();
         try {
             $user = JWTAuth::parseToken()->authenticate();
             if (!$user) {
@@ -68,7 +71,8 @@ class ProductController extends Controller
                 'user_id' => $user->id,
                 'category_id' => $validatedData['category_id'],
             ]);
-    
+
+
             if ($product) {
                 $imageUrls = [];
     

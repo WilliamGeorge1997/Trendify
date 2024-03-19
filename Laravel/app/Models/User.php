@@ -60,18 +60,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Product::class, 'favourite_products', 'user_id', 'product_id')->withTimestamps();
     }
 
-  /*  public function favouriteProducts()
+    /*  public function favouriteProducts()
     {
         return $this->hasManyThrough(Product::class, Favourite::class, 'user_id', 'id', 'id', 'product_id')
                 ->with('images');
     } */
 
     public function favouriteProducts()
-{
-    return $this->belongsToMany(Product::class, 'favourite_products', 'user_id', 'product_id')->withTimestamps();
-}
+    {
+        return $this->belongsToMany(Product::class, 'favourite_products', 'user_id', 'product_id')->withTimestamps();
+    }
 
-    public function cart(){
+    public function cart()
+    {
         return $this->hasOne(Cart::class);
     }
 
@@ -89,7 +90,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

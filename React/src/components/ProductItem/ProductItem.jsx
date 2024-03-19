@@ -1,23 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { cartContext } from "../../Context/CartContext";
+import { favouriteContext } from "../../Context/FavouriteContext";
 import { useContext } from "react";
+
 export default function ProductItem({ itemData }) {
   let { addToCart } = useContext(cartContext);
+  let { addToFavourite } = useContext(favouriteContext);
+
+  async function addProductToFavourite(productId) {
+    let res = await addToFavourite(productId);
+    console.log(res);
+  }
 
   async function addProduct(productId) {
     let res = await addToCart(productId);
     console.log(res);
   }
+
   return (
     <div className="card">
-      {" "}
       <Link to={"/Details/" + itemData.id} className="text-decoration-none">
-        <img
-          src={`http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`}
-          className="card-img-top"
-          alt="..."
-        />
+        {itemData.images && itemData.images.length > 0 && (
+          <img
+            src={`http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`}
+            className="card-img-top"
+            alt="..."
+          />
+        )}
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
@@ -35,6 +45,9 @@ export default function ProductItem({ itemData }) {
         </div>
       </Link>
       <button onClick={() => addProduct(itemData.id)}>Add to cart</button>
+      <button onClick={() => addProductToFavourite(itemData.id)}>
+        Add to favourite
+      </button>
     </div>
   );
 }
