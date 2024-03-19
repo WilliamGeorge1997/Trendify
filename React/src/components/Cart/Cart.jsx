@@ -2,9 +2,7 @@ import React from "react";
 import styles from "./Cart.module.css";
 import { Link } from "react-router-dom";
 import { cartContext } from "./../../Context/CartContext";
-import { useContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, Fragment , useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
 export default function Cart() {
   let { getLoggedUserCart, removeCartItem, updateProductQuantity, removeCart } =
@@ -30,7 +28,7 @@ export default function Cart() {
     getCart();
   }, []);
   return (
-    <>
+    <Fragment>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Cart</title>
@@ -172,6 +170,6 @@ export default function Cart() {
           <p>Loading...</p>
         )}
       </div>
-    </>
+    </Fragment>
   );
 }

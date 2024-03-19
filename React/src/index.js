@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,13 +14,15 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 let queryClient = new QueryClient();
 root.render(
+ 
   <UserContextProvider>
     <AllProductContextProvider>
       <QueryClientProvider client={queryClient}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
-      </QueryClientProvider>{" "}
+      </QueryClientProvider>
     </AllProductContextProvider>
-  </UserContextProvider>
+    </UserContextProvider>
+
 );
