@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +16,3 @@ use App\Http\Controllers\StripeController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-Route::get('checkout', [StripeController::class, 'checkout'])->name('checkout');
-Route::post('session', [StripeController::class, 'session'])->name('session');
-Route::get('success', [StripeController::class, 'success'])->name('success');

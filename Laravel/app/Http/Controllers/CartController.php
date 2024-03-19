@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CartController extends Controller
 {
-
     public function showCart()
 {
     try {
@@ -35,8 +34,8 @@ class CartController extends Controller
     $cartProducts = $cart->cartProducts()->with('product.images')->get();
 
 
-    $totalCartPrice = $cartProducts->sum('total_product_price');
-    $totalCount = CartProduct::where('cart_id', $cart->id)->sum('count');
+        $totalCartPrice = $cartProducts->sum('total_product_price');
+        $totalCount = CartProduct::where('cart_id', $cart->id)->sum('count');
 
     return response()->json([
         'status' => 'success',
@@ -200,7 +199,7 @@ public function updateCartProductCount(Request $request, string $productId, stri
 
 
 
-    public function deleteCartProduct(string $productId)
+public function deleteCartProduct(string $productId)
 {
     try {
         $user = JWTAuth::parseToken()->authenticate();
@@ -209,9 +208,8 @@ public function updateCartProductCount(Request $request, string $productId, stri
     }
 
     try {
-
         $cart = Cart::where('user_id', $user->id)->first();
-
+        
         if (!$cart) {
             return response()->json(['status' => 'error', 'message' => 'Cart not found'], 404);
         }
@@ -238,7 +236,6 @@ public function updateCartProductCount(Request $request, string $productId, stri
             $cart->delete();
         }
 
-
         return $this->showCart();
     } catch (\Exception $e) {
         return response()->json([
@@ -258,14 +255,14 @@ public function updateCartProductCount(Request $request, string $productId, stri
             return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
         }
 
-
+        // Find the user's cart
         $cart = Cart::where('user_id', $user->id)->first();
 
         if (!$cart) {
             return response()->json(['status' => 'success', 'message' => 'Cart not found'], 404);
         }
 
-
+        // Delete the cart and its associated cart products
         $cart->cartProducts()->delete();
         $cart->delete();
 

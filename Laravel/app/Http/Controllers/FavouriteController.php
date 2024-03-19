@@ -19,7 +19,6 @@ class FavouriteController extends Controller
                 return response()->json(['message' => 'Unauthorized. User must be logged in.'], 401);
             }
 
-
             $user = JWTAuth::parseToken()->authenticate();
 
 
