@@ -85,8 +85,7 @@ function App() {
         },
       ],
     },
-    { path: "sell", element: <Sell /> }
-   /* {
+    {
       path: "sell",
       element: (
         <ProtectedRoute>
@@ -94,8 +93,10 @@ function App() {
           <Sell />{" "}
         </ProtectedRoute>
       ),
-    }, */
+    }, 
   ]);
+  
+
 
   return (
     <Fragment>

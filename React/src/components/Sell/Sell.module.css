@@ -11,17 +11,32 @@
 label {
   display: block;
   font-weight: bold;
+  transition: color 0.3s ease; 
 }
 
-input[type="text"],
-input[type="number"],
-textarea {
+.inputField {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc; 
   border-radius: 5px;
+  transition: border-color 0.3s ease; 
 }
 
-input[type="checkbox"] {
-  margin-right: 5px;
+.inputField:focus {
+  outline: none;
+  border-color: #000;
+  color: #000; 
+}
+
+.invalid {
+  border-color: #e00000;
+  color: #e00000; 
+}
+
+.invalid.inputField:focus {
+  border-color: #e00000; 
+}
+
+.errorMessage {
+  color: #e00000; 
 }

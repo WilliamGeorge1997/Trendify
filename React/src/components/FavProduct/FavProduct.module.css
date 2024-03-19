@@ -1,3 +1,7 @@
 .FavProduct{
     background-color: #fff;
 }
+
+.cardLink{
+    text-decoration: none;
+}
