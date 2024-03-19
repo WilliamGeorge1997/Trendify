@@ -26,4 +26,9 @@ class Cart extends Model
     {
         return $this->hasMany(CartProduct::class);
     }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }
