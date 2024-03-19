@@ -1,12 +1,13 @@
 import styles from "./MyProfile.module.css";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState,useContext } from "react";
+import { AllProductContext } from "../../Context/ProductContext";
+
 import axios from "axios";
 
 function MyProfile() {
   let token = localStorage.getItem("userToken");
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
-
 
   async function getData() {
     let res = await axios
@@ -18,17 +19,22 @@ function MyProfile() {
         setError(err.response.data.message);
       });
     setUser(res.data.user);
-
   }
+
 
   useEffect(() => {
     getData();
+    getProduct();
   }, []);
+  let { product } = useContext(AllProductContext);
+  function getProduct(){  const Products = product?.products?.filter(
+    (item) => item.user_id === user.id
+  );  console.log(Products);}
 
   if (!user) {
     return (
       <div>
-        Loading <i className="fas fa-spinner main-color fa-spin fa-2xl"></i>{" "}
+        Loading <i className="fas fa-spinner main-color fa-spin fa-2xl"></i>
       </div>
     );
   }
@@ -64,7 +70,7 @@ function MyProfile() {
                   </div>
                 </>
               ) : (
-              ""
+                ""
               )}
 
               {user.date_of_birth !== null ? (
@@ -115,7 +121,7 @@ function MyProfile() {
                     srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.png"
                     type="image/png"
                   />
-              
+
                   <img
                     src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
                     alt="Not found"
@@ -137,8 +143,6 @@ function MyProfile() {
             </div>
 
             {error ? <div className="alert alert-danger">{error}</div> : null}
-
-
           </div>
         </div>
       </main>

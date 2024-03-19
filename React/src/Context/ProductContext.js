@@ -9,7 +9,8 @@ export default function AllProductContextProvider(props) {
   async function fetchProducts() {
     try {
       const response = await axios.get("http://localhost:8000/api/products");
-      setProducts(response.data.products);
+      setProducts(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -17,11 +18,11 @@ export default function AllProductContextProvider(props) {
 
   useEffect(() => {
     fetchProducts();
-      }, []);
+  }, []);
 
   return (
     <AllProductContext.Provider value={{ product }}>
-          {props.children}
-      </AllProductContext.Provider>
+      {props.children}
+    </AllProductContext.Provider>
   );
 }

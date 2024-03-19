@@ -51,7 +51,7 @@ export default function NavBar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
             <form className="d-flex" role="search">
               <input
-                className={`form-control ${styles.formControl}`}
+                className={`form-control me-1 ${styles.formControl}`}
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
@@ -86,15 +86,15 @@ export default function NavBar() {
                     <ul className="dropdown-menu">
                       <li>
                         <Link className="dropdown-item" to={"MyProfile"}>
-                          {/* <i class="fa-solid fa-eye me-2"></i> */}
-                          <i class="fa-regular fa-eye me-2"></i>
+                          {/* <i className="fa-solid fa-eye me-2"></i> */}
+                          <i className="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
                       </li>
 
                       <li>
                         <Link className="dropdown-item" to={"EditProfile"}>
-                          <i class="fas fa-user-edit me-2"></i>
+                          <i className="fas fa-user-edit me-2"></i>
                           Edit profile
                         </Link>
                       </li>
@@ -122,7 +122,7 @@ export default function NavBar() {
                           className="dropdown-item main-color cursor-pointer"
                           style={{ cursor: "pointer" }}
                         >
-                          <i className="fa-solid fa-right-from-bracket me-2"></i>{" "}
+                          <i className="fa-solid fa-right-from-bracket me-2"></i>
                           logout
                         </span>
                       </li>
@@ -144,10 +144,8 @@ export default function NavBar() {
                   </li>
                 </Fragment>
               )}
-
               {/* -----------------End Logout button----------------------- */}
-
-              <li className="nav-item mx-4">
+              <li className="nav-item mx-2">
                 <Link className="nav-link" to={"Cart"}>
                   <i className="fa-solid fa-cart-shopping position-relative">
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
@@ -162,6 +160,14 @@ export default function NavBar() {
                   to={"Sell"}
                 >
                   Sell
+                </Link>
+              </div>{" "}
+              <div className="nav-item">
+                <Link
+                  className={`nav-link btn main-bg-color ms-1 px-4 py-2 text-white ${styles.btn}`}
+                  to={"Ads"}
+                >
+                  Ads
                 </Link>
               </div>
             </ul>

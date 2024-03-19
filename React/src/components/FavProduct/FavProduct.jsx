@@ -35,9 +35,9 @@ export default function FavProduct() {
         <h3 className="fw-bold mb-3">Favourites</h3>
         <div className="row">
           {favouriteDetails &&
-          favouriteDetails.user &&
-          favouriteDetails.user.favorite_products &&
-          favouriteDetails.user.favorite_products.length > 0 ? (
+            favouriteDetails.user &&
+            favouriteDetails.user.favorite_products &&
+            favouriteDetails.user.favorite_products.length > 0 ? (
             favouriteDetails.user.favorite_products.map((product) => (
               <div
                 key={product.id}
@@ -101,3 +101,5 @@ export default function FavProduct() {
           )}
         </div>
       </section>
+    </>)
+}

@@ -15,14 +15,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with(['images' => function ($query) {
-            $query->select('product_id', 'image_path');
-        }])->get();
+
         try {
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
-                return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
-            }
+
 
             $products = Product::with(['images' => function ($query) {
                 $query->select('product_id', 'image_path');
@@ -60,9 +55,9 @@ class ProductController extends Controller
                 'category_id' => 'required|exists:categories,id',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
-    
+
             $user = JWTAuth::parseToken()->authenticate();
-    
+
             $product = Product::create([
                 'title' => $validatedData['title'],
                 'price' => $validatedData['price'],
@@ -75,12 +70,12 @@ class ProductController extends Controller
 
             if ($product) {
                 $imageUrls = [];
-    
+
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
                         $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
                         $image->storeAs('public/images', $imageName);
-    
+
                         $productImage = Image::create([
                             'product_id' => $product->id,
                             'image_path' => 'images/' . $imageName,
@@ -96,13 +91,13 @@ class ProductController extends Controller
             return response()->json(['error' => 'An error occurred while creating product: ' . $e->getMessage()], 400);
         }
     }
-    
+
 
     public function show(string $id)
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-    
+
             $product = Product::with('images')->find($id);
             if ($product) {
                 return response()->json([
@@ -122,7 +117,7 @@ class ProductController extends Controller
             ], 401);
         }
     }
-    
+
     public function update(Request $request, int $id)
     {
         try {
@@ -130,7 +125,7 @@ class ProductController extends Controller
             if (!$user) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
-    
+
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string',
                 'price' => 'required|numeric',
@@ -140,23 +135,23 @@ class ProductController extends Controller
                 'images' => 'required|array',
                 'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
             ]);
-    
+
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 400);
             }
-    
+
             $product = Product::find($id);
-    
+
             if ($product) {
                 $product->update([
                     'title' => $request->title,
                     'price' => $request->price,
                     'location' => $request->location,
                     'description' => $request->description,
-                    'user_id' => $user->id, 
+                    'user_id' => $user->id,
                     'category_id' => $request->category_id,
                 ]);
-    
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Product updated successfully',
@@ -174,7 +169,7 @@ class ProductController extends Controller
             ], 400);
         }
     }
-    
+
 
     public function destroy(string $id)
     {
