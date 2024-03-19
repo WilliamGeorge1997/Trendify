@@ -43,8 +43,7 @@ function Login() {
     email: Yup.string()
       .email("Email is invalid.")
       .required("Email is required."),
-    password: Yup.string()
-      .required("Password is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   let formik = useFormik({
@@ -119,7 +118,7 @@ function Login() {
                   to={"/register"}
                 >
                   Register now
-                </Link>{" "}
+                </Link>
               </p>
             </Fragment>
           )}

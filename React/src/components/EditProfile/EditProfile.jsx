@@ -25,7 +25,7 @@ function EditProfile() {
       });
     setUser(res.data.user);
     // setImg(res.data.user.avatar);
-    // console.log(img);
+    console.log(res);
   }
 
   useEffect(() => {
@@ -82,7 +82,6 @@ function EditProfile() {
     onSubmit: profileSubmit,
   });
 
-
   useEffect(() => {
     if (user) {
       formik.setValues({
@@ -97,7 +96,7 @@ function EditProfile() {
   if (!user) {
     return (
       <div>
-        Loading <i className="fas fa-spinner main-color fa-spin fa-2xl"></i>{" "}
+        Loading <i className="fas fa-spinner main-color fa-spin fa-2xl"></i>
       </div>
     );
   }
@@ -162,9 +161,7 @@ function EditProfile() {
                   onBlur={formik.handleBlur}
                   // value={formik.values.about}
                   value={formik.values.about}
-                >
-                  {" "}
-                </textarea>
+                ></textarea>
 
                 <div className="mb-3 mt-2">
                   <label htmlFor="formFile" className="form-label">
@@ -252,7 +249,7 @@ function EditProfile() {
               </div>
               <div>
                 <span style={{ fontWeight: "bold" }}>
-                  Why is it important?{" "}
+                  Why is it important?
                 </span>
                 <span>
                   Trendify is built on trust. Help other people get to know you.
@@ -283,7 +280,6 @@ function EditProfile() {
                     <path d="M318 279.3h-54.8l-61.5-61.5v-54.9h54.8l61.6 61.5v54.9zm194-38.8l-38.8-38.8V124L512 85.3l38.8 38.8v77.6L512 240.5zm426.7 232.7L899.9 512h-77.6l-38.8-38.8 38.8-38.8H900l38.8 38.8zm-737-38.8l38.8 38.8-38.8 38.8H124l-38.8-38.8 38.8-38.8h77.6zm620.6-216.6l-61.5 61.5h-54.9v-54.9l61.6-61.5h54.8v54.9zm-200.6 404a154.9 154.9 0 0 1-47.6 32.4l-23.3 35.6v55h-77.6v-55L450 654.3a155.3 155.3 0 0 1-47.7-252 155.4 155.4 0 0 1 219.5 0 155.3 155.3 0 0 1 0 219.4zM473.2 861h77.6v-38.8h-77.6V861zM512 279.3a233 233 0 0 0-116.4 434.3V900l38.8 38.8h155.2l38.8-38.8V713.6A233 233 0 0 0 512 279.3z"></path>
                   </svg>
                   <span className="_6d5b4928 be13fe44 fw-bold">
-                    {" "}
                     Why is it important?
                   </span>
                 </div>

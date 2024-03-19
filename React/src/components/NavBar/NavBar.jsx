@@ -5,14 +5,15 @@ import { UserContext } from "../../Context/UserContext";
 
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
-    const [searchValue, setSearchValue] = useState(""); 
+  const [searchValue, setSearchValue] = useState("");
 
   let navigate = useNavigate();
-  useEffect(() => {  if (searchValue.trim() !== "") {
-    navigate(`/Search/${searchValue}`);
-  } else {
-    navigate("/Home");
-  }
+  useEffect(() => {
+    if (searchValue.trim() !== "") {
+      navigate(`/Search/${searchValue}`);
+    } else {
+      navigate("/Home");
+    }
   }, [searchValue, navigate]);
 
   function logout() {
@@ -47,7 +48,7 @@ export default function NavBar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
             <form className="d-flex" role="search">
               <input
-                className={`form-control ${styles.formControl}`}
+                className={`form-control me-1 ${styles.formControl}`}
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
@@ -118,7 +119,7 @@ export default function NavBar() {
                           className="dropdown-item main-color cursor-pointer"
                           style={{ cursor: "pointer" }}
                         >
-                          <i className="fa-solid fa-right-from-bracket me-2"></i>{" "}
+                          <i className="fa-solid fa-right-from-bracket me-2"></i>
                           logout
                         </span>
                       </li>
@@ -140,9 +141,7 @@ export default function NavBar() {
                   </li>
                 </Fragment>
               )}
-
               {/* -----------------End Logout button----------------------- */}
-
               <li className="nav-item mx-2">
                 <Link className="nav-link" to={"Cart"}>
                   <i className="fa-solid fa-cart-shopping"></i>
@@ -154,6 +153,14 @@ export default function NavBar() {
                   to={"Sell"}
                 >
                   Sell
+                </Link>
+              </div>{" "}
+              <div className="nav-item">
+                <Link
+                  className={`nav-link btn main-bg-color ms-1 px-4 py-2 text-white ${styles.btn}`}
+                  to={"Ads"}
+                >
+                  Ads
                 </Link>
               </div>
             </ul>

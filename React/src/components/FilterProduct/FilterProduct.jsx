@@ -1,123 +1,56 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import { AllProductContext } from "../../Context/ProductContext";
+import FilterProductBar from "../FilterProductBar/FilterProductBar";
+import Loading from "../Loading/Loading";
+  import { useParams } from "react-router-dom";
+
 export default function FilterProduct() {
+  let { pro } = useParams();
+
   const { product } = useContext(AllProductContext);
-  const [priceRange, setPriceRange] = useState([0, 1000000]);
-  const [location, setLocation] = useState("");
-  const [stock, setStock] = useState("");
-  const [rate, setRating] = useState(0);
+  
+ const initialFilProducts = product.products.filter((item) => {
+   if (pro === 0) {
+     return item.user_id > 1;
+   } else if (pro === 1) {
+     return item.user_id === 1;
+   }
+ });
+  console.log(initialFilProducts);
 
-  const handlePriceRangeChange = (event) => {
-    setPriceRange([parseInt(event.target.value), priceRange[1]]);
+  console.log(initialFilProducts);
+  const [filteredProducts, setFilteredProducts] = useState(initialFilProducts);
+  const [products, setProducts] = useState(initialFilProducts);
+
+  const handleFilterChange = (filteredProducts) => {
+    setFilteredProducts(filteredProducts);
   };
-
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-
-  const handleStockChange = (event) => {
-    const isChecked = event.target.checked;
-    if (isChecked) {
-      setStock(1);
-    } else {
-      setStock(0);
-    }
-  };
-
-  const handleRatingChange = (event) => {
-    setRating(parseInt(event.target.value));
-  };
-
-  const filterProducts = (item) => {
-    const itemPrice = item.price;
-    const itemLocation = item.location ? item.location.toLowerCase() : "";
-    const itemStock = item.stock;
-    const itemRate = item.rate ? parseInt(item.rate) : 0;
-
-    const priceInRange =
-      itemPrice >= priceRange[0] && itemPrice <= priceRange[1];
-    const locationMatch =
-      !location || itemLocation.includes(location.toLowerCase());
-    const stockMatch = stock === 0 ? itemStock === 0 : itemStock > 0;
-
-    const rateMatch = !rate || itemRate >= rate;
-    return priceInRange && locationMatch && stockMatch && rateMatch;
-  };
-
-  const filteredProducts = product.products.filter((item) =>
-    filterProducts(item)
-  );
+  useEffect(() => {
+    setProducts(filteredProducts);
+  }, [filteredProducts]);
 
   return (
-    <div className=" container-fluid row m-auto">
-      <div className="d-flex col-md-3 text-black justify-content-around">
-        <div className="mt-5">
-          <label htmlFor="priceRange">Price Range:</label>
-          <div className="d-flex justify-content-between align-items-center">
-            <label htmlFor="minPrice">Min: {priceRange[0]}</label>
-            <input
-              type="range"
-              id="minPrice"
-              min={0}
-              max={20000}
-              value={priceRange[0]}
-              onChange={handlePriceRangeChange}
-            />
-          </div>
-          <div className="d-flex justify-content-between align-items-center">
-            <label htmlFor="maxPrice">Max: {priceRange[1]}</label>
-            <input
-              type="range"
-              id="maxPrice"
-              min={0}
-              max={20000}
-              value={priceRange[1]}
-              onChange={(event) =>
-                setPriceRange([priceRange[0], parseInt(event.target.value)])
-              }
-            />
-          </div>
-          <label htmlFor="location">Location:</label>
-          <input
-            type="text"
-            id="location"
-            className="form-control my-2"
-            value={location}
-            onChange={handleLocationChange}
-          />
-          <div className="d-flex align-content-center my-3">
-            <label className="form-check-label " htmlFor="Stock">
-              Stock{" "}
-            </label>{" "}
-            <div className="form-check form-switch ms-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                onChange={handleStockChange}
-                // checked
-                id="Stock"
-              />
-            </div>
-          </div>
-          <label htmlFor="rating">Rating:</label>
-          <input
-            type="number"
-            id="rating"
-            min={0}
-            max={5}
-            className="form-control my-2"
-            value={rate}
-            onChange={handleRatingChange}
-          />
-        </div>
+    <div className=" container-fluid row ">
+      <div className="col-md-4 ">
+        <FilterProductBar
+          product={initialFilProducts}
+          onFilterChange={handleFilterChange}
+        >
+          {" "}
+        </FilterProductBar>
       </div>
-      <div className="row row-cols-lg-3 col-md-9 row-cols-md-2 ">
-        {filteredProducts.map((item) => (
-          <div className="p-3">
-            <ProductItem key={item.id} itemData={item} />
-          </div>
-        ))}
+
+      <div className="row row-cols-lg-3 col-md-8 row-cols-md-2 ">
+        {product.status !== 200 ? (
+          <Loading />
+        ) : (
+          products.map((item) => (
+            <div className="p-3">
+              <ProductItem key={item.id} itemData={item} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -9,18 +9,18 @@ import "./index.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import UserContextProvider from "./Context/UserContext";
 import AllProductContextProvider from "./Context/ProductContext";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 let queryClient = new QueryClient();
 root.render(
-      <UserContextProvider>
-  <QueryClientProvider client={queryClient}>
+  <UserContextProvider>
     <AllProductContextProvider>
+      <QueryClientProvider client={queryClient}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
+      </QueryClientProvider>{" "}
     </AllProductContextProvider>
-  </QueryClientProvider>
-      </UserContextProvider>
+  </UserContextProvider>
 );

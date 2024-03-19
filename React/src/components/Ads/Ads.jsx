@@ -1,19 +1,16 @@
-import React, { useContext} from "react";
-import MainSlider from "../MainSlider/MainSlider";
+import React, { useContext } from "react";
 import ProductItem from "../ProductItem/ProductItem";
-import {AllProductContext} from '../../Context/ProductContext';
+import { AllProductContext } from "../../Context/ProductContext";
 import CategoryBar from "../CategoryBar/CategoryBar";
-import Loading from '../Loading/Loading';
-export default function Home() {
-  
+import Loading from "../Loading/Loading";
+
+export default function Ads() {
   let { product } = useContext(AllProductContext);
-   const Products = product?.products?.filter(
-     (item) => item.user_id === 1
-   );
+  console.log(product);
+  const Products = product?.products?.filter((item) => item.user_id !== 1);
   return (
     <div className="container">
-      <MainSlider />
-      <CategoryBar label={1} />
+      <CategoryBar label={0} />
       {product.status !== 200 ? (
         <Loading />
       ) : (
