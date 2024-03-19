@@ -105,8 +105,10 @@ function App() {
           <Sell />{" "}
         </ProtectedRoute>
       ),
-    },
+    }, 
   ]);
+  
+
 
   return (
     <Fragment>
