@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EgyptCityController;
 use App\Http\Controllers\FavouriteController;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
+use App\Http\Controllers\ShippingDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::post('/login', [UserController::class, 'login'])->name('login');
-Route::put('/updateuser', [UserController::class, 'updateuser'])->name('updateuser');
 
 Route::get('products', [ProductController::class, 'index']);
 Route::post('products', [ProductController::class, 'store']);
@@ -54,3 +52,4 @@ Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteContr
 
 Route::get("cities", [EgyptCityController::class, "getAllCities"])->name("cities");
 Route::post('session', [StripeController::class, 'makePayment'])->name('makePayment');
+Route::middleware('jwt.auth')->post('/shipping/add', [ShippingDetailsController::class, 'addShippingDetails']);
