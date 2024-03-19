@@ -26,7 +26,8 @@ import EditProfile from "./components/EditProfile/EditProfile.jsx";
 import FilterProduct from './components/FilterProduct/FilterProduct';
 import Search from './components/Search/Search';
 import { CartContextProvider } from "./Context/CartContext.js";
-
+import Success from "./components/Success/Success";
+import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 function App() {
   let { setUserToken } = useContext(UserContext);
 
@@ -46,7 +47,7 @@ function App() {
         { path: "FilterProduct", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
         { path: "Search/:key", element: <Search /> },
-
+        { path: "success", element: <Success /> },
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
         { path: "*", element: <ErrorPage /> },
@@ -110,8 +111,11 @@ function App() {
   return (
     <Fragment>
       <CartContextProvider>
-      <RouterProvider router={routes}></RouterProvider>
-    </CartContextProvider></Fragment>
+        <FavouriteContextProvider>
+          <RouterProvider router={routes}></RouterProvider>
+        </FavouriteContextProvider>
+      </CartContextProvider>
+    </Fragment>
   );
 }
 

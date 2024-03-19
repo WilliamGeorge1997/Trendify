@@ -12,7 +12,7 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
     ];
-    
+
 
     public function user()
     {
@@ -25,5 +25,10 @@ class Cart extends Model
     public function cartProducts()
     {
         return $this->hasMany(CartProduct::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }
