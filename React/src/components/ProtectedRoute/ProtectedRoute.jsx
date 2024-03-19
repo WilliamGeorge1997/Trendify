@@ -8,5 +8,4 @@ export default function ProtectedRoute(props) {
      } else {
      return <Navigate to={"/login"} > </Navigate>;
      }
-
 }

@@ -1,6 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment , useContext, useState } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import { AllProductContext } from "../../Context/ProductContext";
+import Categories from "../Categories/Categories";
+import { Helmet } from "react-helmet";
+
 export default function FilterProduct() {
   const { product } = useContext(AllProductContext);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
@@ -49,7 +52,12 @@ export default function FilterProduct() {
     filterProducts(item)
   );
 
-  return (
+  return( <Fragment>
+        <Helmet>
+        <meta charSet="utf-8" />
+        <title>Products Filter</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
     <div className=" container-fluid row m-auto">
       <div className="d-flex col-md-3 text-black justify-content-around">
         <div className="mt-5">
@@ -120,5 +128,5 @@ export default function FilterProduct() {
         ))}
       </div>
     </div>
-  );
+  </Fragment>)
 }

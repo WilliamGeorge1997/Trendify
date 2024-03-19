@@ -248,3 +248,6 @@ input[type=range]:focus::-ms-fill-upper {
 /* .form-switch .form-check-input:focus {
   --bs-form-switch-bg: none ;
 } */
+.cursor-pointer{
+  cursor: pointer;
+}

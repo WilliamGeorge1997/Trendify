@@ -25,7 +25,8 @@ import EditProfile from "./components/EditProfile/EditProfile.jsx";
 import FilterProduct from "./components/FilterProduct/FilterProduct";
 import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
-
+import Success from "./components/Success/Success";
+import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 function App() {
   let { setUserToken } = useContext(UserContext);
 
@@ -44,6 +45,7 @@ function App() {
         { path: "FilterProduct", element: <FilterProduct /> },
         { path: "Home", element: <Home /> },
         { path: "Search/:key", element: <Search /> },
+        { path: "success", element: <Success /> },
         { path: "Login", element: <Login /> },
         { path: "Register", element: <Register /> },
         { path: "*", element: <ErrorPage /> },
@@ -51,8 +53,8 @@ function App() {
           path: "FavProduct",
           element: (
             <ProtectedRoute>
-              {" "}
-              <FavProduct />{" "}
+              
+              <FavProduct />
             </ProtectedRoute>
           ),
         },
@@ -60,8 +62,8 @@ function App() {
           path: "MyProfile",
           element: (
             <ProtectedRoute>
-              {" "}
-              <MyProfile />{" "}
+              
+              <MyProfile />
             </ProtectedRoute>
           ),
         },
@@ -69,8 +71,8 @@ function App() {
           path: "EditProfile",
           element: (
             <ProtectedRoute>
-              {" "}
-              <EditProfile />{" "}
+              
+              <EditProfile />
             </ProtectedRoute>
           ),
         },
@@ -78,8 +80,8 @@ function App() {
           path: "Cart",
           element: (
             <ProtectedRoute>
-              {" "}
-              <Cart />{" "}
+              
+              <Cart />
             </ProtectedRoute>
           ),
         },
@@ -87,8 +89,8 @@ function App() {
           path: "MyAds",
           element: (
             <ProtectedRoute>
-              {" "}
-              <MyAds />{" "}
+              
+              <MyAds />
             </ProtectedRoute>
           ),
         },
@@ -98,8 +100,8 @@ function App() {
       path: "sell",
       element: (
         <ProtectedRoute>
-          {" "}
-          <Sell />{" "}
+          
+          <Sell />
         </ProtectedRoute>
       ),
     },
@@ -108,7 +110,9 @@ function App() {
   return (
     <Fragment>
       <CartContextProvider>
-        <RouterProvider router={routes}></RouterProvider>
+        <FavouriteContextProvider>
+          <RouterProvider router={routes}></RouterProvider>
+        </FavouriteContextProvider>
       </CartContextProvider>
     </Fragment>
   );
