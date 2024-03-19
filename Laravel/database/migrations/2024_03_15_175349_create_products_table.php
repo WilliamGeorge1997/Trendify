@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('price');
             $table->integer('stock')->nullable();
             $table->float('rate')->nullable()->unsigned();
-            $table->string('location')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
+            $table->foreign('location_id')->references('id')->on('egypt_cities')->constrained()->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->constrained()->onDelete('cascade');
         });

@@ -87,12 +87,19 @@ class FavouriteController extends Controller
 
             $user->favouriteProducts()->detach($product->id);
 
-            return response()->json(['message' => 'Product removed from favorites successfully.'], 200);
-        } catch (JWTException $e) {
+            // Fetch updated favorite products after removal
+            $favoriteProducts = $user->favouriteProducts()->with('images')->get();
 
+            // Update the user's favorite products list
+            $user->favorite_products = $favoriteProducts;
+
+            return response()->json([
+                'message' => 'Product removed from favorites successfully.',
+                'user' => $user
+            ], 200);
+        } catch (JWTException $e) {
             return response()->json(['message' => 'Token absent or invalid.'], 401);
         } catch (\Exception $e) {
-
             return response()->json(['message' => 'Failed to remove product from favorites.'], 500);
         }
     }
