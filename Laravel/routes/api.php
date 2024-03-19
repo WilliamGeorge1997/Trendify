@@ -4,9 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\FavouriteController;
-use Tymon\JWTAuth\Http\Middleware\Authenticate;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\FavouriteController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-
+Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::put('/updateuser', [UserController::class, 'updateuser'])->name('updateuser');
 
 Route::get('products', [ProductController::class, 'index']);
 Route::post('products', [ProductController::class, 'store']);
@@ -46,3 +50,4 @@ Route::post('/updateuser', [UserController::class, 'updateuser'])->name('updateu
 Route::middleware('jwt.auth')->post('/favourite', [FavouriteController::class, 'store'])->name('favourite.store');
 Route::middleware('jwt.auth')->get('/favourites', [FavouriteController::class, 'userFavourites']);
 Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteController::class, 'removeFavoriteProduct']);
+Route::post('session', [StripeController::class, 'makePayment'])->name('makePayment');

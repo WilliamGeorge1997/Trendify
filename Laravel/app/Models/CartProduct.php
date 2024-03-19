@@ -16,8 +16,6 @@ class CartProduct extends Model
         'count',
         'total_product_price',
     ];
-
-
     
     
     public function product()
@@ -29,4 +27,10 @@ class CartProduct extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+    
 }

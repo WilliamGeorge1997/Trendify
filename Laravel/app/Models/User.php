@@ -89,4 +89,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+    
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
