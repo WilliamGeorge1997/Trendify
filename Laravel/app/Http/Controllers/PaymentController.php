@@ -13,7 +13,16 @@ class StripeController extends Controller
     {
         try {
 
-            
+            $user = JWTAuth::parseToken()->authenticate();
+            $cart = Cart::where('user_id', $user->id)->first();
+
+            if (!$cart) {
+                return response()->json(['error' => 'Cart not found'], 404);
+            }
+
+            $cartProducts = CartProduct::where('cart_id', $cart->id)->get();
+
+            $totalCartPrice = $cartProducts->sum('total_product_price');
 
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $session = \Stripe\Checkout\Session::create([

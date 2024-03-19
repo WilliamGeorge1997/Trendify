@@ -199,7 +199,7 @@ public function updateCartProductCount(Request $request, string $productId, stri
 
 
 
-    public function deleteCartProduct(string $productId)
+public function deleteCartProduct(string $productId)
 {
     try {
         $user = JWTAuth::parseToken()->authenticate();
@@ -208,11 +208,8 @@ public function updateCartProductCount(Request $request, string $productId, stri
     }
 
     try {
-
         $cart = Cart::where('user_id', $user->id)->first();
-        try {
-            $cart = Cart::where('user_id', $user->id)->first();
-
+        
         if (!$cart) {
             return response()->json(['status' => 'error', 'message' => 'Cart not found'], 404);
         }
@@ -220,9 +217,6 @@ public function updateCartProductCount(Request $request, string $productId, stri
         $cartProduct = CartProduct::where('cart_id', $cart->id)
             ->where('product_id', $productId)
             ->first();
-            $cartProduct = CartProduct::where('cart_id', $cart->id)
-                ->where('product_id', $productId)
-                ->first();
 
         if (!$cartProduct) {
             return response()->json(['status' => 'error', 'message' => 'Product not found in the cart'], 404);
@@ -231,24 +225,16 @@ public function updateCartProductCount(Request $request, string $productId, stri
         $deleted = CartProduct::where('cart_id', $cart->id)
             ->where('product_id', $productId)
             ->delete();
-            $deleted = CartProduct::where('cart_id', $cart->id)
-                ->where('product_id', $productId)
-                ->delete();
 
         if (!$deleted) {
             return response()->json(['status' => 'error', 'message' => 'Failed to delete product from cart'], 500);
         }
 
         $remainingProductsCount = CartProduct::where('cart_id', $cart->id)->count();
-            $remainingProductsCount = CartProduct::where('cart_id', $cart->id)->count();
 
         if ($remainingProductsCount === 0) {
             $cart->delete();
         }
-            if ($remainingProductsCount === 0) {
-                $cart->delete();
-            }
-
 
         return $this->showCart();
     } catch (\Exception $e) {
