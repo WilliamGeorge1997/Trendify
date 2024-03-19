@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $products = Product::with(['images' => function ($query) {
             $query->select('product_id', 'image_path');
-                }])->get();
+        }])->get();
 
         if ($products->count() > 0) {
             $data = [
@@ -48,7 +48,7 @@ class ProductController extends Controller
                 'category_id' => $request->category_id,
             ]);
 
-
+            dd($product);
             if ($product) {
                 $imageUrls = [];
 

@@ -2,48 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\CartProduct;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class StripeController extends Controller
 {
-    public function checkout()
+    public function makePayment(Request $request)
     {
-        return view('checkout');
-    }
+   
 
-    public function session(Request $request)
-    {
-        \Stripe\Stripe::setApiKey(config('stripe.sk'));
+            $user = JWTAuth::parseToken()->authenticate();
+            $cart = Cart::where('user_id', $user->id)->first();
 
-        $productname = $request->get('productname');
-        $totalprice = $request->get('total');
-        $two0 = "00";
-        $total = "$totalprice$two0";
+            if (!$cart) {
+                return response()->json(['error' => 'Cart not found'], 404);
+            }
 
-        $session = \Stripe\Checkout\Session::create([
-            'line_items'  => [
-                [
-                    'price_data' => [
-                        'currency'     => 'USD',
-                        'product_data' => [
-                            "name" => $productname,
-                        ],
-                        'unit_amount'  => $total,
-                    ],
-                    'quantity'   => 1,
-                ],
+            $cartProducts = CartProduct::where('cart_id', $cart->id)->get();
 
-            ],
-            'mode'        => 'payment',
-            'success_url' => route('success'),
-            'cancel_url'  => route('checkout'),
-        ]);
+            $totalCartPrice = $cartProducts->sum('total_product_price');
 
-        return redirect()->away($session->url);
-    }
 
-    public function success()
-    {
-        return "Thanks for you order You have just completed your payment. The seeler will reach out to you as soon as possible";
     }
 }

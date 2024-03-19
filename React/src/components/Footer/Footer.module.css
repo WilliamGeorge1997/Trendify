@@ -1,4 +1,28 @@
-.Footer{
-    background-color: #fff;
-    text-align: center;
+.footerBg {
+  background-color: #f6f6f6;
+}
+.secondaryFooterBg {
+  background-color: #edeeee;
+}
+
+.footerFontSize {
+  font-size: 13px;
+}
+.unorderedList {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+}
+
+.unorderedList li {
+  margin-bottom: 5px;
+}
+
+.socialIcons {
+  border: 0.0625rem hsl(0, 100%, 40%) solid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.25rem;
 }

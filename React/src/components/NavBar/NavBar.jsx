@@ -2,17 +2,21 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import styles from "./NavBar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
-
+import { useCartItemCount } from "./../../Context/CartContext";
+import logo from "../../assets/images/logo.png";
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
-    const [searchValue, setSearchValue] = useState(""); 
+  const [searchValue, setSearchValue] = useState("");
+
+  const { data: cartItemCount, isLoading, isError } = useCartItemCount();
 
   let navigate = useNavigate();
-  useEffect(() => {  if (searchValue.trim() !== "") {
-    navigate(`/Search/${searchValue}`);
-  } else {
-    navigate("/Home");
-  }
+  useEffect(() => {
+    if (searchValue.trim() !== "") {
+      navigate(`/Search/${searchValue}`);
+    } else {
+      navigate("/Home");
+    }
   }, [searchValue, navigate]);
 
   function logout() {
@@ -28,7 +32,7 @@ export default function NavBar() {
       <nav className="navbar navbar-expand-lg text-black bg-body-tertiary">
         <div className="container">
           <Link className="navbar-brand" to={"Home"}>
-            Logo
+            <img src={logo} width={120} alt="" />
           </Link>
 
           <button
@@ -134,9 +138,13 @@ export default function NavBar() {
 
               {/* -----------------End Logout button----------------------- */}
 
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-4">
                 <Link className="nav-link" to={"Cart"}>
-                  <i className="fa-solid fa-cart-shopping"></i>
+                  <i className="fa-solid fa-cart-shopping position-relative">
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
+                      {cartItemCount}
+                    </span>
+                  </i>
                 </Link>
               </li>
               <div className="nav-item">
