@@ -28,6 +28,7 @@ import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
+import NavCreate from "./components/NavCreate/NavCreate.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -99,6 +100,15 @@ function App() {
       element: (
         <ProtectedRoute>
           <Sell />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "navcreate",
+      element: (
+        <ProtectedRoute>
+          
+          <NavCreate />
         </ProtectedRoute>
       ),
     },
