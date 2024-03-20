@@ -15,13 +15,10 @@ class ProductController extends Controller
 
     public function index()
     {
-
         try {
-
-
             $products = Product::with(['images' => function ($query) {
                 $query->select('product_id', 'image_path');
-            }])->get();
+            }, 'EgyptCity', 'user'])->get();
 
             if ($products->count() > 0) {
                 $data = [
@@ -50,7 +47,7 @@ class ProductController extends Controller
             $validatedData = $request->validate([
                 'title' => 'required|string|max:255',
                 'price' => 'required|numeric|min:0',
-                'location' => 'string|max:255',
+                'location_id' => 'string|max:255',
                 'description' => 'required|string',
                 'category_id' => 'required|exists:categories,id',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -61,7 +58,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'title' => $validatedData['title'],
                 'price' => $validatedData['price'],
-                'location' => $validatedData['location'],
+                'location_id' => $validatedData['location_id'],
                 'description' => $validatedData['description'],
                 'user_id' => $user->id,
                 'category_id' => $validatedData['category_id'],
@@ -96,9 +93,9 @@ class ProductController extends Controller
     public function show(string $id)
     {
         try {
-            // $user = JWTAuth::parseToken()->authenticate();
 
-            $product = Product::with('images')->find($id);
+
+            $product = Product::with(['images', 'EgyptCity'])->find($id);
             if ($product) {
                 return response()->json([
                     'status' => 200,
@@ -130,7 +127,7 @@ class ProductController extends Controller
                 'title' => 'required|string',
                 'price' => 'required|numeric',
                 'description' => 'required|string',
-                'location' => 'string',
+                'location_id' => 'string',
                 'category_id' => 'required|exists:categories,id',
                 'images' => 'required|array',
                 'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
@@ -146,7 +143,7 @@ class ProductController extends Controller
                 $product->update([
                     'title' => $request->title,
                     'price' => $request->price,
-                    'location' => $request->location,
+                    'location_id' => $request->location_id,
                     'description' => $request->description,
                     'user_id' => $user->id,
                     'category_id' => $request->category_id,

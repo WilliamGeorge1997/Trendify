@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('shipping_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('cart_id');
             $table->string('phone');
-            $table->string('city', 50);
-            $table->string('address', 100);
-            $table->string('zip_code', 10);
-            $table->foreign('user_id')->references('id')-> on('users')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('city_id');
+            $table->string('address', 200);
+            $table->integer('zip_code');
+            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->constrained()->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('egypt_cities')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

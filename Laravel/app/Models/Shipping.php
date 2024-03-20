@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Shipping extends Model
 {
     use HasFactory;
+    protected $table = 'shipping_details';
 
     protected $fillable = [
         'phone',
-        'city',
+        'city_id',
         'address',
         'zip_code',
-        'user_id'
+        'user_id',
+        'cart_id',
     ];
 
     public function user()
@@ -22,6 +24,9 @@ class Shipping extends Model
         return $this->belongsTo(User::class);
     }
 
-    
 
+    public function city()
+    {
+        return $this->belongsTo(EgyptCity::class);
+    }
 }

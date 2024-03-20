@@ -21,7 +21,8 @@ class Product extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'favourite_products', 'product_id', 'user_id')->withTimestamps();
+    //    return $this->belongsToMany(User::class, 'favourite_products', 'product_id', 'user_id')->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     public function category()
@@ -30,9 +31,9 @@ class Product extends Model
     }
 
     public function images()
-{
-    return $this->hasMany(Image::class);
-}
+    {
+        return $this->hasMany(Image::class);
+    }
 
     public function carts()
     {
@@ -44,8 +45,8 @@ class Product extends Model
         return $this->belongsTo(CartProduct::class);
     }
 
-    public function EgyptCity(){
-        return $this->belongsTo(EgyptCity::class);
+    public function EgyptCity()
+    {
+        return $this->belongsTo(EgyptCity::class, 'location_id');
     }
-
 }
