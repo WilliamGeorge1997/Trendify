@@ -1,0 +1,30 @@
+.ShippingDetails{
+    background-color: #fff;
+}
+
+.checkoutContainer {
+    padding: 20px;
+  }
+  
+  .productItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .productItemImg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .productDetails {
+    flex: 1;
+  }
+  
+  .subtotal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }

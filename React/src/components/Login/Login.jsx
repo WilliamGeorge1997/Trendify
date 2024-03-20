@@ -98,7 +98,7 @@ function Login() {
           {isLoading ? (
             <button
               type="button"
-              className={`btn mt-2  ${styles.loginButton}  `}
+              className={`btn mt-2 px-4 ${styles.loginButton}  `}
             >
               <i className="fas fa-spinner fa-spin text-white "></i>
             </button>

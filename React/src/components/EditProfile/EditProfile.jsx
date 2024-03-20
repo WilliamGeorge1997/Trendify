@@ -24,8 +24,6 @@ function EditProfile() {
         // console.log(err.response.data.message);
       });
     setUser(res.data.user);
-    // setImg(res.data.user.avatar);
-    console.log(res);
   }
 
   useEffect(() => {
@@ -51,8 +49,7 @@ function EditProfile() {
       console.log(res.data.message);
       setSuccessMsg("Profile has been updated successfully!");
       // setSuccessMsg(res.data.message)
-      // navigate to login by using useNavigate
-      navigate("/MyProfile");
+      // navigate("/MyProfile");
     }
   }
 
@@ -85,7 +82,7 @@ function EditProfile() {
   useEffect(() => {
     if (user) {
       formik.setValues({
-        phone: user.phone || "",
+        // phone: user.phone || "",
         date_of_birth: user.date_of_birth || "",
         gender: user.gender || "",
         about: user.about || "",
@@ -153,7 +150,6 @@ function EditProfile() {
                 <textarea
                   className="form-control"
                   id="description"
-                  maxLength="200"
                   placeholder="About me (optional)"
                   style={{ resize: "none" }}
                   name="about"

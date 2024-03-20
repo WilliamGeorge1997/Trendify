@@ -21,13 +21,13 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import EditProfile from "./components/EditProfile/EditProfile.jsx";
-
 import FilterProduct from "./components/FilterProduct/FilterProduct";
 import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
+import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -56,7 +56,6 @@ function App() {
           path: "FavProduct",
           element: (
             <ProtectedRoute>
-              
               <FavProduct />
             </ProtectedRoute>
           ),
@@ -65,16 +64,16 @@ function App() {
           path: "MyProfile",
           element: (
             <ProtectedRoute>
-              
               <MyProfile />
             </ProtectedRoute>
           ),
         },
         {
+        },
+        {
           path: "EditProfile",
           element: (
             <ProtectedRoute>
-              
               <EditProfile />
             </ProtectedRoute>
           ),
@@ -83,7 +82,6 @@ function App() {
           path: "Cart",
           element: (
             <ProtectedRoute>
-              
               <Cart />
             </ProtectedRoute>
           ),
@@ -92,7 +90,6 @@ function App() {
           path: "MyAds",
           element: (
             <ProtectedRoute>
-              
               <MyAds />
             </ProtectedRoute>
           ),
@@ -103,8 +100,16 @@ function App() {
       path: "sell",
       element: (
         <ProtectedRoute>
-          
           <Sell />
+        </ProtectedRoute>
+      ),
+    },
+
+    {
+      path: "ShippingDetails",
+      element: (
+        <ProtectedRoute>
+          <ShippingDetails />
         </ProtectedRoute>
       ),
     },
