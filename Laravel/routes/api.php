@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\EgyptCityController;
 use App\Http\Controllers\FavouriteController;
 use Tymon\JWTAuth\Http\Middleware\Authenticate;
@@ -53,6 +54,9 @@ Route::middleware('jwt.auth')->delete('/favourites/{productId}', [FavouriteContr
 
 Route::get("cities", [EgyptCityController::class, "getAllCities"])->name("cities");
 Route::post('session', [StripeController::class, 'makePayment'])->name('makePayment');
+Route::post("payment", [StripeController::class, 'storePayment']);
+
 Route::middleware('jwt.auth')->post('/shipping/add', [ShippingDetailsController::class, 'addShippingDetails']);
 Route::middleware('jwt.auth')->delete('/shipping/delete',  [ShippingDetailsController::class, 'deleteShippingDetails']);
+Route::post("contact", [ContactusController::class, 'store']);
 

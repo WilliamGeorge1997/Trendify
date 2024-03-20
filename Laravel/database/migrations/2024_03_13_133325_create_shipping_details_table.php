@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign('cart_id')->references('id')->on('carts')->constrained()->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('egypt_cities')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
