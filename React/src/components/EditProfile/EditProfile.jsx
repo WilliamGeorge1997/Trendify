@@ -78,7 +78,7 @@ function EditProfile() {
   useEffect(() => {
     if (user) {
       formik.setValues({
-        // phone: user.phone || "",
+        phone: user.phone || "",
         date_of_birth: user.date_of_birth || "",
         gender: user.gender || "",
         about: user.about || "",

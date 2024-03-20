@@ -4,6 +4,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export default function ShippingDetails() {
+
+
+  
+
   let phoneRegExp = /^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/;
 
   let validationSchema = Yup.object({
@@ -21,7 +25,7 @@ export default function ShippingDetails() {
   let formik = useFormik({
     initialValues: {
       phone: "",
-      city: "",
+      city_id: "",
       address: "",
       zip_code: "",
     },
@@ -52,15 +56,15 @@ export default function ShippingDetails() {
             </div>
 
             <div className="form-group mb-3">
-              <label for="city">City</label>
+              <label for="city_id">City</label>
               <input
                 type="text"
                 className="form-control"
-                id="city"
+                id="city_id"
                 placeholder="Enter city"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.city}
+                value={formik.values.city_id}
               />
             </div>
 
@@ -70,7 +74,7 @@ export default function ShippingDetails() {
                 type="text"
                 className="form-control"
                 id="address"
-                placeholder="Enter  address"
+                placeholder="Enter address"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.address}
