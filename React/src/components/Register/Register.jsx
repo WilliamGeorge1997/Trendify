@@ -14,28 +14,20 @@ function Register() {
   async function registerSubmit(values) {
     setisLoading(true);
 
-    // console.log(values);
     let { data } = await axios
       .post(`http://127.0.0.1:8000/api/register`, values)
       .catch((err) => {
         setisLoading(false);
-
         setError(err.response.data.message);
       });
-    // console.log(response);
-    // console.log(response.data.message);
+
     if (data.message === "success") {
       setisLoading(false);
-
-      // navigate to login by using useNavigate
       navigate("/login");
     }
-
-    // console.log(values);
   }
 
-  let phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  let phoneRegExp = /^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/;
 
   let validationSchema = Yup.object({
     name: Yup.string()
@@ -46,7 +38,7 @@ function Register() {
       .email("Email is invalid.")
       .required("Email is required."),
     phone: Yup.string()
-      .matches(phoneRegExp, "Phone number is not valid.")
+      .matches(phoneRegExp, "Egyptian phone numbers only.")
       .required("Phone number is required."),
     password: Yup.string()
       .matches(
@@ -158,7 +150,7 @@ function Register() {
           {isLoading ? (
             <button
               type="button"
-              className={`btn mt-2  ${styles.registerButton}  `}
+              className={`btn mt-2 px-4  ${styles.registerButton}  `}
             >
               <i className="fas fa-spinner fa-spin"></i>
             </button>

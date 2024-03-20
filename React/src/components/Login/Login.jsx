@@ -43,8 +43,7 @@ function Login() {
     email: Yup.string()
       .email("Email is invalid.")
       .required("Email is required."),
-    password: Yup.string()
-      .required("Password is required"),
+    password: Yup.string().required("Password is required"),
   });
 
   let formik = useFormik({
@@ -99,7 +98,7 @@ function Login() {
           {isLoading ? (
             <button
               type="button"
-              className={`btn mt-2  ${styles.loginButton}  `}
+              className={`btn mt-2 px-4 ${styles.loginButton}  `}
             >
               <i className="fas fa-spinner fa-spin text-white "></i>
             </button>

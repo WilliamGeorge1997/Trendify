@@ -18,7 +18,7 @@ function MyProfile() {
         setError(err.response.data.message);
       });
     setUser(res.data.user);
-
+      console.log(res);
   }
 
   useEffect(() => {
