@@ -9,19 +9,16 @@ import Loading from "../Loading/Loading";
 export default function Categories() {
   const { product } = useContext(AllProductContext);
   const { id, label } = useParams();
-console.log(product.products);
-const initialCatProducts = product.products.filter((item) => {
+  const initialCatProducts = product.products.filter((item) => {
     const categoryId = parseInt(item.category_id);
-    const userId = parseInt(item.user_id);
+    const userId = parseInt(item.user.id);
     const itemId = parseInt(id);
-    if (label === 1) {
-      return (categoryId === itemId && userId === 1);
+    if (label !== 1) {
+      return categoryId === itemId && userId === 1;
     } else {
-      return( categoryId === itemId && userId !== 1);
+      return categoryId === itemId && userId !== 1;
     }
-
-});
-  console.log(initialCatProducts);
+  });
   const [filteredProducts, setFilteredProducts] = useState(initialCatProducts);
   const [catProducts, setCatProducts] = useState(initialCatProducts);
 
@@ -45,7 +42,7 @@ const initialCatProducts = product.products.filter((item) => {
           <Loading />
         ) : catProducts.length === 0 ? (
           <div className="h3 main-color text-center my-5">
-            no products in this category
+            No products in this category.
           </div>
         ) : (
           catProducts.map((item) => (

@@ -15,6 +15,8 @@ export default function NavBar() {
     if (searchValue.trim() !== "") {
       navigate(`/Search/${searchValue}`);
     } else {
+      setSearchValue(" ");
+       navigate(`/Search/${searchValue}`);
       navigate("/Home");
     }
   }, [searchValue, navigate]);
@@ -49,7 +51,6 @@ export default function NavBar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <form className="d-flex" role="search">
               <input
                 className={`form-control me-1 ${styles.formControl}`}
                 type="search"
@@ -64,7 +65,6 @@ export default function NavBar() {
               >
                 <i className="fa-solid fa-magnifying-glass"></i>
               </Link>
-            </form>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (

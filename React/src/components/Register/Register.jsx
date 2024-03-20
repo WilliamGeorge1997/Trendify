@@ -20,11 +20,12 @@ function Register() {
         setisLoading(false);
         setError(err.response.data.message);
       });
-
     if (data.message === "success") {
       setisLoading(false);
       navigate("/login");
     }
+
+    // console.log(values);
   }
 
   let phoneRegExp = /^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/;
