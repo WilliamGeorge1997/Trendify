@@ -9,10 +9,11 @@ import ProductItem from '../ProductItem/ProductItem';
 export default function Search() {
   let { key } = useParams();
   let { product } = useContext(AllProductContext);
-console.log(product);
     const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
-    const filteredResults = product.products.filter(
+    let filteredResults=[];
+    key==="" ? filteredResults = product.products:
+  filteredResults = product.products.filter(
       (item) =>
         item.title.toLowerCase().includes(key.toLowerCase()) ||
         item.description.toLowerCase().includes(key.toLowerCase())
