@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Payment;
 use App\Models\CartProduct;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Models\Payment;
 
 class StripeController extends Controller
 {

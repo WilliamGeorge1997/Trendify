@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartProduct extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'cart_products';
     // protected $primaryKey = ['cart_id', 'product_id'];
     protected $fillable = [
@@ -18,8 +19,8 @@ class CartProduct extends Model
     ];
 
 
-    
-    
+
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -34,5 +35,4 @@ class CartProduct extends Model
     {
         return $this->hasOne(Payment::class);
     }
-    
 }

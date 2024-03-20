@@ -24,6 +24,6 @@ class EgyptCity extends Model
     }
     public function shippings()
     {
-        return $this->hasMany(Shipping::class);
+        return $this->hasMany(Shipping::class, 'city_id');
     }
 }

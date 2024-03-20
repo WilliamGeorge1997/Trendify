@@ -1,4 +1,4 @@
-import React, { Fragment ,  useContext, useState , useEffect  } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import { AllProductContext } from "../../Context/ProductContext";
 import Categories from "../Categories/Categories";
@@ -6,23 +6,24 @@ import { Helmet } from "react-helmet";
 
 import FilterProductBar from "../FilterProductBar/FilterProductBar";
 import Loading from "../Loading/Loading";
-  import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function FilterProduct() {
   let { pro } = useParams();
 
   const { product } = useContext(AllProductContext);
-  
- const initialFilProducts = product.products.filter((item) => {
-   if (pro === 0) {
-     return item.user_id > 1;
-   } else if (pro === 1) {
-     return item.user_id === 1;
-   }
- });
-  console.log(initialFilProducts);
 
-  console.log(initialFilProducts);
+  const initialFilProducts = product.products.filter((item) => {
+    if (pro === 0) {
+      console.log(item.user_id);
+      return item.user_id > 1;
+    } else if (pro === 1) {
+            console.log(item.user_id);
+
+      return item.user_id === 1;
+    }
+  });
+console.log(initialFilProducts);
   const [filteredProducts, setFilteredProducts] = useState(initialFilProducts);
   const [products, setProducts] = useState(initialFilProducts);
 

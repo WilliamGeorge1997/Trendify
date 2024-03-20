@@ -4,18 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Shipping extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
     protected $table = 'shipping_details';
 
     protected $fillable = [
         'phone',
-        'city',
+        'city_id',
         'address',
         'zip_code',
-        'user_id'
+        'user_id',
+        'cart_id',
     ];
 
     public function user()
@@ -26,6 +28,6 @@ class Shipping extends Model
 
     public function city()
     {
-        return $this->belongsTo(EgyptCity::class, 'city_id');
+        return $this->belongsTo(EgyptCity::class);
     }
 }

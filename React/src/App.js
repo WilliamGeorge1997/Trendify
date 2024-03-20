@@ -28,6 +28,7 @@ import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
+import NavCreate from "./components/NavCreate/NavCreate.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -56,7 +57,6 @@ function App() {
           path: "FavProduct",
           element: (
             <ProtectedRoute>
-              
               <FavProduct />
             </ProtectedRoute>
           ),
@@ -65,7 +65,6 @@ function App() {
           path: "MyProfile",
           element: (
             <ProtectedRoute>
-              
               <MyProfile />
             </ProtectedRoute>
           ),
@@ -74,7 +73,6 @@ function App() {
           path: "EditProfile",
           element: (
             <ProtectedRoute>
-              
               <EditProfile />
             </ProtectedRoute>
           ),
@@ -83,7 +81,6 @@ function App() {
           path: "Cart",
           element: (
             <ProtectedRoute>
-              
               <Cart />
             </ProtectedRoute>
           ),
@@ -92,7 +89,6 @@ function App() {
           path: "MyAds",
           element: (
             <ProtectedRoute>
-              
               <MyAds />
             </ProtectedRoute>
           ),
@@ -103,8 +99,16 @@ function App() {
       path: "sell",
       element: (
         <ProtectedRoute>
-          
           <Sell />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "navcreate",
+      element: (
+        <ProtectedRoute>
+          
+          <NavCreate />
         </ProtectedRoute>
       ),
     },
