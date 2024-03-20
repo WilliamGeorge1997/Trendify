@@ -8,21 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    // protected $fillable = [
-    //     'title',
-    //     'description',
-    //     'location',
-    //     'price',
-    //     'user_id',
-    //     'category_id',
-    // ];
+    protected $fillable = [
+        'title',
+        'description',
+        'location',
+        'price',
+        'user_id',
+        'category_id',
+    ];
 
-    protected $guarded = [];
+    // protected $guarded = [];
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'favourite_products', 'product_id', 'user_id')->withTimestamps();
+        return $this->belongsTo(User::class);
+        //// return $this->belongsToMany(User::class, 'favourite_products', 'product_id', 'user_id')->withTimestamps();
     }
+
 
     public function category()
     {
