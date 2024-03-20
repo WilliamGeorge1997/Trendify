@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->constrained()->onDelete('cascade');
             $table->primary(['cart_id', 'product_id']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
