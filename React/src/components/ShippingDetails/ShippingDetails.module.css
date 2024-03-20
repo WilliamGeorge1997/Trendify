@@ -28,3 +28,14 @@
     justify-content: space-between;
     margin-bottom: 15px;
   }
+
+  .saveChangesButton{
+    color: white !important;
+    background-color: #CD0000 !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.saveChangesButton:hover {
+background-color:#BA0000!important;
+} 
