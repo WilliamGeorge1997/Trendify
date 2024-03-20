@@ -10,9 +10,7 @@ export default function ProductItem({ itemData }) {
   let { addToFavourite } = useContext(favouriteContext);
 
   async function addProductToFavourite(productId) {
-          
     let res = await addToFavourite(productId);
-    console.log(res);
   }
 
   async function addProduct(productId) {
@@ -32,8 +30,10 @@ export default function ProductItem({ itemData }) {
                 ? `http://127.0.0.1:8000/storage/${itemData.images[0].image_path}`
                 : img
             }
-            className={`card-img-top ${styles.imgCard}`}
-            alt="..."
+            className="card-img-top border p-2"
+            alt={itemData.title}
+            width={20}
+            height={300}
           />
         )}
         <div className="card-body">
@@ -44,7 +44,7 @@ export default function ProductItem({ itemData }) {
           </div>
           <h5 className="card-title">
             {itemData.title.slice(0, 30) + "..."}
-            {itemData.user_id > 1 ? (
+            {itemData.user.id > 1 ? (
               " "
             ) : (
               <p className="fa-xs text-end mb-0">
@@ -56,17 +56,17 @@ export default function ProductItem({ itemData }) {
           <h6 className="card-title ">
             {itemData.description.slice(0, 55) + "..."}
           </h6>
-          {itemData.stock > 0 || itemData.user_id > 1 ? (
+          {itemData.stock > 0 || itemData.user.id > 1 ? (
             ""
           ) : (
             <span className="badge rounded-pill main-bg-color  position-absolute bottom-0 mb-2 ms-2 start-0 ">
               Out Of Stock
             </span>
           )}
-          {itemData.location || itemData.user_id > 1 ? (
+          {itemData.egypt_city?.city_name || itemData.user.id > 1 ? (
             <p className="card-footer position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
-              <span> {itemData.created_at.split("T")[0]}</span>
-              <span> {itemData.location}</span>
+              <span> {itemData.created_at?.split("T")[0]}</span>
+              <span> {itemData.egypt_city?.city_name}</span>
             </p>
           ) : (
             ""
@@ -74,8 +74,12 @@ export default function ProductItem({ itemData }) {
         </div>
       </Link>
       <div>
-        {itemData.user_id > 1 ? (
-          <button className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded">
+        {itemData.user.id > 1 ? (
+          <button
+            type="tel"
+            value={itemData.user.phone}
+            className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded"
+          >
             <i className="fa-solid main-color fa-phone"></i>
           </button>
         ) : (

@@ -8,7 +8,6 @@ import styles from "./Login.module.css";
 
 function Login() {
   let { setUserToken } = useContext(UserContext);
-  // console.log(x);
 
   let navigate = useNavigate();
 
@@ -31,12 +30,10 @@ function Login() {
       setUserToken(data.token);
       navigate("/Home");
 
-      // console.log(data);
       // let userName = data.user.name; // for testing
       // setuserName(userName); // for testing
     }
 
-    // console.log(values);
   }
 
   let validationSchema = Yup.object({

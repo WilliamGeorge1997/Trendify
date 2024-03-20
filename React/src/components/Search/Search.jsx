@@ -9,7 +9,6 @@ import ProductItem from '../ProductItem/ProductItem';
 export default function Search() {
   let { key } = useParams();
   let { product } = useContext(AllProductContext);
-console.log(key);
     const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
     let filteredResults=[];

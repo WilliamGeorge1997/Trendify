@@ -1,2 +1,8 @@
 .MainSlider {
 border-radius: 10%;margin-bottom: 40px;}
+.img{
+
+height: 400px;
+width: 100px;
+    object-fit: cover;
+}
