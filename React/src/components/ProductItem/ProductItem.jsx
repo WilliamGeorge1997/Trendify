@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "./ProductItem.module.css";
 import { cartContext } from "../../Context/CartContext";
 import { favouriteContext } from "../../Context/FavouriteContext";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import img from "../../assets/images/images.png";
 export default function ProductItem({ itemData }) {
   let { addToCart } = useContext(cartContext);
   let { addToFavourite } = useContext(favouriteContext);
 
   async function addProductToFavourite(productId) {
+          
     let res = await addToFavourite(productId);
     console.log(res);
   }
@@ -40,41 +41,35 @@ export default function ProductItem({ itemData }) {
             <p className="card-text fw-bold  main-color  mb-0">
               EGP {itemData.price}
             </p>
-            <i className="fa-regular fa-heart  main-color "></i>
           </div>
-          <h5 className="card-title ">
+          <h5 className="card-title">
             {itemData.title.slice(0, 30) + "..."}
             {itemData.user_id > 1 ? (
               " "
             ) : (
-              <p className="fa-xs text-end">
+              <p className="fa-xs text-end mb-0">
                 <i className="fa-solid text-warning fa-star me-1"></i>
                 {itemData.rate}
               </p>
             )}
           </h5>
           <h6 className="card-title ">
-            {itemData.description.slice(0, 150) + "..."}
+            {itemData.description.slice(0, 55) + "..."}
           </h6>
           {itemData.stock > 0 || itemData.user_id > 1 ? (
             ""
           ) : (
-            <span className="badge rounded-pill main-bg-color ">
+            <span className="badge rounded-pill main-bg-color  position-absolute bottom-0 mb-2 ms-2 start-0 ">
               Out Of Stock
             </span>
           )}
           {itemData.location || itemData.user_id > 1 ? (
-            <p className="card-text mb-0">{itemData.location}</p>
+            <p className="card-footer position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
+              <span> {itemData.created_at.split("T")[0]}</span>
+              <span> {itemData.location}</span>
+            </p>
           ) : (
             ""
-          )}
-
-          {itemData.user_id > 1 ? (
-            " "
-          ) : (
-            <p className="card-text fs-small small">
-              {itemData.created_at?.split("T")[0]}
-            </p>
           )}
         </div>
       </Link>
@@ -91,9 +86,11 @@ export default function ProductItem({ itemData }) {
             <i className="fa-solid main-color fa-cart-plus"></i>
           </button>
         )}
-
-        <button onClick={() => addProductToFavourite(itemData.id)}>
-          Add to favourite
+        <button
+          className="m-2 btn box-shadow w-25 position-absolute top-0 end-0 shadow bg-body-tertiary rounded"
+          onClick={() => addProductToFavourite(itemData.id)}
+        >
+          <i className="fa-regular fa-heart  main-color "></i>
         </button>
       </div>
     </div>

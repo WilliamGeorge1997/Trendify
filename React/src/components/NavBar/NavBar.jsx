@@ -15,7 +15,9 @@ export default function NavBar() {
     if (searchValue.trim() !== "") {
       navigate(`/Search/${searchValue}`);
     } else {
-      navigate("/Home");
+      setSearchValue("");
+       navigate(`/Search/${searchValue}`);
+      // navigate("/Home");
     }
   }, [searchValue, navigate]);
 

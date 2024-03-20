@@ -52,7 +52,7 @@ function EditProfile() {
       setSuccessMsg("Profile has been updated successfully!");
       // setSuccessMsg(res.data.message)
       // navigate to login by using useNavigate
-      navigate("/MyProfile");
+      // navigate("/MyProfile");
     }
   }
 

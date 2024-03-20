@@ -56,9 +56,7 @@ export default function Details() {
               {product.user_id > 1 ? (
                 " "
               ) : (
-                <p className="card-text fs-small small">
-                  {product.created_at?.split("T")[0]}
-                </p>
+                <p className="card-text fs-small small"> {product.created_at?.split("T")[0]}</p>
               )}
             </div>
             <button

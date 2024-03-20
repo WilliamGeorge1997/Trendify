@@ -8,7 +8,7 @@ export default function CategoryProductItem(data) {
     let res = await addToCart(productId);
   }
   return (
-    <div>
+
       <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
@@ -27,7 +27,7 @@ export default function CategoryProductItem(data) {
               <h5 className="card-title">{data.data.title}</h5>
               <p className="card-text">{data.data.description}</p>
               {data.data.user_id > 1 ? (
-                " "
+        " "
               ) : (
                 <p className="card-text fs-small small">
                   {data.data.created_at?.split("T")[0]}
@@ -43,6 +43,6 @@ export default function CategoryProductItem(data) {
           </div>
         </div>
       </div>
-    </div>
+
   );
 }

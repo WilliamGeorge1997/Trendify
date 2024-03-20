@@ -96,7 +96,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            // $user = JWTAuth::parseToken()->authenticate();
 
             $product = Product::with('images')->find($id);
             if ($product) {
