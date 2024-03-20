@@ -22,6 +22,7 @@ class ProductController extends Controller
                 $query->select('product_id', 'image_path');
             }, 'EgyptCity', 'user'])->get();
 
+
             if ($products->count() > 0) {
                 $data = [
                     'status' => 200,
