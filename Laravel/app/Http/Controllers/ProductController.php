@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\User;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -18,7 +20,8 @@ class ProductController extends Controller
         try {
             $products = Product::with(['images' => function ($query) {
                 $query->select('product_id', 'image_path');
-            }, 'EgyptCity' , 'user'])->get();
+            }, 'EgyptCity', 'user'])->get();
+
 
             if ($products->count() > 0) {
                 $data = [
@@ -40,6 +43,7 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
 
     public function store(Request $request)
     {
@@ -94,8 +98,7 @@ class ProductController extends Controller
     {
         try {
 
-
-            $product = Product::with(['images', 'EgyptCity'])->find($id);
+            $product = Product::with(['images', 'EgyptCity', 'user'])->find($id);
             if ($product) {
                 return response()->json([
                     'status' => 200,
