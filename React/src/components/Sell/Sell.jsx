@@ -25,14 +25,12 @@ const Sell = () => {
           Authorization: `Bearer ${token} `,
         }
       });
-      console.log(response)
       // Reset form fields after successful submission
       resetForm();
       alert('Product posted successfully!');
     } catch (error) {
       //  console.error('Error posting product:', error);
       alert('Failed to post product. Please try again later.');
-      console.log(error)
     }
   };
 

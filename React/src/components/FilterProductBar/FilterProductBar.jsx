@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import  axios  from "axios";
 export default function FilterProductBar({ product, onFilterChange }) {
-  console.log(product);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [location, setLocation] = useState("");
   const [stock, setStock] = useState("");
   const [rate, setRating] = useState(0);
+  const [cities, setCities] = useState([]);
 
+    useEffect(() => {
+      axios
+        .get("http://localhost:8000/api/cities")
+        .then((response) => {
+          setCities(response.data.cities);
+        })
+        .catch((error) => {
+          console.error("Error fetching city data:", error);
+        });
+    }, []);
   const handleMinPriceChange = (event) => {
     const minPrice = parseInt(event.target.value);
     setPriceRange([minPrice, priceRange[1]]);
@@ -18,9 +29,14 @@ export default function FilterProductBar({ product, onFilterChange }) {
     filterAndUpdate(priceRange[0], maxPrice, location, stock, rate);
   };
 
-  const handleLocationChange = (event) => {
-    const loc = event.target.value;
-    setLocation(loc);
+  // const handleLocationChange = (event) => {
+  //   const loc = event.target.value;
+  //   setLocation(loc);
+  //   filterAndUpdate(priceRange[0], priceRange[1], loc, stock, rate);
+  // };
+  const handleLocationChange = (selectedCityId) => {
+      const loc = selectedCityId;
+    setLocation(selectedCityId);
     filterAndUpdate(priceRange[0], priceRange[1], loc, stock, rate);
   };
 
@@ -44,18 +60,19 @@ export default function FilterProductBar({ product, onFilterChange }) {
     onFilterChange(filteredProducts);
   };
 
-  const filterProducts = (item, minPrice, maxPrice, loc, stockVal, rating) => {
-    const itemPrice = item.price;
-    const itemLocation = item.location ? item.location.toLowerCase() : "";
-    const itemStock = item.stock;
-    const itemRate = item.rate ? parseInt(item.rate) : 0;
-    const priceInRange = itemPrice >= minPrice && itemPrice <= maxPrice;
-    const locationMatch = !loc || itemLocation.includes(loc.toLowerCase());
-    const stockMatch = stockVal === 0 ? itemStock === 0 : itemStock > 0;
-    const rateMatch = !rating || itemRate >= rating;
+const filterProducts = (item, minPrice, maxPrice, loc, stockVal, rating) => {
+  const itemPrice = item.price;
+  const itemLocation = item.location_id; 
+  const itemStock = item.stock;
+  const itemRate = item.rate ? parseInt(item.rate) : 0;
+  const priceInRange = itemPrice >= minPrice && itemPrice <= maxPrice;
+  const locationMatch = itemLocation === loc;
+  const stockMatch = stockVal === 0 ? itemStock === 0 : itemStock >= 0;
+  const rateMatch = !rating || itemRate >= rating;
 
-    return priceInRange && locationMatch && stockMatch && rateMatch;
-  };
+  return priceInRange && locationMatch && stockMatch && rateMatch;
+};
+
 
   return (
     <div className=" container-fluid row m-auto">
@@ -84,13 +101,19 @@ export default function FilterProductBar({ product, onFilterChange }) {
           />
         </div>
         <label htmlFor="location">Location:</label>
-        <input
-          type="text"
-          id="location"
-          className="form-control my-2"
-          value={location}
-          onChange={handleLocationChange}
-        />
+
+        <select
+          onChange={(e) => handleLocationChange(e.target.value)}
+          value={location || null}
+        >
+          <option value="">Select a city</option>
+          {cities.map((city) => (
+            <option key={city.id} value={city.id}>
+              {city.city_name}
+            </option>
+          ))}
+        </select>
+
         <div className="d-flex align-content-center my-3">
           <label className="form-check-label " htmlFor="Stock">
             Stock

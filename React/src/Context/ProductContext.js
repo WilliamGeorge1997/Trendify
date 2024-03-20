@@ -10,7 +10,6 @@ export default function AllProductContextProvider(props) {
     try {
       const response = await axios.get("http://localhost:8000/api/products");
       setProducts(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }

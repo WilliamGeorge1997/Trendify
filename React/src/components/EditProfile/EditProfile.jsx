@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 function EditProfile() {
   let token = localStorage.getItem("userToken");
@@ -19,13 +20,10 @@ function EditProfile() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .catch((err) => {
-        console.log(err);
         setError(err.response.data.message);
-        // console.log(err.response.data.message);
       });
     setUser(res.data.user);
     // setImg(res.data.user.avatar);
-    console.log(res);
   }
 
   useEffect(() => {
@@ -33,7 +31,6 @@ function EditProfile() {
   }, []);
 
   async function profileSubmit(values) {
-    console.log(values);
     let res = await axios
       .post(`http://127.0.0.1:8000/api/updateuser`, values, {
         headers: {
@@ -43,16 +40,13 @@ function EditProfile() {
         },
       })
       .catch((err) => {
-        // console.log(err.response.data.message);
         setError(err.response.data.message);
       });
-    console.log(res);
     if (res.data.message === "User data updated successfully") {
-      console.log(res.data.message);
       setSuccessMsg("Profile has been updated successfully!");
       // setSuccessMsg(res.data.message)
       // navigate to login by using useNavigate
-      navigate("/MyProfile");
+      // navigate("/MyProfile");
     }
   }
 
@@ -94,11 +88,7 @@ function EditProfile() {
   }, [user]);
 
   if (!user) {
-    return (
-      <div>
-        Loading <i className="fas fa-spinner main-color fa-spin fa-2xl"></i>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
@@ -281,7 +271,8 @@ function EditProfile() {
                   </svg>
                   <span className="_6d5b4928 be13fe44 fw-bold">
                     Why is it important?
-                  </span>
+                  </span>import Loading from '../Loading/Loading';
+
                 </div>
                 <span className="_1dbc9796">
                   Trendify is built on trust. Help other people get to know you.

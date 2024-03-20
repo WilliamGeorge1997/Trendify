@@ -3,24 +3,24 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className={`${styles.footerBg} border-top mt-auto`}>
+    <footer className={`${styles.footerBg} border-top mt-4`}>
       <div className="container">
         <div className="row my-3 mb-5">
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
               <h6>ABOUT US</h6>
               <ul className={styles.unorderedList}>
-                <li>About Dubizzle Group</li>
+                <li>About Trendify Group</li>
                 <li>Careers</li>
                 <li>Contact Us</li>
-                <li>Dubizzle for Businesses</li>
+                <li>Trendify for Businesses</li>
               </ul>
             </div>
           </div>
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
               {" "}
-              <h6>DUBIZZLE</h6>
+              <h6>Trendify</h6>
               <ul className={styles.unorderedList}>
                 <li>Blog</li>
                 <li>Help</li>

@@ -57,7 +57,6 @@ function App() {
           path: "FavProduct",
           element: (
             <ProtectedRoute>
-              
               <FavProduct />
             </ProtectedRoute>
           ),
@@ -66,7 +65,6 @@ function App() {
           path: "MyProfile",
           element: (
             <ProtectedRoute>
-              
               <MyProfile />
             </ProtectedRoute>
           ),
@@ -75,7 +73,6 @@ function App() {
           path: "EditProfile",
           element: (
             <ProtectedRoute>
-              
               <EditProfile />
             </ProtectedRoute>
           ),
@@ -84,7 +81,6 @@ function App() {
           path: "Cart",
           element: (
             <ProtectedRoute>
-              
               <Cart />
             </ProtectedRoute>
           ),
@@ -93,7 +89,6 @@ function App() {
           path: "MyAds",
           element: (
             <ProtectedRoute>
-              
               <MyAds />
             </ProtectedRoute>
           ),
@@ -104,7 +99,6 @@ function App() {
       path: "sell",
       element: (
         <ProtectedRoute>
-          
           <Sell />
         </ProtectedRoute>
       ),
