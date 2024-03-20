@@ -132,7 +132,7 @@ public function updateCartProductCount(Request $request, string $productId, stri
                     'total_product_price' => DB::raw('(SELECT price FROM products WHERE id = ' . $productId . ') * (count )')
                 ]);
         } elseif ($action === 'decrement') {
-            
+
             if ($cartProduct->count > 1) {
                 $updatedCartProduct = DB::table('cart_products')
                     ->where('cart_id', $cart->id)
@@ -209,7 +209,7 @@ public function deleteCartProduct(string $productId)
 
     try {
         $cart = Cart::where('user_id', $user->id)->first();
-        
+
         if (!$cart) {
             return response()->json(['status' => 'error', 'message' => 'Cart not found'], 404);
         }
@@ -255,14 +255,13 @@ public function deleteCartProduct(string $productId)
             return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
         }
 
-        // Find the user's cart
         $cart = Cart::where('user_id', $user->id)->first();
 
         if (!$cart) {
             return response()->json(['status' => 'success', 'message' => 'Cart not found'], 404);
         }
 
-        // Delete the cart and its associated cart products
+
         $cart->cartProducts()->delete();
         $cart->delete();
 

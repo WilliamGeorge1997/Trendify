@@ -18,7 +18,7 @@ class ProductController extends Controller
         try {
             $products = Product::with(['images' => function ($query) {
                 $query->select('product_id', 'image_path');
-            }, 'EgyptCity'])->get();
+            }, 'EgyptCity' , 'user'])->get();
 
             if ($products->count() > 0) {
                 $data = [
@@ -93,7 +93,7 @@ class ProductController extends Controller
     public function show(string $id)
     {
         try {
-          
+
 
             $product = Product::with(['images', 'EgyptCity'])->find($id);
             if ($product) {
