@@ -14,7 +14,6 @@ function Register() {
   async function registerSubmit(values) {
     setisLoading(true);
 
-    // console.log(values);
     let { data } = await axios
       .post(`http://127.0.0.1:8000/api/register`, values)
       .catch((err) => {
@@ -22,8 +21,6 @@ function Register() {
 
         setError(err.response.data.message);
       });
-    // console.log(response);
-    // console.log(response.data.message);
     if (data.message === "success") {
       setisLoading(false);
 
@@ -31,7 +28,6 @@ function Register() {
       navigate("/login");
     }
 
-    // console.log(values);
   }
 
   let phoneRegExp =

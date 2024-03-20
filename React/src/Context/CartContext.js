@@ -9,9 +9,6 @@ let token = localStorage.getItem("userToken");
 
 function addToCart(productId) {
 
-
-
-
 axios
       .post(
         "http://127.0.0.1:8000/api/carts",
@@ -27,7 +24,12 @@ axios
     });
  
 }
+
 function getLoggedUserCart() {
+    if (!token) {
+      return Promise.reject(new Error("Token is missing or expired"));
+    }
+
   return axios
     .get("http://127.0.0.1:8000/api/carts", {
       headers: { Authorization: `Bearer ${token}` },
@@ -37,6 +39,10 @@ function getLoggedUserCart() {
 }
 
 export function removeCartItem(productId) {
+    if (!token) {
+      return Promise.reject(new Error("Token is missing or expired"));
+    }
+
   return axios
     .delete(`http://127.0.0.1:8000/api/carts/${productId}/delete`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -46,6 +52,10 @@ export function removeCartItem(productId) {
 }
 
 export function updateProductQuantity(productId, action) {
+    if (!token) {
+      return Promise.reject(new Error("Token is missing or expired"));
+    }
+
   return axios
     .put(`http://127.0.0.1:8000/api/carts/${productId}/${action}`, null, {
       headers: { Authorization: `Bearer ${token}` },
@@ -55,6 +65,10 @@ export function updateProductQuantity(productId, action) {
 }
 
 export function removeCart() {
+    if (!token) {
+      return Promise.reject(new Error("Token is missing or expired"));
+    }
+
   return axios
     .delete(`http://127.0.0.1:8000/api/carts/delete`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -64,7 +78,10 @@ export function removeCart() {
 }
 
 export function useCartItemCount() {
-  return useQuery("cartItemCount", async () => {
+   
+  return useQuery("cartItemCount", async () => { if (!token) {
+      return 0; 
+    }
     const response = await axios.get("http://127.0.0.1:8000/api/carts", {
       headers: { Authorization: `Bearer ${token}` },
     });
