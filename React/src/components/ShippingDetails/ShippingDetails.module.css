@@ -3,39 +3,13 @@
 }
 
 .checkoutContainer {
-    padding: 20px;
-  }
-  
-  .productItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .productItemImg {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .productDetails {
-    flex: 1;
-  }
-  
-  .subtotal {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
+    border: 0.1rem solid rgba(0, 0, 0, 0.159);
+  max-width: 80%;
+  border-radius: 6px;
+  padding: 1.6rem 2.4rem;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.068);
 
-  .saveChangesButton{
-    color: white !important;
-    background-color: #CD0000 !important;
-    font-size: 1.1rem;
-    font-weight: 700;
-}
+  } 
+  
 
-.saveChangesButton:hover {
-background-color:#BA0000!important;
-} 
+

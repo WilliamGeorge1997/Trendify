@@ -62,11 +62,9 @@ function App() {
           ),
         },
         {
-          path: "MyProfile",
+          path: "MyProfile/:id",
           element: (
-            <ProtectedRoute>
               <MyProfile />
-            </ProtectedRoute>
           ),
         },
         {
@@ -95,7 +93,17 @@ function App() {
             </ProtectedRoute>
           ),
         },
+        
+    {
+      path: "ShippingDetails",
+      element: (
+        <ProtectedRoute>
+          <ShippingDetails />
+        </ProtectedRoute>
+      ),
+    },
       ],
+      
     },
     {
       path: "sell",
@@ -115,14 +123,6 @@ function App() {
       ),
     },
 
-    {
-      path: "ShippingDetails",
-      element: (
-        <ProtectedRoute>
-          <ShippingDetails />
-        </ProtectedRoute>
-      ),
-    },
   ]);
 
   return (

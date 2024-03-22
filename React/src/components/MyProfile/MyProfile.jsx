@@ -1,7 +1,7 @@
 import styles from "./MyProfile.module.css";
 import React, { Fragment, useEffect, useState, useContext } from "react";
 import { AllProductContext } from "../../Context/ProductContext";
-
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import FilterProductBar from "../FilterProductBar/FilterProductBar";
 import Loading from "../Loading/Loading";
@@ -11,24 +11,32 @@ function MyProfile() {
   let token = localStorage.getItem("userToken");
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
-  const [products, setProducts] = useState(null);
-  let { product } = useContext(AllProductContext);
+  const { id } = useParams();
+
+  // ------------------ Get user`s data from the API--------------------//
 
   async function getData() {
     try {
-      let res = await axios.get("http://127.0.0.1:8000/api/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUser(res.data.user);
-      const Products = product?.products?.filter(
-        (item) => item.user.id === res.data.user.id
-      );
-      setProducts(Products);
+      // -------- Check if this is the logged in user and get its data ----------//
+      if (parseInt(id) === 0) {
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          // -------Sending the token to the api ------------//
+          headers: { Authorization: `Bearer ${token} ` },
+        });
+        setUser(response.data.user);
+        // -------- Get the user's data by ID ----------//
+      } else {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/userproducts/${id}`
+        );
+        setUser(response.data.user);
+      }
+      // -------- Catch the error if exists ----------//
     } catch (err) {
       setError(err.response.data.message);
+      console.error("Error fetching data:", error);
     }
   }
-
   useEffect(() => {
     getData();
   }, []);
@@ -48,6 +56,8 @@ function MyProfile() {
           <div className="col-md-4">
             <div className="  mr-3">
               <div className="mb-2">
+                {/* ---------------Display the user's avatar  ------------  */}
+
                 {user.avatar ? (
                   <img
                     src={`http://127.0.0.1:8000/storage/${user.avatar}`}
@@ -64,6 +74,8 @@ function MyProfile() {
               </div>
 
               <hr className="w-50 "></hr>
+              {/* ---------------Display the user's gender if exists  ------------  */}
+
               {user.gender !== null ? (
                 <Fragment>
                   <div className="mb-2">
@@ -75,6 +87,8 @@ function MyProfile() {
                 ""
               )}
 
+              {/* ---------------Display the user's Birth date if exists ------------  */}
+
               {user.date_of_birth !== null ? (
                 <Fragment>
                   <div className="mb-2">
@@ -85,6 +99,7 @@ function MyProfile() {
               ) : (
                 ""
               )}
+              {/* ---------------Display the user's about if exists  ------------  */}
 
               {user.about !== null ? (
                 <Fragment>
@@ -96,6 +111,7 @@ function MyProfile() {
               ) : (
                 ""
               )}
+              {/* ---------------Display the user's phone if exists  ------------  */}
 
               {user.phone !== null ? (
                 <div className="mb-2 ">
@@ -109,57 +125,40 @@ function MyProfile() {
           </div>
 
           <div className="col-md-8">
+            {/* ---------------Display the user's name  ------------  */}
             <h2 className="d-inline "> {user.name}</h2>
             <hr className="mt-4"></hr>
-            {product == null ? (
-              <div className="no-ads-container">
-                <div className="text-center">
-                  <picture>
-                    <source
-                      srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                      type="image/webp"
-                    />
-                    <source
-                      srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.png"
-                      type="image/png"
-                    />
+            <div className="no-ads-container">
+              <div className="text-center">
+                <picture>
+                  <source
+                    srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                    type="image/webp"
+                  />
+                  <source
+                    srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.png"
+                    type="image/png"
+                  />
 
-                    <img
-                      src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                      alt="Not found"
-                      className="not-found-image"
-                      style={{ width: "200px", height: "200px" }}
-                    />
-                  </picture>
-                </div>
-
-                <div className="text-center">
-                  <span className="no-ads-text highlight">
-                    There are no ads
-                  </span>
-                </div>
-
-                <div className="text-center">
-                  <span className="no-ads-text">
-                    When users post ads, they will appear here
-                  </span>
-                </div>
+                  <img
+                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                    alt="Not found"
+                    className="not-found-image"
+                    style={{ width: "200px", height: "200px" }}
+                  />
+                </picture>
               </div>
-            ) : (
-              <div className=" container-fluid ">
-                <div className="row row-cols-lg-2 ">
-                  {product.status !== 200 ? (
-                    <Loading />
-                  ) : (
-                    products?.map((item) => (
-                      <div className="p-3" key={item.id}>
-                        <ProductItem itemData={item} />
-                      </div>
-                    ))
-                  )}
-                </div>
+
+              <div className="text-center">
+                <span className="no-ads-text highlight">There are no ads</span>
               </div>
-            )}
+
+              <div className="text-center">
+                <span className="no-ads-text">
+                  When users post ads, they will appear here
+                </span>
+              </div>
+            </div>
             ;{error ? <div className="alert alert-danger">{error}</div> : null}
           </div>
         </div>
