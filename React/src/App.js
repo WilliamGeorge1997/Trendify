@@ -29,6 +29,9 @@ import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
 import NavCreate from "./components/NavCreate/NavCreate.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
+
+
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -109,6 +112,15 @@ function App() {
         <ProtectedRoute>
           
           <NavCreate />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "contactus",
+      element: (
+        <ProtectedRoute>
+          
+          <ContactUs />
         </ProtectedRoute>
       ),
     },
