@@ -8,33 +8,39 @@ import styles from "./Login.module.css";
 
 function Login() {
   let { setUserToken } = useContext(UserContext);
-
   let navigate = useNavigate();
-
   const [error, setError] = useState(null);
   const [isLoading, setisLoading] = useState(false);
-  // const [userName , setuserName] = useState (null)
+
+  // --------------- Submit the form values to the Login API--------------//
   async function loginSubmit(values) {
-    setisLoading(true);
+    try {
+      setisLoading(true);
+      let { data } = await axios.post(
+        `http://127.0.0.1:8000/api/login`,
+        values
+      );
 
-    let { data } = await axios
-      .post(`http://127.0.0.1:8000/api/login`, values)
-      .catch((err) => {
+      if (data.message === "success") {
         setisLoading(false);
-        setError(err.response.data.message);
-      });
-
-    if (data.message === "success") {
+        // -------Store the user's token in the local storage ------------//
+        localStorage.setItem("userToken", data.token);
+        // -------Store the user's token in the userToken variable ------------//
+        setUserToken(data.token);
+        // ---------- store the user's id to local storage
+        localStorage.setItem("userId", data.user.id);
+        // -------Navigate to the home page after successful login ------------//
+        navigate("/Home");
+      }
+    } catch (err) {
       setisLoading(false);
-      localStorage.setItem("userToken", data.token);
-      setUserToken(data.token);
-      navigate("/Home");
+      // -------- Catch the error if exists ----------//
 
-      // let userName = data.user.name; // for testing
-      // setuserName(userName); // for testing
+      setError(err.response.data.message);
     }
-
   }
+
+  // --------------- Validate the form values to the API--------------//
 
   let validationSchema = Yup.object({
     email: Yup.string()
@@ -43,6 +49,7 @@ function Login() {
     password: Yup.string().required("Password is required"),
   });
 
+  // --------------- The form values that will be send to the API--------------//
   let formik = useFormik({
     initialValues: {
       email: "",
@@ -57,9 +64,11 @@ function Login() {
       <div className="w-50 mx-auto py-5">
         <h2 className={` main-color`}>Login Now</h2>
 
-        {/* <h3>{userName} </h3> */}
+        {/* --------------- The start of the form to store the data------------  */}
 
         <form onSubmit={formik.handleSubmit}>
+          {/* ---------------Email input and handle error  ------------  */}
+
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -74,6 +83,8 @@ function Login() {
           {formik.touched.email && formik.errors.email ? (
             <p className="text-danger">{formik.errors.email}</p>
           ) : null}
+
+          {/* ---------------Password input and handle error  ------------  */}
 
           <label htmlFor="password">Password:</label>
           <input
@@ -90,13 +101,14 @@ function Login() {
             <p className="text-danger">{formik.errors.password}</p>
           ) : null}
 
+          {/* ---------------Showing the error from the server side  ------------  */}
+
           {error ? <div className="alert alert-danger">{error}</div> : null}
 
+          {/* ---------------Login button  ------------  */}
+
           {isLoading ? (
-            <button
-              type="button"
-              className={`btn mt-2  ${styles.loginButton}  `}
-            >
+            <button type="button" className={`btn mt-2 px-4 submitButton `}>
               <i className="fas fa-spinner fa-spin text-white "></i>
             </button>
           ) : (
@@ -104,7 +116,7 @@ function Login() {
               <button
                 disabled={!(formik.isValid && formik.dirty)}
                 type="submit"
-                className={`btn ${styles.loginDisabledButton}  mt-2`}
+                className={`btn submitDisabledButton p-2 mt-2`}
               >
                 Login
               </button>
@@ -120,6 +132,7 @@ function Login() {
             </Fragment>
           )}
         </form>
+        {/* --------------- The end of the form to store the data------------  */}
       </div>
     </Fragment>
   );

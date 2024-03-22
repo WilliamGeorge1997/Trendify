@@ -21,13 +21,13 @@ import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import EditProfile from "./components/EditProfile/EditProfile.jsx";
-
 import FilterProduct from "./components/FilterProduct/FilterProduct";
 import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
+import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 import NavCreate from "./components/NavCreate/NavCreate.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 
@@ -65,12 +65,12 @@ function App() {
           ),
         },
         {
-          path: "MyProfile",
+          path: "MyProfile/:id",
           element: (
-            <ProtectedRoute>
               <MyProfile />
-            </ProtectedRoute>
           ),
+        },
+        {
         },
         {
           path: "EditProfile",
@@ -96,7 +96,17 @@ function App() {
             </ProtectedRoute>
           ),
         },
+        
+    {
+      path: "ShippingDetails",
+      element: (
+        <ProtectedRoute>
+          <ShippingDetails />
+        </ProtectedRoute>
+      ),
+    },
       ],
+      
     },
     {
       path: "sell",
@@ -115,6 +125,7 @@ function App() {
         </ProtectedRoute>
       ),
     },
+
     {
       path: "contactus",
       element: (
@@ -124,6 +135,7 @@ function App() {
         </ProtectedRoute>
       ),
     },
+
   ]);
 
   return (

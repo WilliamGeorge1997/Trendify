@@ -16,13 +16,14 @@ export default function NavBar() {
       navigate(`/Search/${searchValue}`);
     } else {
       setSearchValue(" ");
-       navigate(`/Search/${searchValue}`);
+      navigate(`/Search/${searchValue}`);
       navigate("/Home");
     }
   }, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("userId");
     setUserToken(null);
     navigate("/login");
   }
@@ -51,20 +52,20 @@ export default function NavBar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-              <input
-                className={`form-control me-1 ${styles.formControl}`}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value={searchValue}
-                onChange={handleSearchChange}
-              />
-              <Link
-                to={"Search/" + searchValue}
-                className={` btn main-bg-color text-white ${styles.btn}`}
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </Link>
+            <input
+              className={`form-control me-1 ${styles.formControl}`}
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
+            <Link
+              to={"Search/" + searchValue}
+              className={` btn main-bg-color text-white ${styles.btn}`}
+            >
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (
@@ -85,8 +86,7 @@ export default function NavBar() {
                     </Link>
                     <ul className="dropdown-menu">
                       <li>
-                        <Link className="dropdown-item" to={"MyProfile"}>
-                          {/* <i className="fa-solid fa-eye me-2"></i> */}
+                        <Link className="dropdown-item" to={"MyProfile/0"}>
                           <i className="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
@@ -154,14 +154,21 @@ export default function NavBar() {
                   </i>
                 </Link>
               </li>
-              <div className="nav-item">
-                <Link
-                  className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
-                  to={"Sell"}
-                >
-                  Sell
-                </Link>
-              </div>{" "}
+
+              {userToken !== null ? (
+                <>
+                  <div className="nav-item">
+                    <Link
+                      className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
+                      to={"Sell"}
+                    >
+                      Sell
+                    </Link>
+                  </div>{" "}
+                </>
+              ) : (
+                ""
+              )}
               <div className="nav-item">
                 <Link
                   className={`nav-link btn main-bg-color ms-1 px-4 py-2 text-white ${styles.btn}`}
