@@ -8,6 +8,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Models\Product;
+
 
 class UserController extends Controller
 {
@@ -149,6 +151,7 @@ class UserController extends Controller
             'user' => [
                 'name' => $user->name,
                 'email' => $user->email,
+                'id'=>$user->id,
             ],
             'token' => $token,
 
@@ -232,13 +235,15 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         try {
-            $token = $request->bearerToken();
-            $user = JWTAuth::parseToken()->authenticate($token);
+            $user = JWTAuth::parseToken()->authenticate();
 
             if (!$user) {
                 return response()->json(['status' => 404, 'message' => 'User not found'], 404);
             }
 
+            $products = Product::where('user_id', $user->id)
+            ->with(['images', 'EgyptCity', 'user'])
+            ->get();
             $userData = [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -249,17 +254,13 @@ class UserController extends Controller
                 'date_of_birth' => $user->date_of_birth,
                 'about' => $user->about,
                 'role' => $user->role,
+                'products' => $products,
             ];
 
             return response()->json(['status' => 200, 'user' => $userData], 200);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token expired'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token invalid'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['status' => 500, 'message' => 'Token absent'], 500);
+        } catch (JWTException $e) {
+            return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
         } catch (\Exception $e) {
-
             return response()->json(['status' => 500, 'message' => 'Internal Server Error'], 500);
         }
     }
