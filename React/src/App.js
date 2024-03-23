@@ -1,11 +1,7 @@
-// import { Fragment } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import "./App.css";
 import LayOut from "./components/LayOut/LayOut.jsx";
-import {
-  // BrowserRouter, Routes, Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Categories from "./components/Categories/Categories";
 import Details from "./components/Details/Details";
 import Home from "./components/Home/Home";
@@ -13,7 +9,6 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyProfile from "./components/MyProfile/MyProfile";
@@ -25,11 +20,11 @@ import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
-import Ads from './components/Ads/Ads';
+import Ads from "./components/Ads/Ads";
 import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 import EditProduct from "./components/EditProduct/EditProduct.jsx";
-
+import BestRate from "./components/BestRate/BestRate";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -39,7 +34,8 @@ function App() {
       setUserToken(localStorage.getItem("userToken"));
     }
   }, []);
-  let routes = createBrowserRouter([
+
+  const routes = createBrowserRouter([
     {
       path: "",
       element: <LayOut />,
@@ -53,52 +49,28 @@ function App() {
         { path: "Search/:key", element: <Search /> },
         { path: "success", element: <Success /> },
         { path: "Login", element: <Login /> },
+        { path: "BestRate", element: <BestRate /> },
         { path: "Register", element: <Register /> },
+        { path: "ContactUs", element: <ContactUs /> },
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",
-          element: (
-            <ProtectedRoute>
-              <FavProduct />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={FavProduct} />,
         },
         {
-          path: "MyProfile/:id",
-          element: <MyProfile />,
+          path: "EditProfile",
+          element: <ProtectedRoute component={EditProfile} />,
         },
-        {
-          path: "Cart",
-          element: (
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "sell",
-          element: (
-            <ProtectedRoute>
-              <Sell />
-            </ProtectedRoute>
-          ),
-        },
+        { path: "MyProfile/:id", element: <MyProfile /> },
+        { path: "Cart", element: <ProtectedRoute component={Cart} /> },
+        { path: "sell", element: <ProtectedRoute component={Sell} /> },
         {
           path: "EditProduct/:id",
-          element: (
-            <ProtectedRoute>
-              <EditProduct />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={EditProduct} />,
         },
-
         {
           path: "ShippingDetails",
-          element: (
-            <ProtectedRoute>
-              <ShippingDetails />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={ShippingDetails} />,
         },
       ],
     },

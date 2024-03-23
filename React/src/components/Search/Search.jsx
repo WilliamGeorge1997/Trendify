@@ -10,12 +10,9 @@ export default function Search() {
   const { fetchProducts } = useContext(AllProductContext);
   const [product, setProduct] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-
-  useEffect(() => {
     async function fetchData() {
       try {
         const products = await fetchProducts();
-        console.log(products);
         setProduct(products);
         const filteredResults = products.products.filter(
           (item) =>
@@ -27,6 +24,8 @@ export default function Search() {
         console.error("Error fetching products:", error);
       }
     }
+  useEffect(() => {
+
     fetchData();
   }, [fetchProducts, key]);
 

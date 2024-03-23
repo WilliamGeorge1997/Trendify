@@ -53,7 +53,7 @@ let UID = localStorage.getItem("userId");
   var settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 100,
     slidesToShow: 1,
     slidesToScroll: 1,
   };

@@ -274,3 +274,8 @@ input[type=range]:focus::-ms-fill-upper {
     position: relative;
     min-height: 80vh;
   }
+  #catBar ul li Link{color: black;
+  text-decoration: none;}
+    :focus-visible {
+      outline: none;
+    }

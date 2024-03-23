@@ -7,22 +7,20 @@ import { favouriteContext } from "../../Context/FavouriteContext";
 import { Fragment, useContext } from "react";
 import img from "../../assets/images/images.png";
 export default function ProductItem({ itemData }) {
-    let { removeProduct } = useContext(AllProductContext);
+  let { removeProduct } = useContext(AllProductContext);
 
   let { addToCart } = useContext(cartContext);
   let { addToFavourite } = useContext(favouriteContext);
-let UID =  localStorage.getItem("userId");
+  let UID = localStorage.getItem("userId");
   async function addProductToFavourite(productId) {
     let res = await addToFavourite(productId);
   }
- async function removeItem(id) {
-   await removeProduct(id);
-   
- }
+  async function removeItem(id) {
+    await removeProduct(id);
+  }
   async function addProduct(productId) {
     let res = await addToCart(productId);
   }
-console.log(itemData)
   return (
     <div className={`card ${styles.card} d-flex justify-content-between `}>
       <Link
@@ -40,7 +38,6 @@ console.log(itemData)
           width={20}
           height={300}
         />
-
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
@@ -65,8 +62,8 @@ console.log(itemData)
                   </li>
                   <li>
                     <Link
-                      class="dropdown-item"                      onClick={() => removeItem(itemData.id)}
-
+                      class="dropdown-item"
+                      onClick={() => removeItem(itemData.id)}
                     >
                       <i class="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
                     </Link>

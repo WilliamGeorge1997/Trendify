@@ -16,7 +16,6 @@ export default function Categories() {
   async function pro() {
     let product = await fetchProducts();
     setProduct(product);
-    console.log(product);
     setCatProducts(product.products)
 const initialCatProducts = product?.products?.filter((item) => {
   const categoryId = parseInt(item.category_id);
@@ -33,6 +32,8 @@ const initialCatProducts = product?.products?.filter((item) => {
   // pro();
   useEffect(() => {
     pro();
+   setCatProducts(initialCatProducts);
+
   }, []);
   const initialCatProducts = product?.products?.filter((item) => {
     const categoryId = parseInt(item.category_id);
@@ -44,21 +45,15 @@ const initialCatProducts = product?.products?.filter((item) => {
       return categoryId == itemId && userId == 1;
     }
   });
-  console.log(initialCatProducts);
 
 
   const handleFilterChange = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
   };
-  console.log(catProducts);
-    useEffect(() => {
-      setCatProducts(initialCatProducts);
-      console.log(initialCatProducts);
-    }, []);
+  
 
   useEffect(() => {
     setCatProducts(filteredProducts);
-    console.log(filteredProducts);
   }, [filteredProducts]);
 
   return (

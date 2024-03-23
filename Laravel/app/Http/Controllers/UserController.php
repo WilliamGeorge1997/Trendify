@@ -271,7 +271,7 @@ class UserController extends Controller
         try {
             $user = User::with([
                 'products' => function ($query) {
-                    $query->with('images', 'EgyptCity');
+                    $query->with('images', 'EgyptCity','user');
                 }
             ])->findOrFail($request->user_id);
 

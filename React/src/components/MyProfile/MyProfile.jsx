@@ -63,11 +63,10 @@ function MyProfile() {
       </Helmet>
       <main className={`container my-5  ${styles.myProfileForm} w-75 m-auto`}>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-2">
             <div className="  mr-3">
-              <div className="mb-2">
+              <div className="mb-2 d-flex flex-column align-items-center">
                 {/* ---------------Display the user's avatar  ------------  */}
-
                 {user.avatar ? (
                   <img
                     src={`http://127.0.0.1:8000/storage/${user.avatar}`}
@@ -80,10 +79,10 @@ function MyProfile() {
                     alt="avatar"
                     className={`${styles.avatarImg}`}
                   />
-                )}
+                )}{" "}
+                <hr className="w-50"></hr>
               </div>
 
-              <hr className="w-50 "></hr>
               {/* ---------------Display the user's gender if exists  ------------  */}
 
               {user.gender !== null ? (
@@ -134,7 +133,7 @@ function MyProfile() {
             </div>
           </div>
 
-          <div className="col-md-8">
+          <div className="col-md-10">
             {/* ---------------Display the user's name  ------------  */}
             <h2 className="d-inline "> {user.name}</h2>
             <hr className="mt-4"></hr>
@@ -151,29 +150,24 @@ function MyProfile() {
                       type="image/png"
                     />
 
-                  <img
-                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                    alt="Not found"
-                    className="not-found-image"
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                </picture>
-              </div>
-                  <img
-                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                    alt="Not found"
-                    className="not-found-image"
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                </picture>
-              </div>
-
-              <div className="text-center">
-                <span className="no-ads-text highlight">There are no ads</span>
-              </div>
-              <div className="text-center">
-                <span className="no-ads-text highlight">There are no ads</span>
-              </div>
+                    <img
+                      src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                      alt="Not found"
+                      className="not-found-image"
+                      style={{ width: "200px", height: "200px" }}
+                    />
+                  </picture>
+                </div>
+                <div className="text-center">
+                  <span className="no-ads-text highlight">
+                    There are no ads
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="no-ads-text highlight">
+                    There are no ads
+                  </span>
+                </div>
 
                 <div className="text-center">
                   <span className="no-ads-text">
@@ -183,9 +177,9 @@ function MyProfile() {
               </div>
             ) : (
               <div className=" container-fluid ">
-                <div className="row row-cols-lg-2 ">
+                <div className="row row-cols-lg-3 row-cols-md-2 ">
                   {products?.map((item) => (
-                    <div className="p-3" key={item.id}>
+                    <div className="p-2" key={item.id}>
                       <ProductItem itemData={item} />
                     </div>
                   ))}

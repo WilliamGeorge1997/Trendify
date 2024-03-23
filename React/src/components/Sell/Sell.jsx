@@ -20,7 +20,6 @@ const Sell = () => {
       setCities(data.cities);
     } catch (err) {
       setError(err.response.data.message);
-      console.log(err);
     }
   }
 
@@ -42,7 +41,6 @@ const Sell = () => {
       );
       resetForm();
       toast.success("Product posted successfully!");
-      console.log(response);
     } catch (error) {
       toast.error("Failed to post product. Please try again later.");
     }
