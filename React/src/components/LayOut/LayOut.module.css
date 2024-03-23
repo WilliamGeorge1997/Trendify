@@ -1,3 +1,4 @@
 .LayOut{
-    background-color: #000;
+position: relative;
+min-height: 80vh;
 }

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import styles from "./Login.module.css";
+import { Helmet } from "react-helmet";
 
 function Login() {
   let { setUserToken } = useContext(UserContext);
@@ -54,6 +55,13 @@ function Login() {
 
   return (
     <Fragment>
+      
+     
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Login</title>
+          <link rel="canonical" href="http://mysite.com/example" />
+        </Helmet>
       <div className="w-50 mx-auto py-5">
         <h2 className={` main-color`}>Login Now</h2>
 

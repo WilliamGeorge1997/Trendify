@@ -1,10 +1,12 @@
 import styles from "./EditProfile.module.css";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Fragment } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
+import { Helmet } from "react-helmet";
+
 
 function EditProfile() {
   let token = localStorage.getItem("userToken");
@@ -92,7 +94,12 @@ function EditProfile() {
   }
 
   return (
-    <>
+    <Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Edit Profile</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <main className={`container my-5 ${styles.editProfileForm} w-75 m-auto`}>
         <div className="row">
           <h2>Edit profile</h2>
@@ -217,7 +224,7 @@ function EditProfile() {
                   Save Changes
                 </button>
 
-                <Link to={"/MyProfile"} className={` fw-bold text-black  `}>
+                <Link to={`/MyProfile/0`} className={` fw-bold text-black  `}>
                   Back to profile
                 </Link>
               </div>
@@ -271,7 +278,7 @@ function EditProfile() {
                   </svg>
                   <span className="_6d5b4928 be13fe44 fw-bold">
                     Why is it important?
-                  </span>import Loading from '../Loading/Loading';
+                  </span>
 
                 </div>
                 <span className="_1dbc9796">
@@ -285,7 +292,7 @@ function EditProfile() {
           </div>
         </div>
       </main>
-    </>
+    </Fragment>
   );
 }
 

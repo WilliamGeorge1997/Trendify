@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -147,6 +148,7 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'success',
             'user' => [
+                'id'=>$user->id,
                 'name' => $user->name,
                 'email' => $user->email,
             ],
@@ -238,7 +240,9 @@ class UserController extends Controller
             if (!$user) {
                 return response()->json(['status' => 404, 'message' => 'User not found'], 404);
             }
-
+            $products = Product::where('user_id', $user->id)
+            ->with(['images', 'EgyptCity', 'user'])
+            ->get();
             $userData = [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -249,6 +253,7 @@ class UserController extends Controller
                 'date_of_birth' => $user->date_of_birth,
                 'about' => $user->about,
                 'role' => $user->role,
+                'products' => $products,
             ];
 
             return response()->json(['status' => 200, 'user' => $userData], 200);

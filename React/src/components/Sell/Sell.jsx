@@ -1,9 +1,10 @@
-import { React, useState } from 'react';
+import { Fragment, React, useState } from 'react';
 import { useFormik } from "formik";
 import axios from 'axios';
 import * as Yup from 'yup';
 import styles from './Sell.module.css';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 
 const Sell = () => {
@@ -48,7 +49,12 @@ const Sell = () => {
     onSubmit: handleSubmit,
   });
 
-  return (
+  return (<Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sell</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
     <div className={styles.sellPage}>
       <h2 className='text-center'>Post Your Product</h2>
 
@@ -163,7 +169,7 @@ const Sell = () => {
                 </Link>
 
       </form>
-    </div>
+    </div></Fragment>
   );
 };
 
