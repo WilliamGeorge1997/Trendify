@@ -66,7 +66,6 @@ class ShippingDetailsController extends Controller
                 'city_id' => $request->city_id,
                 'address' => $request->address,
                 'zip_code' => $request->zip_code,
-                'user_id' => $user->id,
                 'cart_id' => $cart->id,
             ]);
 
