@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Models\Product;
+
 
 class UserController extends Controller
 {
@@ -148,9 +149,9 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'success',
             'user' => [
-                'id'=>$user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'id'=>$user->id,
             ],
             'token' => $token,
 
@@ -234,12 +235,12 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         try {
-            $token = $request->bearerToken();
-            $user = JWTAuth::parseToken()->authenticate($token);
+            $user = JWTAuth::parseToken()->authenticate();
 
             if (!$user) {
                 return response()->json(['status' => 404, 'message' => 'User not found'], 404);
             }
+
             $products = Product::where('user_id', $user->id)
             ->with(['images', 'EgyptCity', 'user'])
             ->get();

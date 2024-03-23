@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('cart_id');
             $table->integer('amount');
-            $table->foreign('user_id')->references('id')->on('users')->constrained()->onDelete('cascade');
             $table->foreign('cart_id')->references('id')->on('carts')->constrained()->onDelete('cascade');
-
             $table->timestamps();
         });
     }

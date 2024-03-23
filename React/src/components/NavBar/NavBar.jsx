@@ -23,6 +23,7 @@ useEffect(() => {
 
   function logout() {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("userId");
     setUserToken(null);
     navigate("/login");
   }
@@ -85,8 +86,7 @@ useEffect(() => {
                     </Link>
                     <ul className="dropdown-menu">
                       <li>
-                        <Link className="dropdown-item" to={"MyProfile"}>
-                          {/* <i className="fa-solid fa-eye me-2"></i> */}
+                        <Link className="dropdown-item" to={"MyProfile/0"}>
                           <i className="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
@@ -147,14 +147,21 @@ useEffect(() => {
                   </i>
                 </Link>
               </li>
-              <div className="nav-item">
-                <Link
-                  className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
-                  to={"Sell"}
-                >
-                  Sell
-                </Link>
-              </div>
+
+              {userToken !== null ? (
+                <>
+                  <div className="nav-item">
+                    <Link
+                      className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
+                      to={"Sell"}
+                    >
+                      Sell
+                    </Link>
+                  </div>{" "}
+                </>
+              ) : (
+                ""
+              )}
               <div className="nav-item">
                 <Link
                   className={`nav-link btn main-bg-color ms-1 px-4 py-2 text-white ${styles.btn}`}

@@ -1,0 +1,15 @@
+.ShippingDetails{
+    background-color: #fff;
+}
+
+.checkoutContainer {
+    border: 0.1rem solid rgba(0, 0, 0, 0.159);
+  max-width: 80%;
+  border-radius: 6px;
+  padding: 1.6rem 2.4rem;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.068);
+
+  } 
+  
+
+

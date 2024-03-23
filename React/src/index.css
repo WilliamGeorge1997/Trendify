@@ -28,6 +28,23 @@ code {
     0 0 0 .25rem #cd000036;
   border-color: #cd00007a;
 }
+
+.submitButton{
+  color: white !important;
+  background-color: #CD0000 !important;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.submitButton:hover {
+background-color:#BA0000!important;
+} 
+
+.submitDisabledButton{
+color: white !important;
+background-color: #CD0000 !important;
+} 
+
 .dropdown-toggle::after{border: 0px !important;}
 input[type=range] {
   height: 26px;

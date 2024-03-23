@@ -1,38 +1,48 @@
 import styles from "./MyProfile.module.css";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
+import { AllProductContext } from "../../Context/ProductContext";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import ProductItem from "../ProductItem/ProductItem";
-import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 
 function MyProfile() {
- let token = localStorage.getItem("userToken");
- const [error, setError] = useState(null);
- const [user, setUser] = useState(null);
- const [products, setProduct] = useState([]);
- const { id } = useParams();
-async function getData() {
-  try {
-    if (parseInt(id) === 0) {
-      const response = await axios.get("http://127.0.0.1:8000/api/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setProduct(response.data.user.products);
-      setUser(response.data.user);
-    } else {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/userproducts/${id}`
-      );
-      setProduct(response.data.user.products);
-      setUser(response.data.user);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
+  let token = localStorage.getItem("userToken");
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+   const [products, setProduct] = useState([]);
 
+  const { id } = useParams();
+
+  // ------------------ Get user`s data from the API--------------------//
+
+  async function getData() {
+    try {
+      // -------- Check if this is the logged in user and get its data ----------//
+      if (parseInt(id) === 0) {
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+          // -------Sending the token to the api ------------//
+          headers: { Authorization: `Bearer ${token} ` },
+        });
+        setUser(response.data.user);
+              setProduct(response.data.user.products);
+
+        // -------- Get the user's data by ID ----------//
+      } else {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/userproducts/${id}`
+        );
+              setProduct(response.data.user.products);
+        setUser(response.data.user);
+      }
+      // -------- Catch the error if exists ----------//
+    } catch (err) {
+      setError(err.response.data.message);
+      console.error("Error fetching data:", error);
+    }
+  }
   useEffect(() => {
     getData();
   }, []);
@@ -56,6 +66,8 @@ async function getData() {
           <div className="col-md-4">
             <div className="  mr-3">
               <div className="mb-2">
+                {/* ---------------Display the user's avatar  ------------  */}
+
                 {user.avatar ? (
                   <img
                     src={`http://127.0.0.1:8000/storage/${user.avatar}`}
@@ -72,6 +84,8 @@ async function getData() {
               </div>
 
               <hr className="w-50 "></hr>
+              {/* ---------------Display the user's gender if exists  ------------  */}
+
               {user.gender !== null ? (
                 <Fragment>
                   <div className="mb-2">
@@ -83,6 +97,8 @@ async function getData() {
                 ""
               )}
 
+              {/* ---------------Display the user's Birth date if exists ------------  */}
+
               {user.date_of_birth !== null ? (
                 <Fragment>
                   <div className="mb-2">
@@ -93,6 +109,7 @@ async function getData() {
               ) : (
                 ""
               )}
+              {/* ---------------Display the user's about if exists  ------------  */}
 
               {user.about !== null ? (
                 <Fragment>
@@ -104,6 +121,7 @@ async function getData() {
               ) : (
                 ""
               )}
+              {/* ---------------Display the user's phone if exists  ------------  */}
 
               {user.phone !== null ? (
                 <div className="mb-2 ">
@@ -117,6 +135,7 @@ async function getData() {
           </div>
 
           <div className="col-md-8">
+            {/* ---------------Display the user's name  ------------  */}
             <h2 className="d-inline "> {user.name}</h2>
             <hr className="mt-4"></hr>
             {products == [] ? (
@@ -132,20 +151,18 @@ async function getData() {
                       type="image/png"
                     />
 
-                    <img
-                      src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                      alt="Not found"
-                      className="not-found-image"
-                      style={{ width: "200px", height: "200px" }}
-                    />
-                  </picture>
-                </div>
+                  <img
+                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                    alt="Not found"
+                    className="not-found-image"
+                    style={{ width: "200px", height: "200px" }}
+                  />
+                </picture>
+              </div>
 
-                <div className="text-center">
-                  <span className="no-ads-text highlight">
-                    There are no ads
-                  </span>
-                </div>
+              <div className="text-center">
+                <span className="no-ads-text highlight">There are no ads</span>
+              </div>
 
                 <div className="text-center">
                   <span className="no-ads-text">

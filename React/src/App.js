@@ -26,7 +26,10 @@ import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
-import NavCreate from "./components/NavCreate/NavCreate.jsx";
+import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
+import EditProduct from "./components/EditProduct/EditProduct.jsx";
+
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -61,10 +64,22 @@ function App() {
           ),
         },
         {
-          path: "MyProfile",
+          path: "MyProfile/:id",
+          element: <MyProfile />,
+        },
+        {
+          path: "Cart",
           element: (
             <ProtectedRoute>
-              <MyProfile />
+              <Cart />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "sell",
+          element: (
+            <ProtectedRoute>
+              <Sell />
             </ProtectedRoute>
           ),
         },
@@ -77,10 +92,19 @@ function App() {
           ),
         },
         {
-          path: "Cart",
+          path: "EditProduct/:id",
           element: (
             <ProtectedRoute>
-              <Cart />
+              <EditProduct />
+            </ProtectedRoute>
+          ),
+        },
+
+        {
+          path: "ShippingDetails",
+          element: (
+            <ProtectedRoute>
+              <ShippingDetails />
             </ProtectedRoute>
           ),
         },
@@ -91,15 +115,6 @@ function App() {
       element: (
         <ProtectedRoute>
           <Sell />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "navcreate",
-      element: (
-        <ProtectedRoute>
-          
-          <NavCreate />
         </ProtectedRoute>
       ),
     },

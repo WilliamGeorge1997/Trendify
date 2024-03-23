@@ -146,11 +146,15 @@ export default function Cart() {
                       </span>
                     </div>
                     <div className="my-4">
+
+                    <Link className={`${styles.continueBtn}`} to="/ShippingDetails">
                       <button
                         className={`btn main-bg-color text-white w-100 ${styles.countBtn}`}
                       >
                         PROCEED TO CHECKOUT
                       </button>
+                      </Link>
+
                     </div>
                     <div>
                       <Link className={`${styles.continueBtn}`} to="/Home">

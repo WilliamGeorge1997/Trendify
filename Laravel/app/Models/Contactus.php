@@ -20,4 +20,9 @@ class Contactus extends Model
         'product',
         'phone',
     ];
+
+    public function userContactus()
+    {
+        return $this->hasMany(UserContactus::class);
+    }
 }

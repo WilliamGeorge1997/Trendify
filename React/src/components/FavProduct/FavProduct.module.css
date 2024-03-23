@@ -6,5 +6,6 @@
     text-decoration: none;
 }
 
-.card{height: 500px !important;
+.card{
+    height: 500px !important;
 }
