@@ -128,7 +128,7 @@ export default function Cart() {
                       <span className="fw-bold text-success">
                         {cartDetails.total_count}
                         <span>
-                          {cartDetails.total_count === 1 ? "item" : "items"}
+                          {cartDetails.total_count === 1 ? " item" : " items"}
                         </span>
                       </span>
                     </div>
@@ -146,15 +146,16 @@ export default function Cart() {
                       </span>
                     </div>
                     <div className="my-4">
-
-                    <Link className={`${styles.continueBtn}`} to="/ShippingDetails">
-                      <button
-                        className={`btn main-bg-color text-white w-100 ${styles.countBtn}`}
+                      <Link
+                        className={`${styles.continueBtn}`}
+                        to="/ShippingDetails"
                       >
-                        PROCEED TO CHECKOUT
-                      </button>
+                        <button
+                          className={`btn main-bg-color text-white w-100 ${styles.countBtn}`}
+                        >
+                          PROCEED TO CHECKOUT
+                        </button>
                       </Link>
-
                     </div>
                     <div>
                       <Link className={`${styles.continueBtn}`} to="/Home">
@@ -168,7 +169,7 @@ export default function Cart() {
                 </Fragment>
               ) : (
                 <div className="h3 main-color col-12 text-center py-5 my-5">
-                  Your Cart is empty
+                  Your cart is empty
                 </div>
               )}
             </div>

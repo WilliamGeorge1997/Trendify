@@ -1,8 +1,8 @@
-import React ,{  Fragment } from "react";
+import React, { Fragment } from "react";
 import axios from "axios";
 import { favouriteContext } from "../../Context/FavouriteContext";
 import styles from "./Details.module.css";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { AllProductContext } from "../../Context/ProductContext";
 import { cartContext } from "../../Context/CartContext";
@@ -15,17 +15,16 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Details() {
-      let { removeProduct } = useContext(AllProductContext);
+  let { removeProduct } = useContext(AllProductContext);
 
   let { addToFavourite } = useContext(favouriteContext);
-let UID = localStorage.getItem("userId");
+  let UID = localStorage.getItem("userId");
   async function addProductToFavourite(productId) {
     let res = await addToFavourite(productId);
   }
- async function removeItem(id) {
-   await removeProduct(id);
-
- }
+  async function removeItem(id) {
+    await removeProduct(id);
+  }
   function fetchProduct11(productId) {
     const res = axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
     console.log(res);
@@ -58,6 +57,8 @@ let UID = localStorage.getItem("userId");
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
   return (
     <Fragment>
@@ -177,9 +178,9 @@ let UID = localStorage.getItem("userId");
               </div>
               <div>
                 {product.user.id > 1 ? (
-                  <button className="m-2 btn box-shadow shadow  main-bg-color  rounded">
+                  <Link to={`tel:${product.user.phone}`} className="m-2 btn box-shadow shadow  main-bg-color  rounded">
                     <i className="fa-solid text-white fa-phone"></i>
-                  </button>
+                  </Link>
                 ) : (
                   <button
                     className="m-2 btn box-shadow shadow  main-bg-color rounded"

@@ -7,11 +7,14 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Loading from "../Loading/Loading";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Sell = () => {
   let token = localStorage.getItem("userToken");
   const [error, setError] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const navigate = useNavigate(); // Access to the navigate function
+
   let [cities, setCities] = useState([]);
 
   async function getCity() {
@@ -41,25 +44,27 @@ const Sell = () => {
       );
       resetForm();
       toast.success("AD posted successfully!");
+<<<<<<< HEAD
+      navigate("/ads"); // Navigate to "/ads" after successful submission
+=======
+>>>>>>> bd6bbead213b621496fdfd532b69c05e03d0aced
     } catch (error) {
       toast.error("Failed to post product. Please try again later.");
     }
   };
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required(
-      "Title is required, Please fill this field"
-    ).max(255, "Title should be less than 255 characters."),
+    title: Yup.string()
+      .required("Title is required, Please fill this field")
+      .max(255, "Title should be less than 255 characters."),
     description: Yup.string()
       .required("Description is required")
       .min(20, "Description must be at least 20 characters"),
     price: Yup.number()
       .required("Price is required")
       .positive("Please add valid price"),
-    category_id: Yup.string()
-    .required("Category is required"),
-    images: Yup.string()
-    .required("Please provide an image")
+    category_id: Yup.string().required("Category is required"),
+    images: Yup.string().required("Please provide an image"),
   });
 
   let formik = useFormik({
@@ -111,7 +116,8 @@ const Sell = () => {
               id="title"
             />
             <p className="small fs-small">
-             Mention the key features of your item (e.g. brand, model, age, type)
+              Mention the key features of your item (e.g. brand, model, age,
+              type)
             </p>
             {formik.touched.title && formik.errors.title ? (
               <p className={`${styles.errorMessage} text-danger`}>
@@ -280,9 +286,7 @@ const Sell = () => {
               onBlur={formik.handleBlur}
             />
             {formik.touched.images && formik.errors.images ? (
-              <p className={`${styles.errorMessage} text-danger`}>
-              
-              </p>
+              <p className={`${styles.errorMessage} text-danger`}></p>
             ) : null}
           </div>
 
@@ -308,9 +312,8 @@ const Sell = () => {
               >
                 Post AD
               </button>
-              </>
+            </>
           )}
-
         </form>
       </div>
     </>

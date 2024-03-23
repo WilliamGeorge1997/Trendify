@@ -10,18 +10,16 @@ export default function NavBar() {
   const { data: cartItemCount } = useCartItemCount();
   const [cartCount, setCartCount] = useState(cartItemCount);
 
-
   useEffect(() => {
     setCartCount(cartItemCount);
   }, [cartItemCount]);
-  
- let navigate = useNavigate();
-useEffect(() => {
-  if (searchValue) {
-    navigate(`/Search/${searchValue}`);
-  }
-}, [searchValue, navigate]);
 
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (searchValue) {
+      navigate(`/Search/${searchValue}`);
+    }
+  }, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");
@@ -54,20 +52,20 @@ useEffect(() => {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <input
-              className={`form-control me-1 ${styles.formControl}`}
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={searchValue}
-              onChange={handleSearchChange}
-            />
-            <Link
-              to={"Search/" + searchValue}
-              className={` btn main-bg-color text-white ${styles.btn}`}
-            >
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </Link>
+            <div className={`${styles.searchWrapper}`}>
+              <input
+                className={`form-control me-1 px-3 pe-5  ${styles.formControl} ${styles.searchInput}`}
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                value={searchValue}
+                onChange={handleSearchChange}
+              />
+              <i
+                className={`${styles.searchIcon} fa-solid fa-magnifying-glass main-color`}
+              ></i>
+            </div>
+
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (
@@ -83,7 +81,7 @@ useEffect(() => {
                       <span
                         className={`main-color ${styles.user} text-center `}
                       >
-                        U
+                        <i class="fa-solid fa-user"></i>{" "}
                       </span>
                     </Link>
                     <ul className="dropdown-menu">

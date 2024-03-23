@@ -54,28 +54,32 @@ function App() {
         { path: "Login", element: <Login /> },
         { path: "BestRate", element: <BestRate /> },
         { path: "Register", element: <Register /> },
+<<<<<<< HEAD
+        { path: "ContactUs", element: <ProtectedRoute><ContactUs/></ProtectedRoute>  },
+=======
         { path: "ContactUs", element: <ContactUs /> },
         { path: "Sell", element: <Sell /> },
 
+>>>>>>> bd6bbead213b621496fdfd532b69c05e03d0aced
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",
-          element: <ProtectedRoute component={FavProduct} />,
+          element:<ProtectedRoute><FavProduct/></ProtectedRoute>  ,
         },
         {
           path: "EditProfile",
-          element: <ProtectedRoute component={EditProfile} />,
+          element: <ProtectedRoute><EditProfile/></ProtectedRoute> ,
         },
         { path: "MyProfile/:id", element: <MyProfile /> },
-        { path: "Cart", element: <ProtectedRoute component={Cart} /> },
-        { path: "sell", element: <ProtectedRoute component={Sell} /> },
+        { path: "Cart", element: <ProtectedRoute><Cart/></ProtectedRoute>  },
+        { path: "sell", element: <ProtectedRoute><Sell/></ProtectedRoute> },
         {
           path: "EditProduct/:id",
-          element: <ProtectedRoute component={EditProduct} />,
+          element: <ProtectedRoute><EditProduct/></ProtectedRoute>  ,
         },
         {
           path: "ShippingDetails",
-          element: <ProtectedRoute component={ShippingDetails} />,
+          element: <ProtectedRoute><ShippingDetails/></ProtectedRoute> ,
         },
       ],
     },

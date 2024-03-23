@@ -2,7 +2,8 @@ import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-
+import Loading from "./../Loading/Loading";
+import styles from "./Success.module.css";
 const SuccessPage = () => {
   const [loading, setLoading] = useState(true);
 
@@ -33,12 +34,21 @@ const SuccessPage = () => {
           <div className=" d-flex justify-content-center align-content-center">
             <h2 className="main-color">Thanks for purchasing from Trendify!</h2>
           </div>
-          <div className=" mt-4 d-flex justify-content-center align-content-center">
-            <loading />
+          <div
+            className={`${styles.Loading} main-color d-flex align-items-center justify-content-center`}
+          >
+            <div className={styles.spinner}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       ) : (
-""      )}
+        ""
+      )}
     </Fragment>
   );
 };

@@ -3,7 +3,7 @@
 } */
 
 .btn:hover {
-  background-color: #BA0000 !important;
+  background-color: #ba0000 !important;
 }
 
 .user {
@@ -15,4 +15,18 @@
 .formControl:focus {
   border-color: transparent;
   box-shadow: none;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 98%;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
 }

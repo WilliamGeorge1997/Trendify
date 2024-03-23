@@ -113,13 +113,13 @@ export default function ProductItem({ itemData }) {
       </Link>
       <div>
         {itemData.user.id > 1 ? (
-          <button
-            type={`tel:${itemData.user.phone}`}
+          <Link
+            to={`tel:${itemData.user.phone}`}
             className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded"
           >
             {" "}
             <i className="fa-solid main-color fa-phone"></i>{" "}
-          </button>
+          </Link>
         ) : (
           <button
             className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded"
