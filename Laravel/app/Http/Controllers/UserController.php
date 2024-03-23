@@ -258,14 +258,9 @@ class UserController extends Controller
             ];
 
             return response()->json(['status' => 200, 'user' => $userData], 200);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token expired'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token invalid'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['status' => 500, 'message' => 'Token absent'], 500);
+        } catch (JWTException $e) {
+            return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
         } catch (\Exception $e) {
-
             return response()->json(['status' => 500, 'message' => 'Internal Server Error'], 500);
         }
     }

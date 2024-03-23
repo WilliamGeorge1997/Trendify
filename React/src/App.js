@@ -84,14 +84,6 @@ function App() {
           ),
         },
         {
-          path: "EditProfile",
-          element: (
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          ),
-        },
-        {
           path: "EditProduct/:id",
           element: (
             <ProtectedRoute>
@@ -109,14 +101,6 @@ function App() {
           ),
         },
       ],
-    },
-    {
-      path: "sell",
-      element: (
-        <ProtectedRoute>
-          <Sell />
-        </ProtectedRoute>
-      ),
     },
   ]);
 

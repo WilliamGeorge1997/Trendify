@@ -289,8 +289,7 @@ function EditProfile() {
                   </svg>
                   <span className="_6d5b4928 be13fe44 fw-bold">
                     Why is it important?
-                  </span>import Loading from '../Loading/Loading';
-
+                  </span>
                 </div>
                 <span className="_1dbc9796">
                   Trendify is built on trust. Help other people get to know you.

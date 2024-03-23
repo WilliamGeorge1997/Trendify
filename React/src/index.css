@@ -45,14 +45,15 @@ color: white !important;
 background-color: #CD0000 !important;
 } 
 
-.dropdown-toggle::after{border: 0px !important;}
 input[type=range] {
   height: 26px;
   -webkit-appearance: none;
   margin: 10px 0;
 
 }
-
+.dropdown-toggle::after {
+  border: 0px !important;
+}
 input[type=range]:focus {
   outline: none;
 }
