@@ -29,8 +29,8 @@ export function getLoggedUserFavourites() {
     .get("http://127.0.0.1:8000/api/favourites", {
       headers: { Authorization: `Bearer ${token}` },
     })
-    .then((res) => res)
-    .catch((err) => err);
+    .then((res) =>res)
+    .catch((err) =>err);
 }
 
 export function removeLoggedUserFavourite(productId) {

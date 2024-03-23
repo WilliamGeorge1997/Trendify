@@ -55,6 +55,8 @@ function App() {
         { path: "BestRate", element: <BestRate /> },
         { path: "Register", element: <Register /> },
         { path: "ContactUs", element: <ContactUs /> },
+        { path: "Sell", element: <Sell /> },
+
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",

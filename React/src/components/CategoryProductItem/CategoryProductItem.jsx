@@ -30,7 +30,7 @@ let UID = localStorage.getItem("userId");
                 ? `http://127.0.0.1:8000/storage/${data.data.images[0].image_path}`
                 : img
             }
-            className="card-img-top rounded-start"
+            className="card-img-top object-fit-scale  rounded-start"
             alt={data.data.title}
             width={300}
             height={300}
@@ -45,41 +45,41 @@ let UID = localStorage.getItem("userId");
         </div>
         <div className="col-md-8 position-relative ">
           <div className="card-body">
-                      <div className="d-flex justify-content-between align-items-center ">
-            <p className="card-text fw-bold  main-color  mb-0">
-              EGP {data.data.price}
-            </p>
-            {UID == data.data.user.id ? (
-              <div className="btn-group">
-                <i
-                  type="button"
-                  className="fa-solid fa-ellipsis-vertical dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                ></i>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link
-                      to={`/EditProduct/${data.data.id}`}
-                      className="dropdown-item"
-                    >
-                      <i className="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      onClick={() => removeItem(data.data.id)}
-                    >
-                      <i className="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              ""
+            <div className="d-flex justify-content-between align-items-center ">
+              <p className="card-text fw-bold  main-color  mb-0">
+                EGP {data.data.price}
+              </p>
+              {UID == data.data.user.id ? (
+                <div className="btn-group">
+                  <i
+                    type="button"
+                    className="fa-solid fa-ellipsis-vertical dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  ></i>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        to={`/EditProduct/${data.data.id}`}
+                        className="dropdown-item"
+                      >
+                        <i className="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        onClick={() => removeItem(data.data.id)}
+                      >
+                        <i className="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              ) : (
+                ""
               )}
-              </div>
+            </div>
             <h5 className="card-title">
               {data.data.title}
               {data.data.user.id > 1 ? (

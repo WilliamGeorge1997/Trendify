@@ -30,7 +30,10 @@ export default function Home() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className={styles.container}>
-        <MainSlider />
+          {product.status !== 200 ? (
+          <Loading />
+        ) : (
+     <Fragment>   <MainSlider />
         <div className={`${styles.container} row m-auto`}>
           <div className="col-md-3">
             <CategoryBar label={1} />
@@ -50,19 +53,8 @@ export default function Home() {
               SHOP NOW
             </Link>
           </div>
-        </div>
-
-        {/*    {product.status !== 200 ? (
-          <Loading />
-        ) : (
-          <div className="row row-cols-lg-4 row-cols-md-3 ">
-            {Products.map((item) => (
-              <div className="p-1" key={item.id}>
-                <ProductItem itemData={item} />
-              </div>
-            ))}
-          </div>
-        )}*/}
+        </div></Fragment>
+)}
       </div>
     </Fragment>
   );
