@@ -16,7 +16,6 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
 import FavProduct from "./components/FavProduct/FavProduct";
-import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
@@ -45,6 +44,7 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
+        { index: true, element: <Home /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -65,9 +65,7 @@ function App() {
         },
         {
           path: "MyProfile/:id",
-          element: (
-              <MyProfile />
-          ),
+          element: <MyProfile />,
         },
         {
           path: "Cart",
@@ -86,40 +84,23 @@ function App() {
           ),
         },
         {
-          path: "EditProfile/:id",
+          path: "EditProduct/:id",
           element: (
             <ProtectedRoute>
-              <EditProfile />
+              <EditProduct />
             </ProtectedRoute>
           ),
         },
+
         {
-          path: "MyAds",
+          path: "ShippingDetails",
           element: (
             <ProtectedRoute>
-              <MyAds />
+              <ShippingDetails />
             </ProtectedRoute>
           ),
         },
-        
-    {
-      path: "ShippingDetails",
-      element: (
-        <ProtectedRoute>
-          <ShippingDetails />
-        </ProtectedRoute>
-      ),
-    },
       ],
-      
-    },
-    {
-      path: "sell",
-      element: (
-        <ProtectedRoute>
-          <Sell />
-        </ProtectedRoute>
-      ),
     },
   ]);
 

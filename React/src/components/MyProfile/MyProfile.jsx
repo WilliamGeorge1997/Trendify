@@ -3,14 +3,17 @@ import React, { Fragment, useEffect, useState, useContext } from "react";
 import { AllProductContext } from "../../Context/ProductContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import FilterProductBar from "../FilterProductBar/FilterProductBar";
 import Loading from "../Loading/Loading";
 import ProductItem from "../ProductItem/ProductItem";
+import { Helmet } from "react-helmet";
+
 
 function MyProfile() {
   let token = localStorage.getItem("userToken");
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
+   const [products, setProduct] = useState([]);
+
   const { id } = useParams();
 
   // ------------------ Get user`s data from the API--------------------//
@@ -24,11 +27,14 @@ function MyProfile() {
           headers: { Authorization: `Bearer ${token} ` },
         });
         setUser(response.data.user);
+              setProduct(response.data.user.products);
+
         // -------- Get the user's data by ID ----------//
       } else {
         const response = await axios.get(
           `http://127.0.0.1:8000/api/userproducts/${id}`
         );
+              setProduct(response.data.user.products);
         setUser(response.data.user);
       }
       // -------- Catch the error if exists ----------//
@@ -40,7 +46,6 @@ function MyProfile() {
   useEffect(() => {
     getData();
   }, []);
-
   if (!user) {
     return (
       <div>
@@ -51,6 +56,11 @@ function MyProfile() {
 
   return (
     <Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Profile</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <main className={`container my-5  ${styles.myProfileForm} w-75 m-auto`}>
         <div className="row">
           <div className="col-md-4">
@@ -128,18 +138,27 @@ function MyProfile() {
             {/* ---------------Display the user's name  ------------  */}
             <h2 className="d-inline "> {user.name}</h2>
             <hr className="mt-4"></hr>
-            <div className="no-ads-container">
-              <div className="text-center">
-                <picture>
-                  <source
-                    srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                    type="image/webp"
-                  />
-                  <source
-                    srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.png"
-                    type="image/png"
-                  />
+            {products == [] ? (
+              <div className="no-ads-container">
+                <div className="text-center">
+                  <picture>
+                    <source
+                      srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                      type="image/webp"
+                    />
+                    <source
+                      srcSet="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.png"
+                      type="image/png"
+                    />
 
+                  <img
+                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                    alt="Not found"
+                    className="not-found-image"
+                    style={{ width: "200px", height: "200px" }}
+                  />
+                </picture>
+              </div>
                   <img
                     src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
                     alt="Not found"
@@ -152,14 +171,28 @@ function MyProfile() {
               <div className="text-center">
                 <span className="no-ads-text highlight">There are no ads</span>
               </div>
-
               <div className="text-center">
-                <span className="no-ads-text">
-                  When users post ads, they will appear here
-                </span>
+                <span className="no-ads-text highlight">There are no ads</span>
               </div>
-            </div>
-            ;{error ? <div className="alert alert-danger">{error}</div> : null}
+
+                <div className="text-center">
+                  <span className="no-ads-text">
+                    When users post ads, they will appear here
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className=" container-fluid ">
+                <div className="row row-cols-lg-2 ">
+                  {products?.map((item) => (
+                    <div className="p-3" key={item.id}>
+                      <ProductItem itemData={item} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {error ? <div className="alert alert-danger">{error}</div> : null}
           </div>
         </div>
       </main>
