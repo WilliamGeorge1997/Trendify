@@ -118,55 +118,48 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, $id)
     {
         try {
+            $product = Product::findOrFail($id);
+    
             $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
+            if ($user->id !== $product->user_id) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
-
-            $validator = Validator::make($request->all(), [
-                'title' => 'required|string',
-                'price' => 'required|numeric',
-                'description' => 'required|string',
-                'location_id' => 'string',
-                'category_id' => 'required|exists:categories,id',
-                'images' => 'required|array',
-                'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors()], 400);
-            }
-
-            $product = Product::find($id);
-
-            if ($product) {
-                $product->update([
-                    'title' => $request->title,
-                    'price' => $request->price,
-                    'location_id' => $request->location_id,
-                    'description' => $request->description,
-                    'user_id' => $user->id,
-                    'category_id' => $request->category_id,
-                ]);
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Product updated successfully',
-                    'product' => $product,
-                    'image_urls' => $imageUrls ?? [],
-                ], 200);
+    
+            $originalImageUrls = $product->images->pluck('image_path')->toArray();
+            $originalData = $product->toArray();
+    
+            $product->update($request->all());
+    
+            $imageUrls = [];
+            if ($request->hasFile('images')) {
+                $product->images()->delete();
+                
+                foreach ($request->file('images') as $image) {
+                    $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('public/images', $imageName);
+    
+                    $productImage = Image::create([
+                        'product_id' => $product->id,
+                        'image_path' => 'images/' . $imageName,
+                    ]);
+                    $imageUrls[] = $imageName;
+                }
             } else {
-                return response()->json([
-                    'error' => 'No such product found',
-                ], 404);
+                $imageUrls = $originalImageUrls;
             }
+    
+            if (empty($request->all())) {
+                $updatedData = $originalData;
+            } else {
+                $updatedData = $product->toArray();
+            }
+    
+            return response()->json(['success' => true, 'message' => 'Product updated successfully', 'product' => $updatedData, 'image_urls' => $imageUrls], 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => 'An error occurred while updating product: ' . $e->getMessage()
-            ], 400);
+            return response()->json(['error' => 'An error occurred while updating the product: ' . $e->getMessage()], 400);
         }
     }
 
