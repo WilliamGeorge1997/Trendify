@@ -10,14 +10,13 @@
 
 label {
   display: block;
-  font-weight: bold;
   transition: color 0.3s ease; 
 }
 
 .inputField {
   width: 100%;
   padding: 10px;
-  border: 2px solid #ccc; 
+  border: 1px solid #d1cccc; 
   border-radius: 5px;
   transition: border-color 0.3s ease; 
 }
@@ -40,3 +39,29 @@ label {
 .errorMessage {
   color: #e00000; 
 }
+
+.selectForm:focus
+{
+  box-shadow: none !important;
+  border-color: rgb(195, 193, 193) !important;
+}
+
+.selectForm {
+  height: 45px !important;
+  border: 1px solid #ccc; 
+}
+
+.submitButton{
+  color: white !important;
+  background-color: #CD0000 !important;
+}
+
+.submitButton:hover {
+background-color:#7e0606!important;
+} 
+
+.submitDisabledButton{
+  color: white !important;
+  background-color: #CD0000 !important;
+}
+

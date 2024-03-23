@@ -28,9 +28,8 @@ import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
 import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
-import NavCreate from "./components/NavCreate/NavCreate.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
-
+import EditProduct from "./components/EditProduct/EditProduct.jsx";
 
 
 function App() {
@@ -71,20 +70,26 @@ function App() {
           ),
         },
         {
-        },
-        {
-          path: "EditProfile",
-          element: (
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          ),
-        },
-        {
           path: "Cart",
           element: (
             <ProtectedRoute>
               <Cart />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "sell",
+          element: (
+            <ProtectedRoute>
+              <Sell />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "EditProfile/:id",
+          element: (
+            <ProtectedRoute>
+              <EditProfile />
             </ProtectedRoute>
           ),
         },
@@ -116,26 +121,6 @@ function App() {
         </ProtectedRoute>
       ),
     },
-    {
-      path: "navcreate",
-      element: (
-        <ProtectedRoute>
-          
-          <NavCreate />
-        </ProtectedRoute>
-      ),
-    },
-
-    {
-      path: "contactus",
-      element: (
-        <ProtectedRoute>
-          
-          <ContactUs />
-        </ProtectedRoute>
-      ),
-    },
-
   ]);
 
   return (
