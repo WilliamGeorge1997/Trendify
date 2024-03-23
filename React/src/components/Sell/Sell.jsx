@@ -42,7 +42,7 @@ const Sell = () => {
         }
       );
       resetForm();
-      toast.success("Product posted successfully!");
+      toast.success("AD posted successfully!");
       console.log(response);
     } catch (error) {
       toast.error("Failed to post product. Please try again later.");
@@ -85,11 +85,11 @@ const Sell = () => {
   return (
     <>
       <Helmet>
-        <title>Sell Products</title>
+        <title>Sell Ad</title>
       </Helmet>
 
       <div className={styles.sellPage}>
-        <h2 className="text-center">Post Your Product</h2>
+        <h2 className="text-center">Post Your AD</h2>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <div className={styles.formGroup}>
             <label
@@ -270,7 +270,7 @@ const Sell = () => {
           For the cover picture we recommend using the landscape mode.
           </p>
             <input
-              className={`${styles.inputField} form-control mb-2 opacity-0`}
+              className={`${styles.inputField} form-control mb-2 d-none`}
               type="file"
               id="formFile"
               multiple
@@ -309,14 +309,11 @@ const Sell = () => {
                 type="submit"
                 className={`btn ${styles.submitDisabledButton} w-100 mt-2`}
               >
-                Add Product
+                Post AD
               </button>
               </>
           )}
 
-          <Link to={"/EditProduct/1"} className={`fw-bold text-black`}>
-            Edit product
-          </Link>
         </form>
       </div>
     </>
