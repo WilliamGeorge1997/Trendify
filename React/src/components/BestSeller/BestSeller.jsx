@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import styles from "./BestSeller.module.css";
 import { AllProductContext } from "../../Context/ProductContext";
 import img from "../../assets/images/images.png";
+import { Link } from 'react-router-dom';
 
 export default function BestSeller() {
     let { fetchProducts } = useContext(AllProductContext);
@@ -33,7 +34,11 @@ const Products = product?.products?.filter(
       <h3 className="my-3">Best Seller</h3>
       <Slider {...settings}>
         {product.map((item) => (
-          <div key={item.id} className="text-center px-2">
+          <Link
+            to={`/Details/${item.id}`}
+            key={item.id}
+            className="text-center text-black text-decoration-none  px-2"
+          >
             <img
               src={
                 item?.images[0]
@@ -46,7 +51,7 @@ const Products = product?.products?.filter(
               height={150}
             />
             <p>{item.title.split(/[ \/]/)[0]}</p>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>
