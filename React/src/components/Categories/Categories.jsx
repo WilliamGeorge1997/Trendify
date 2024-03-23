@@ -8,7 +8,7 @@ import Loading from "../Loading/Loading";
 import { Helmet } from "react-helmet";
 
 export default function Categories() {
-    const { id, label } = useParams();
+  const { id, label } = useParams();
   let { fetchProducts } = useContext(AllProductContext);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [catProducts, setCatProducts] = useState([]);
@@ -16,24 +16,23 @@ export default function Categories() {
   async function pro() {
     let product = await fetchProducts();
     setProduct(product);
-    setCatProducts(product.products)
-const initialCatProducts = product?.products?.filter((item) => {
-  const categoryId = parseInt(item.category_id);
-  const userId = parseInt(item.user.id);
-  const itemId = parseInt(id);
-  if (label != 1) {
-    return categoryId == itemId && userId != 1;
-  } else {
-    return categoryId == itemId && userId == 1;
-  }
-});
+    setCatProducts(product.products);
+    const initialCatProducts = product?.products?.filter((item) => {
+      const categoryId = parseInt(item.category_id);
+      const userId = parseInt(item.user.id);
+      const itemId = parseInt(id);
+      if (label != 1) {
+        return categoryId == itemId && userId != 1;
+      } else {
+        return categoryId == itemId && userId == 1;
+      }
+    });
     setCatProducts(initialCatProducts);
   }
   // pro();
   useEffect(() => {
     pro();
-   setCatProducts(initialCatProducts);
-
+    setCatProducts(initialCatProducts);
   }, []);
   const initialCatProducts = product?.products?.filter((item) => {
     const categoryId = parseInt(item.category_id);
@@ -46,11 +45,9 @@ const initialCatProducts = product?.products?.filter((item) => {
     }
   });
 
-
   const handleFilterChange = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
   };
-  
 
   useEffect(() => {
     setCatProducts(filteredProducts);

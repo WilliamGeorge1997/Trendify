@@ -24,7 +24,6 @@ const EditProduct = () => {
       setCities(data.cities);
     } catch (err) {
       setError(err.response.data.message);
-      console.log(err);
     }
   }
 
@@ -44,10 +43,8 @@ const EditProduct = () => {
         const responseData = response.data.message;
         setProduct(responseData);
         setIsLoading(false);
-        console.log(responseData);
       } catch (error) {
         toast.error("Error fetching product:", error);
-        console.log(error);
       }
     };
 
@@ -83,7 +80,6 @@ const EditProduct = () => {
       );
       resetForm();
       toast.success("AD edited successfully!");
-      console.log(response);
     } catch (error) {
       toast.error("Failed to edit AD. Please try again later.");
     } finally {

@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import styles from "./BestRate.module.css";
 import { AllProductContext } from "../../Context/ProductContext";
 import img from "../../assets/images/images.png";
+import { Link } from 'react-router-dom';
 
 export default function BestRate() {
   let { fetchProducts } = useContext(AllProductContext);
@@ -32,7 +33,8 @@ export default function BestRate() {
       <h3 className="my-3">Best Rate</h3>
       <Slider {...settings}>
         {product.map((item) => (
-          <div key={item.id} className="text-center px-2">
+          <Link
+            to={`/Details/${item.id}`} key={item.id} className="text-center text-black text-decoration-none px-2">
             <img
               src={
                 item?.images[0]
@@ -45,7 +47,7 @@ export default function BestRate() {
               height={150}
             />
             <span>{item.title.split(" ")[0]}</span>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>

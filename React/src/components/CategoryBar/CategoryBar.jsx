@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function CategoryBar(label) {
   return (
     <Fragment>
-      <div className="text-black my-4 justify-content-around">
+      <div className={`text-black my-4 justify-content-around ${styles.border}`}>
         <div className=" align-items-center">
           <Link
             to={`/FilterProduct/${label.label}`}
@@ -178,7 +178,7 @@ export default function CategoryBar(label) {
                 <li>
                   <Link
                     className="text-black text-decoration-none"
-                    to={`/Categories/10/${label.label}`}
+                    to={`/Categories/12/${label.label}`}
                   >
                     Men-shoes{" "}
                   </Link>

@@ -41,9 +41,7 @@ const Sell = () => {
       );
       resetForm();
       toast.success("AD posted successfully!");
-      console.log(response);
     } catch (error) {
-      console.log(error);
       toast.error("Failed to post product. Please try again later.");
     }
   };
