@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet";
 
 function EditProfile() {
   let token = localStorage.getItem("userToken");
+  let userId = localStorage.getItem("userId");
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [isLoading, setisLoading] = useState(false);
@@ -260,7 +261,7 @@ function EditProfile() {
                       Save Changes
                     </button>
 
-                    <Link to={"/MyProfile"} className={` fw-bold text-black  `}>
+                    <Link to={`/MyProfile/${userId}`} className={` fw-bold text-black  `}>
                       Back to profile
                     </Link>
                   </div>

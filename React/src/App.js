@@ -91,6 +91,14 @@ function App() {
             </ProtectedRoute>
           ),
         },
+        {
+          path: "EditProfile",
+          element: (
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          ),
+        },
 
         {
           path: "ShippingDetails",
