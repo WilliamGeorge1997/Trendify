@@ -44,10 +44,7 @@ const Sell = () => {
       );
       resetForm();
       toast.success("AD posted successfully!");
-<<<<<<< HEAD
       navigate("/ads"); // Navigate to "/ads" after successful submission
-=======
->>>>>>> bd6bbead213b621496fdfd532b69c05e03d0aced
     } catch (error) {
       toast.error("Failed to post product. Please try again later.");
     }
