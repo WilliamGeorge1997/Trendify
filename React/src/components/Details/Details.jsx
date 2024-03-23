@@ -27,7 +27,9 @@ let UID = localStorage.getItem("userId");
 
  }
   function fetchProduct11(productId) {
-    return axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
+    const res = axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
+    console.log(res);
+    return res;
   }
 
   const { id } = useParams();
@@ -53,7 +55,7 @@ let UID = localStorage.getItem("userId");
   var settings = {
     dots: true,
     infinite: true,
-    speed: 100,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -67,21 +69,31 @@ let UID = localStorage.getItem("userId");
       <div className="container  mb-5">
         <div className="card mb-5">
           <div className="row g-0 mb-5">
-            <div className="col-md-6  position-relative">
+            <div className="col-md-6 position-relative">
               {product.images.length > 0 ? (
-                <Slider {...settings}>
-                  {product.images.map((image, index) => (
-                    <div key={index} className="p-2">
-                      <img
-                        src={`http://127.0.0.1:8000/storage/${image.image_path}`}
-                        className="card-img-top rounded-start object-fit-scale"
-                        alt={product.title}
-                        width={1000}
-                        height={500}
-                      />
-                    </div>
-                  ))}
-                </Slider>
+                product.images.length === 1 ? (
+                  <img
+                    src={`http://127.0.0.1:8000/storage/${product.images[0].image_path}`}
+                    className="card-img-top rounded-start object-fit-scale"
+                    alt={product.title}
+                    width={1000}
+                    height={500}
+                  />
+                ) : (
+                  <Slider {...settings}>
+                    {product.images.map((image, index) => (
+                      <div key={index} className="p-2">
+                        <img
+                          src={`http://127.0.0.1:8000/storage/${image.image_path}`}
+                          className="card-img-top rounded-start object-fit-scale"
+                          alt={product.title}
+                          width={1000}
+                          height={500}
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                )
               ) : (
                 <img
                   src={img}
@@ -100,6 +112,7 @@ let UID = localStorage.getItem("userId");
                 </span>
               )}
             </div>
+
             <div className="col-md-6 card-body d-flex flex-column justify-content-between p-5">
               <div>
                 <div className="d-flex justify-content-between align-items-center">
@@ -107,28 +120,28 @@ let UID = localStorage.getItem("userId");
                     EGP {product.price}
                   </p>
                   {UID == product.user.id ? (
-                    <div class="btn-group">
+                    <div className="btn-group">
                       <i
                         type="button"
-                        class="fa-solid fa-ellipsis-vertical dropdown-toggle"
+                        className="fa-solid fa-ellipsis-vertical dropdown-toggle"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                       ></i>
-                      <ul class="dropdown-menu">
+                      <ul className="dropdown-menu">
                         <li>
                           <Link
                             to={`/EditProduct/${product.id}`}
-                            class="dropdown-item"
+                            className="dropdown-item"
                           >
-                            <i class="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
+                            <i className="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
                           </Link>
                         </li>
                         <li>
                           <Link
-                            class="dropdown-item"
+                            className="dropdown-item"
                             onClick={() => removeItem(product.id)}
                           >
-                            <i class="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
+                            <i className="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
                           </Link>
                         </li>
                       </ul>
