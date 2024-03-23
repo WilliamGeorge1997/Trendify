@@ -29,7 +29,6 @@ const Sell = () => {
   }, []);
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log(values);
     try {
       let response = await axios.post(
         "http://localhost:8000/api/products",
@@ -85,7 +84,9 @@ const Sell = () => {
   return (
     <>
       <Helmet>
+        <meta charSet="utf-8" />
         <title>Sell Ad</title>
+        <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
 
       <div className={styles.sellPage}>
@@ -146,7 +147,7 @@ const Sell = () => {
               rows="5"
             />
             <p className="small fs-small">
-             Include condition, features and reason for selling
+              Include condition, features and reason for selling
             </p>
             {formik.touched.description && formik.errors.description ? (
               <p className={`${styles.errorMessage} text-danger`}>
@@ -154,7 +155,6 @@ const Sell = () => {
               </p>
             ) : null}
           </div>
-
 
           <select
             className={`form-select ${styles.selectForm} mb-4`}
@@ -267,8 +267,8 @@ const Sell = () => {
               </div>
             </label>
             <p className="small fs-small text-center">
-          For the cover picture we recommend using the landscape mode.
-          </p>
+              For the cover picture we recommend using the landscape mode.
+            </p>
             <input
               className={`${styles.inputField} form-control mb-2 d-none`}
               type="file"
@@ -279,7 +279,6 @@ const Sell = () => {
               onChange={(event) =>
                 formik.setFieldValue("images", event.target.files)
               }
-            
               onBlur={formik.handleBlur}
             />
             {formik.touched.images && formik.errors.images ? (

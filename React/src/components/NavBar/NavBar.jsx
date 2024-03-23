@@ -7,19 +7,19 @@ import logo from "../../assets/images/logo.png";
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState("");
+  const { data: cartItemCount } = useCartItemCount();
+  const [cartCount, setCartCount] = useState(cartItemCount);
 
-  const { data: cartItemCount, isLoading, isError } = useCartItemCount();
-
-  let navigate = useNavigate();
   useEffect(() => {
-    if (searchValue.trim() !== "") {
-      navigate(`/Search/${searchValue}`);
-    } else {
-      setSearchValue(" ");
-      navigate(`/Search/${searchValue}`);
-      navigate("/Home");
-    }
-  }, [searchValue, navigate]);
+    setCartCount(cartItemCount);
+  }, [cartItemCount]);
+  
+ let navigate = useNavigate();
+useEffect(() => {
+  if (searchValue) {
+    navigate(`/Search/${searchValue}`);
+  }
+}, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");
@@ -98,13 +98,6 @@ export default function NavBar() {
                           Edit profile
                         </Link>
                       </li>
-
-                      <li>
-                        <Link className="dropdown-item" to={"MyAds"}>
-                          <i className="fa-solid fa-rectangle-ad me-2"></i>
-                          My Ads
-                        </Link>
-                      </li>
                       <li>
                         <Link className="dropdown-item" to={"FavProduct"}>
                           <i className="fa-solid fa-heart me-2"></i>
@@ -149,7 +142,7 @@ export default function NavBar() {
                 <Link className="nav-link" to={"Cart"}>
                   <i className="fa-solid fa-cart-shopping position-relative">
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
-                      {cartItemCount}
+                      {cartCount}
                     </span>
                   </i>
                 </Link>

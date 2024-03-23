@@ -1,5 +1,5 @@
 import styles from "./EditProfile.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, Fragment } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -113,11 +113,12 @@ function EditProfile() {
   }
 
   return (
-    <>
+    <Fragment>
       <Helmet>
-        <title>Edit profile</title>
+        <meta charSet="utf-8" />
+        <title>Edit Profile</title>
+        <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-
       <main className={`container my-5 ${styles.editProfileForm} w-75 m-auto`}>
         <div className="row">
           <h2>Edit profile</h2>
@@ -301,7 +302,7 @@ function EditProfile() {
           </div>
         </div>
       </main>
-    </>
+    </Fragment>
   );
 }
 
