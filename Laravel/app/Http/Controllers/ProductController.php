@@ -54,7 +54,7 @@ class ProductController extends Controller
                 'location_id' => 'string|max:255',
                 'description' => 'required|string',
                 'category_id' => 'required|exists:categories,id',
-                'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
             $user = JWTAuth::parseToken()->authenticate();
@@ -169,7 +169,7 @@ class ProductController extends Controller
         try {
             $user = JWTAuth::parseToken()->authenticate();
 
-            $product = Product::with('images')->find($id);
+            $product = Product::with('images', 'EgyptCity')->find($id);
 
             if ($product) {
                 if ($product->user_id != $user->id) {

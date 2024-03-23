@@ -159,22 +159,11 @@ function MyProfile() {
                   />
                 </picture>
               </div>
-                  <img
-                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                    alt="Not found"
-                    className="not-found-image"
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                </picture>
-              </div>
-
+            
               <div className="text-center">
                 <span className="no-ads-text highlight">There are no ads</span>
               </div>
-              <div className="text-center">
-                <span className="no-ads-text highlight">There are no ads</span>
-              </div>
-
+             
                 <div className="text-center">
                   <span className="no-ads-text">
                     When users post ads, they will appear here

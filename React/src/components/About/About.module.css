@@ -1,0 +1,16 @@
+.aboutHeader {
+  background-image: url("../../assets/images/about.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 80vh;
+  background-repeat: no-repeat;
+}
+
+.aboutTitle {
+  height: 80vh;
+}
+
+.aboutBanner {
+  height: 30vh;
+  background-color: #cd0000;
+}

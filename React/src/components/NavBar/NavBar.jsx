@@ -10,6 +10,7 @@ export default function NavBar() {
   const { data: cartItemCount } = useCartItemCount();
   const [cartCount, setCartCount] = useState(cartItemCount);
 
+
   useEffect(() => {
     setCartCount(cartItemCount);
   }, [cartItemCount]);
@@ -20,6 +21,7 @@ useEffect(() => {
     navigate(`/Search/${searchValue}`);
   }
 }, [searchValue, navigate]);
+
 
   function logout() {
     localStorage.removeItem("userToken");

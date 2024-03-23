@@ -69,7 +69,7 @@ class ShippingDetailsController extends Controller
                 'cart_id' => $cart->id,
             ]);
 
-            return response()->json(['message' => 'Shipping details added successfully', 'shipping' => $shipping]);
+            return response()->json(['message' => 'Shipping details added successfully', 'shipping' => $shipping], 200);
         } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
             return response()->json(['message' => 'Invalid token.'], 401);
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {

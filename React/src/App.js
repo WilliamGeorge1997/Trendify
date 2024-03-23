@@ -25,11 +25,11 @@ import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
-import Ads from './components/Ads/Ads';
+import Ads from "./components/Ads/Ads";
 import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 import EditProduct from "./components/EditProduct/EditProduct.jsx";
-
+import About from "./components/About/About.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -44,7 +44,7 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
-        { index: true, element: <Home /> },
+        { path: "About", element: <About/> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -84,6 +84,14 @@ function App() {
           ),
         },
         {
+          path: "ContactUs",
+          element: (
+            <ProtectedRoute>
+              <ContactUs />
+            </ProtectedRoute>
+          ),
+        },
+        {
           path: "sell",
           element: (
             <ProtectedRoute>
@@ -99,7 +107,7 @@ function App() {
             </ProtectedRoute>
           ),
         },
-
+        
         {
           path: "ShippingDetails",
           element: (
