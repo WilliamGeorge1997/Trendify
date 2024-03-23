@@ -15,7 +15,6 @@ export default function FilterProduct() {
   async function prod() {
     let product = await fetchProducts();
     setProduct(product);
-    console.log(product);
     setFinalProducts(product.products);
     const initialFilProducts = product?.products?.filter((item) => {
       if (pro == 0) {
@@ -28,6 +27,8 @@ export default function FilterProduct() {
   }
   useEffect(() => {
     prod();
+  setFinalProducts(initialFilProducts);
+
   }, []);
   const initialFilProducts = product?.products?.filter((item) => {
     if (pro == 0) {
@@ -39,10 +40,7 @@ export default function FilterProduct() {
   const handleFilterChange = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
   };
-  useEffect(() => {
-    setFinalProducts(initialFilProducts);
-    console.log(initialFilProducts);
-  }, []);
+
   useEffect(() => {
     setFinalProducts(filteredProducts);
   }, [filteredProducts]);
@@ -71,8 +69,8 @@ export default function FilterProduct() {
           ) : (
             <div className=" row-cols-md-2 row row-cols-lg-3 ">
               {finalProducts?.map((item) => (
-                <div className="p-3  ">
-                  <ProductItem key={item.id} itemData={item} />
+                <div className="p-3"   key={item.id}>
+                  <ProductItem itemData={item} />
                 </div>
               ))}
             </div>

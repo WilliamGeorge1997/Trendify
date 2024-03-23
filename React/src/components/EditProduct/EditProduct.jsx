@@ -131,9 +131,10 @@ const EditProduct = () => {
   return (
     <>
       <Helmet>
+        <meta charSet="utf-8" />
         <title>Edit AD</title>
+        <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-
       <div className={styles.sellPage}>
         <h2 className="text-center">Edit Your AD</h2>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">

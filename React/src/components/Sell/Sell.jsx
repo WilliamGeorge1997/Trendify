@@ -20,7 +20,6 @@ const Sell = () => {
       setCities(data.cities);
     } catch (err) {
       setError(err.response.data.message);
-      console.log(err);
     }
   }
 

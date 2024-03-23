@@ -26,14 +26,12 @@ export default function ContactUs() {
       .catch((err) => {
         setisLoading(false);
         setError(err.response.data.message);
-        console.log(err);
       });
      if (response.status === 200) {
        setisLoading(false);
      // navigate("/login");
       setSuccessMsg(response.data.message);
   }
-    console.log(response);
 
   }
 

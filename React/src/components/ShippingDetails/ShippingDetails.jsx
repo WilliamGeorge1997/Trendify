@@ -17,10 +17,8 @@ export default function ShippingDetails() {
     try {
       let { data } = await axios.get("http://127.0.0.1:8000/api/cities");
       setCities(data.cities);
-      console.log(data);
     } catch (err) {
       setError(err.response.data.message);
-      console.log(err);
     }
   }
 

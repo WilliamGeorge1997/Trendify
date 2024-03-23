@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, Fragment } from "react";
 import styles from "./Home.module.css";
 import MainSlider from "../MainSlider/MainSlider";
 import { Link } from "react-router-dom";
@@ -8,7 +8,8 @@ import { AllProductContext } from "../../Context/ProductContext";
 import Categories from "../Categories/Categories";
 import CategoryBar from "../CategoryBar/CategoryBar";
 import Loading from "../Loading/Loading";
-import { Fragment } from "react";
+import BestSeller from "../BestSeller/BestSeller";
+import BestRate from "../BestRate/BestRate";
 
 export default function Home() {
   let { fetchProducts } = useContext(AllProductContext);
@@ -19,7 +20,8 @@ export default function Home() {
   }
   useEffect(() => {
     pro();
-  }, []);  const Products = product?.products?.filter((item) => item.user.id === 1);
+  }, []);
+  const Products = product?.products?.filter((item) => item.user.id === 1);
   return (
     <Fragment>
       <Helmet>
@@ -27,10 +29,30 @@ export default function Home() {
         <title>Home Page</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <div className="container">
+      <div className={styles.container}>
         <MainSlider />
-        <CategoryBar label={1} />
-        {product.status !== 200 ? (
+        <div className={`${styles.container} row m-auto`}>
+          <div className="col-md-3">
+            <CategoryBar label={1} />
+          </div>
+
+          <div className="col-md-9">
+            <BestSeller></BestSeller>
+            <BestRate></BestRate>
+          </div>
+        </div>
+        <div className={styles.cover}>
+          <div>
+         
+            <h3 className="h1">SHOP WITH AS</h3>
+            <p>#NEW SUMMER COLLECTION 2024</p>
+            <Link to={"/Categories/9/1"} className="btn btn-dark ">
+              SHOP NOW
+            </Link>
+          </div>
+        </div>
+
+        {/*    {product.status !== 200 ? (
           <Loading />
         ) : (
           <div className="row row-cols-lg-4 row-cols-md-3 ">
@@ -40,7 +62,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-        )}
+        )}*/}
       </div>
     </Fragment>
   );

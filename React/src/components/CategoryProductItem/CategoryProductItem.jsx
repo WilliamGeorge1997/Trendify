@@ -50,28 +50,28 @@ let UID = localStorage.getItem("userId");
               EGP {data.data.price}
             </p>
             {UID == data.data.user.id ? (
-              <div class="btn-group">
+              <div className="btn-group">
                 <i
                   type="button"
-                  class="fa-solid fa-ellipsis-vertical dropdown-toggle"
+                  className="fa-solid fa-ellipsis-vertical dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 ></i>
-                <ul class="dropdown-menu">
+                <ul className="dropdown-menu">
                   <li>
                     <Link
                       to={`/EditProduct/${data.data.id}`}
-                      class="dropdown-item"
+                      className="dropdown-item"
                     >
-                      <i class="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
+                      <i className="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
-                      class="dropdown-item"
+                      className="dropdown-item"
                       onClick={() => removeItem(data.data.id)}
                     >
-                      <i class="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
+                      <i className="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
                     </Link>
                   </li>
                 </ul>

@@ -1,11 +1,7 @@
-// import { Fragment } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import "./App.css";
 import LayOut from "./components/LayOut/LayOut.jsx";
-import {
-  // BrowserRouter, Routes, Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Categories from "./components/Categories/Categories";
 import Details from "./components/Details/Details";
 import Home from "./components/Home/Home";
@@ -13,7 +9,6 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Sell from "./components/Sell/Sell";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
 import FavProduct from "./components/FavProduct/FavProduct";
 import MyProfile from "./components/MyProfile/MyProfile";
@@ -29,6 +24,7 @@ import Ads from "./components/Ads/Ads";
 import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 import EditProduct from "./components/EditProduct/EditProduct.jsx";
+import BestRate from "./components/BestRate/BestRate";
 import About from "./components/About/About.jsx";
 
 function App() {
@@ -39,12 +35,15 @@ function App() {
       setUserToken(localStorage.getItem("userToken"));
     }
   }, []);
-  let routes = createBrowserRouter([
+
+  const routes = createBrowserRouter([
     {
       path: "",
       element: <LayOut />,
       children: [
-        { path: "About", element: <About/> },
+        { index: true, element: <Home /> },
+
+        { path: "About", element: <About /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -53,79 +52,30 @@ function App() {
         { path: "Search/:key", element: <Search /> },
         { path: "success", element: <Success /> },
         { path: "Login", element: <Login /> },
+        { path: "BestRate", element: <BestRate /> },
         { path: "Register", element: <Register /> },
+        { path: "ContactUs", element: <ContactUs /> },
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",
-          element: (
-            <ProtectedRoute>
-              <FavProduct />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "MyProfile/:id",
-          element: <MyProfile />,
-        },
-        {
-          path: "Cart",
-          element: (
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "EditProduct/:id",
-          element: (
-            <ProtectedRoute>
-              <EditProduct />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "ContactUs",
-          element: (
-            <ProtectedRoute>
-              <ContactUs />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "sell",
-          element: (
-            <ProtectedRoute>
-              <Sell />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={FavProduct} />,
         },
         {
           path: "EditProfile",
-          element: (
-            <ProtectedRoute>
-              <EditProduct />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={EditProfile} />,
         },
-        
+        { path: "MyProfile/:id", element: <MyProfile /> },
+        { path: "Cart", element: <ProtectedRoute component={Cart} /> },
+        { path: "sell", element: <ProtectedRoute component={Sell} /> },
+        {
+          path: "EditProduct/:id",
+          element: <ProtectedRoute component={EditProduct} />,
+        },
         {
           path: "ShippingDetails",
-          element: (
-            <ProtectedRoute>
-              <ShippingDetails />
-            </ProtectedRoute>
-          ),
+          element: <ProtectedRoute component={ShippingDetails} />,
         },
       ],
-      
-    },
-    {
-      path: "sell",
-      element: (
-        <ProtectedRoute>
-          <Sell />
-        </ProtectedRoute>
-      ),
     },
   ]);
 
