@@ -25,6 +25,7 @@ import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 import EditProduct from "./components/EditProduct/EditProduct.jsx";
 import BestRate from "./components/BestRate/BestRate";
+import About from "./components/About/About.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -41,6 +42,8 @@ function App() {
       element: <LayOut />,
       children: [
         { index: true, element: <Home /> },
+
+        { path: "About", element: <About /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },

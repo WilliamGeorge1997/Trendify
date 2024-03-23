@@ -40,8 +40,10 @@ const Sell = () => {
         }
       );
       resetForm();
-      toast.success("Product posted successfully!");
+      toast.success("AD posted successfully!");
+      console.log(response);
     } catch (error) {
+      console.log(error);
       toast.error("Failed to post product. Please try again later.");
     }
   };
@@ -83,12 +85,12 @@ const Sell = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Sell Products</title>
+        <title>Sell Ad</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
 
       <div className={styles.sellPage}>
-        <h2 className="text-center">Post Your Product</h2>
+        <h2 className="text-center">Post Your AD</h2>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <div className={styles.formGroup}>
             <label
@@ -268,7 +270,7 @@ const Sell = () => {
               For the cover picture we recommend using the landscape mode.
             </p>
             <input
-              className={`${styles.inputField} form-control mb-2 opacity-0`}
+              className={`${styles.inputField} form-control mb-2 d-none`}
               type="file"
               id="formFile"
               multiple
@@ -281,7 +283,7 @@ const Sell = () => {
             />
             {formik.touched.images && formik.errors.images ? (
               <p className={`${styles.errorMessage} text-danger`}>
-                {formik.errors.images}
+              
               </p>
             ) : null}
           </div>
@@ -292,13 +294,25 @@ const Sell = () => {
             </div>
           ) : null}
 
-          <button type="submit" className={`btn mt-2 ${styles.submitButton}`}>
-            Add Product
-          </button>
+          {isLoading ? (
+            <button
+              type="button"
+              className={`btn mt-2  ${styles.submitButton}  `}
+            >
+              <i className="fas fa-spinner fa-spin"></i>
+            </button>
+          ) : (
+            <>
+              <button
+                disabled={!(formik.isValid && formik.dirty)}
+                type="submit"
+                className={`btn ${styles.submitDisabledButton} w-100 mt-2`}
+              >
+                Post AD
+              </button>
+              </>
+          )}
 
-          <Link to={"/EditProduct"} className="fw-bold text-black">
-            Edit product
-          </Link>
         </form>
       </div>
     </>
