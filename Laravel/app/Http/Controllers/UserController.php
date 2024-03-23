@@ -147,6 +147,7 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'success',
             'user' => [
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
             ],
@@ -160,10 +161,21 @@ class UserController extends Controller
 
     public function updateuser(Request $request)
     {
+
+        try {
+
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (\Exception $e) {
+            $data = [
+                'status' => 401,
+                'message' => 'Unauthorized',
+            ];
+            return response()->json($data, 401);
+        }
         $validator = Validator::make($request->all(), [
             'gender' => 'nullable|in:male,female',
             'about' => 'nullable|max:250',
-            'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users',
+            'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users,phone,' . $user->id,
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'date_of_birth' => 'nullable|date',
         ], [
@@ -171,7 +183,6 @@ class UserController extends Controller
             'about.max' => 'The about field must not exceed 250 characters.',
             'phone.required' => 'The phone field is required.',
             'phone.regex' => 'Please enter a valid phone number.',
-            'phone.unique' => 'Phone number already exists.',
             'avatar.image' => 'The avatar must be an image file.',
             'avatar.mimes' => 'The avatar must be a file of type: jpeg, png, jpg, gif, webp.',
             'avatar.max' => 'The avatar may not be greater than 2MB in size.',
@@ -188,6 +199,7 @@ class UserController extends Controller
         }
 
         try {
+
             $user = JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
             $data = [
@@ -196,6 +208,10 @@ class UserController extends Controller
             ];
             return response()->json($data, 401);
         }
+
+        $validator->sometimes('phone', 'unique:users,phone,' . $user->id, function ($input) use ($user) {
+            return $input->phone !== $user->phone;
+        });
 
         if ($request->filled('gender')) {
             $user->gender = $request->gender;
@@ -227,6 +243,8 @@ class UserController extends Controller
         ];
         return response()->json($data, 200);
     }
+
+
 
 
     public function profile(Request $request)
@@ -270,7 +288,7 @@ class UserController extends Controller
         try {
             $user = User::with([
                 'products' => function ($query) {
-                    $query->with('images', 'EgyptCity');
+                    $query->with('images', 'EgyptCity','user');
                 }
             ])->findOrFail($request->user_id);
 

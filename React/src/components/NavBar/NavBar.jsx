@@ -11,15 +11,15 @@ export default function NavBar() {
   const { data: cartItemCount, isLoading, isError } = useCartItemCount();
 
   let navigate = useNavigate();
-  useEffect(() => {
-    if (searchValue.trim() !== "") {
-      navigate(`/Search/${searchValue}`);
-    } else {
-      setSearchValue(" ");
-       navigate(`/Search/${searchValue}`);
-      navigate("/Home");
-    }
-  }, [searchValue, navigate]);
+  // useEffect(() => {
+  //   if (searchValue.trim() !== "") {
+  //     navigate(`/Search/${searchValue}`);
+  //   } else {
+  //     setSearchValue(" ");
+  //      navigate(`/Search/${searchValue}`);
+  //     navigate("/Home");
+  //   }
+  // }, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");

@@ -27,8 +27,9 @@ import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
-import Ads from './components/Ads/Ads';
+import Ads from "./components/Ads/Ads";
 import NavCreate from "./components/NavCreate/NavCreate.jsx";
+import About from "./components/About/About.jsx";
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -43,6 +44,7 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
+        { path: "about", element: <About /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -107,7 +109,6 @@ function App() {
       path: "navcreate",
       element: (
         <ProtectedRoute>
-          
           <NavCreate />
         </ProtectedRoute>
       ),
