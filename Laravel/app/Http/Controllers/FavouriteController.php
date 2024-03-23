@@ -87,7 +87,7 @@ class FavouriteController extends Controller
             $user->favouriteProducts()->detach($product->id);
 
 
-            $favoriteProducts = $user->favouriteProducts()->with('images','EgyptCity')->get();
+            $favoriteProducts = $user->favouriteProducts()->with('images', 'EgyptCity')->get();
 
 
             $user->favorite_products = $favoriteProducts;
