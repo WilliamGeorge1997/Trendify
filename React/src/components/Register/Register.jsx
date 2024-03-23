@@ -1,9 +1,10 @@
 import styles from "./Register.module.css";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Register() {
   let navigate = useNavigate();
@@ -68,7 +69,13 @@ function Register() {
   });
 
   return (
-    <>
+    <Fragment>
+      {" "}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="w-50 mx-auto py-5">
         <h2 className="main-color">Register Now</h2>
 
@@ -180,7 +187,7 @@ function Register() {
           )}
         </form>
       </div>
-    </>
+    </Fragment>
   );
 }
 

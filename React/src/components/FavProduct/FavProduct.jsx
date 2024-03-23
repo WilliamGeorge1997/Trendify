@@ -55,19 +55,18 @@ export default function FavProduct() {
                     to={"/Details/" + product.id}
                     className="text-decoration-none text-black"
                   >
-                    {product.images && product.images.length > 0 && (
-                      <img
-                        src={
-                          product.images[0]
-                            ? `http://127.0.0.1:8000/storage/${product.images[0].image_path}`
-                            : img
-                        }
-                        className="card-img-top border p-2"
-                        alt={product.title}
-                        width={20}
-                        height={300}
-                      />
-                    )}
+                    <img
+                      src={
+                        product.images[0]
+                          ? `http://127.0.0.1:8000/storage/${product.images[0].image_path}`
+                          : img
+                      }
+                      className="card-img-top border p-2"
+                      alt={product.title}
+                      width={20}
+                      height={300}
+                    />
+
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center ">
                         <p className="card-text fw-bold  main-color  mb-0">
@@ -76,7 +75,7 @@ export default function FavProduct() {
                       </div>
                       <h5 className="card-title">
                         {product.title.slice(0, 30) + "..."}
-                        {product.user_id > 1 ? (
+                        {product.user.id > 1 ? (
                           " "
                         ) : (
                           <p className="fa-xs text-end mb-0">
@@ -88,27 +87,30 @@ export default function FavProduct() {
                       <h6 className="card-title ">
                         {product.description.slice(0, 55) + "..."}
                       </h6>
-                      {product.stock > 0 || product.user_id > 1 ? (
+                      {product.stock > 0 || product.user.id > 1 ? (
                         ""
                       ) : (
                         <span className="badge rounded-pill main-bg-color  position-absolute bottom-0 mb-2 ms-2 start-0 ">
                           Out Of Stock
                         </span>
                       )}
-                      {product.egypt_city?.city_name || product.user_id > 1 ? (
-                        <p className="card-footer position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
-                          <span> {product.created_at?.split("T")[0]}</span>
-                          <span>
-                            {product.egypt_city?.city_name?.city_name}
-                          </span>
-                        </p>
+                      {product.egypt_city?.city_name || product.user.id > 1 ? (
+                        <h6 className="card-footer position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
+                          <span> {product?.created_at?.split("T")[0]}</span>
+                          <span> {product?.egypt_city?.city_name}</span>
+                          <Link
+                            className="text-decoration-none main-color"
+                            to={`/MyProfile/${product.user.id}`}
+                          >
+                  {         product.user.name}                          </Link>
+                        </h6>
                       ) : (
                         ""
                       )}
                     </div>
                   </Link>
                   <div>
-                    {product.user_id > 1 ? (
+                    {product.user.id > 1 ? (
                       <button className="m-2 btn box-shadow w-25 position-absolute top-0 shadow bg-body-tertiary rounded">
                         <i className="fa-solid main-color fa-phone"></i>
                       </button>

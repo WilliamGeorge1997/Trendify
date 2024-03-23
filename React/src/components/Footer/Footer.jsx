@@ -3,7 +3,9 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className={`${styles.footerBg} border-top mt-4`}>
+    <footer
+      className={`${styles.footerBg} border-top mt-5`}
+    >
       <div className="container">
         <div className="row my-3 mb-5">
           <div className=" col-12 col-sm-6 col-lg-3">
@@ -19,7 +21,6 @@ export default function Footer() {
           </div>
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
-              {" "}
               <h6>Trendify</h6>
               <ul className={styles.unorderedList}>
                 <li>Blog</li>
@@ -32,7 +33,6 @@ export default function Footer() {
           </div>
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
-              {" "}
               <h6>COUNTRIES</h6>
               <ul className={styles.unorderedList}>
                 <li>Bahrain</li>
@@ -45,7 +45,6 @@ export default function Footer() {
           </div>
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
-              {" "}
               <h6 className="mb-3">FOLLOW US</h6>
               <div className="d-flex">
                 <div
@@ -81,7 +80,7 @@ export default function Footer() {
       <div className={`${styles.secondaryFooterBg} py-2`}>
         <div className=" d-flex align-items-center justify-content-end me-5 my-2">
           <p className={`${styles.footerFontSize} fw-bold mb-0`}>
-            Classifieds in Egypt{" "}
+            Classifieds in Egypt
           </p>
           <span className={`${styles.footerFontSize}`}>. © 2024 Trendify</span>
         </div>

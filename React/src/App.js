@@ -16,12 +16,10 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
 import FavProduct from "./components/FavProduct/FavProduct";
-import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import EditProfile from "./components/EditProfile/EditProfile.jsx";
-
 import FilterProduct from "./components/FilterProduct/FilterProduct";
 import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
@@ -43,6 +41,7 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
+        { index: true, element: <Home /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -82,14 +81,6 @@ function App() {
           element: (
             <ProtectedRoute>
               <Cart />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "MyAds",
-          element: (
-            <ProtectedRoute>
-              <MyAds />
             </ProtectedRoute>
           ),
         },
