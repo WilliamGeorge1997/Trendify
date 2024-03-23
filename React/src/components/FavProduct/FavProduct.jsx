@@ -21,11 +21,13 @@ export default function FavProduct() {
   async function getFavourites() {
     const { data } = await getLoggedUserFavourites();
     setFavouriteDetails(data);
+
   }
 
   async function addProduct(productId) {
     let res = await addToCart(productId);
   }
+    getFavourites();
   useEffect(() => {
     getFavourites();
   }, []);

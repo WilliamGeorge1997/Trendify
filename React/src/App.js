@@ -54,7 +54,13 @@ function App() {
         { path: "Login", element: <Login /> },
         { path: "BestRate", element: <BestRate /> },
         { path: "Register", element: <Register /> },
+<<<<<<< HEAD
         { path: "ContactUs", element: <ProtectedRoute><ContactUs/></ProtectedRoute>  },
+=======
+        { path: "ContactUs", element: <ContactUs /> },
+        { path: "Sell", element: <Sell /> },
+
+>>>>>>> bd6bbead213b621496fdfd532b69c05e03d0aced
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",
