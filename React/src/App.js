@@ -76,6 +76,14 @@ function App() {
           ),
         },
         {
+          path: "EditProduct/:id",
+          element: (
+            <ProtectedRoute>
+              <EditProduct />
+            </ProtectedRoute>
+          ),
+        },
+        {
           path: "ContactUs",
           element: (
             <ProtectedRoute>
@@ -92,22 +100,14 @@ function App() {
           ),
         },
         {
-          path: "EditProduct/:id",
+          path: "EditProfile",
           element: (
             <ProtectedRoute>
               <EditProduct />
             </ProtectedRoute>
           ),
         },
-        {
-          path: "EditProfile",
-          element: (
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          ),
-        },
-
+        
         {
           path: "ShippingDetails",
           element: (
@@ -117,6 +117,15 @@ function App() {
           ),
         },
       ],
+      
+    },
+    {
+      path: "sell",
+      element: (
+        <ProtectedRoute>
+          <Sell />
+        </ProtectedRoute>
+      ),
     },
   ]);
 
