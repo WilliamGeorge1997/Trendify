@@ -28,7 +28,8 @@ import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
-import NavCreate from "./components/NavCreate/NavCreate.jsx";
+import EditProduct from "./components/EditProduct/EditProduct.jsx";
+
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -62,18 +63,18 @@ function App() {
           ),
         },
         {
-          path: "MyProfile",
+          path: "EditProduct/:id",
           element: (
             <ProtectedRoute>
-              <MyProfile />
+              <EditProduct />
             </ProtectedRoute>
           ),
         },
         {
-          path: "EditProfile",
+          path: "MyProfile",
           element: (
             <ProtectedRoute>
-              <EditProfile />
+              <MyProfile />
             </ProtectedRoute>
           ),
         },
@@ -86,6 +87,22 @@ function App() {
           ),
         },
         {
+          path: "sell",
+          element: (
+            <ProtectedRoute>
+              <Sell />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "EditProfile",
+          element: (
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          ),
+        },
+        {
           path: "MyAds",
           element: (
             <ProtectedRoute>
@@ -94,23 +111,6 @@ function App() {
           ),
         },
       ],
-    },
-    {
-      path: "sell",
-      element: (
-        <ProtectedRoute>
-          <Sell />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "navcreate",
-      element: (
-        <ProtectedRoute>
-          
-          <NavCreate />
-        </ProtectedRoute>
-      ),
     },
   ]);
 
