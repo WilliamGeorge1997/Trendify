@@ -1,20 +1,33 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer
-      className={`${styles.footerBg} border-top mt-5`}
-    >
+    <footer className={`${styles.footerBg} border-top mt-5`}>
       <div className="container">
         <div className="row my-3 mb-5">
           <div className=" col-12 col-sm-6 col-lg-3">
             <div>
               <h6>ABOUT US</h6>
               <ul className={styles.unorderedList}>
-                <li>About Trendify Group</li>
+                <li>
+                  <Link
+                    className={`${styles.linkable} text-decoration-none text-black`}
+                    to="/about"
+                  >
+                    About Trendify Group
+                  </Link>
+                </li>
                 <li>Careers</li>
-                <li>Contact Us</li>
+                <li>
+                  <Link
+                    className={`${styles.linkable} text-decoration-none text-black`}
+                    to="/contactus"
+                  >
+                    Contact us
+                  </Link>
+                </li>
                 <li>Trendify for Businesses</li>
               </ul>
             </div>

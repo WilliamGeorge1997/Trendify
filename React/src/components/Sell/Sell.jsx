@@ -44,6 +44,7 @@ const Sell = () => {
       toast.success("Product posted successfully!");
       console.log(response);
     } catch (error) {
+      console.log(error);
       toast.error("Failed to post product. Please try again later.");
     }
   };
@@ -283,7 +284,7 @@ const Sell = () => {
             />
             {formik.touched.images && formik.errors.images ? (
               <p className={`${styles.errorMessage} text-danger`}>
-                {formik.errors.images}
+              
               </p>
             ) : null}
           </div>

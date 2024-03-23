@@ -62,13 +62,11 @@ function Login() {
 
   return (
     <Fragment>
-      
-     
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Login</title>
-          <link rel="canonical" href="http://mysite.com/example" />
-        </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="w-50 mx-auto py-5">
         <h2 className={` main-color`}>Login Now</h2>
 
