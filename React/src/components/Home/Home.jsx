@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import MainSlider from "../MainSlider/MainSlider";
 import { Link } from "react-router-dom";
@@ -11,8 +11,15 @@ import Loading from "../Loading/Loading";
 import { Fragment } from "react";
 
 export default function Home() {
-  let { product } = useContext(AllProductContext);
-  const Products = product?.products?.filter((item) => item.user.id === 1);
+  let { fetchProducts } = useContext(AllProductContext);
+  const [product, setProduct] = useState([]);
+  async function pro() {
+    let product = await fetchProducts();
+    setProduct(product);
+  }
+  useEffect(() => {
+    pro();
+  }, []);  const Products = product?.products?.filter((item) => item.user.id === 1);
   return (
     <Fragment>
       <Helmet>

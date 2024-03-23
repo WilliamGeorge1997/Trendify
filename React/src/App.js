@@ -16,19 +16,20 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import { Fragment, useContext, useEffect } from "react";
 import { UserContext } from "./Context/UserContext.js";
 import FavProduct from "./components/FavProduct/FavProduct";
-import MyAds from "./components/MyAds/MyAds";
 import MyProfile from "./components/MyProfile/MyProfile";
 import Cart from "./components/Cart/Cart";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import EditProfile from "./components/EditProfile/EditProfile.jsx";
-
 import FilterProduct from "./components/FilterProduct/FilterProduct";
 import Search from "./components/Search/Search";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Success from "./components/Success/Success";
 import { FavouriteContextProvider } from "./Context/FavouriteContext.js";
 import Ads from './components/Ads/Ads';
-import NavCreate from "./components/NavCreate/NavCreate.jsx";
+import ShippingDetails from "./components/ShippingDetails/ShippingDetails.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
+import EditProduct from "./components/EditProduct/EditProduct.jsx";
+
 
 function App() {
   let { setUserToken } = useContext(UserContext);
@@ -43,6 +44,7 @@ function App() {
       path: "",
       element: <LayOut />,
       children: [
+        { index: true, element: <Home /> },
         { path: "Details/:id", element: <Details /> },
         { path: "Categories/:id/:label", element: <Categories /> },
         { path: "FilterProduct/:pro", element: <FilterProduct /> },
@@ -62,20 +64,8 @@ function App() {
           ),
         },
         {
-          path: "MyProfile",
-          element: (
-            <ProtectedRoute>
-              <MyProfile />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "EditProfile",
-          element: (
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          ),
+          path: "MyProfile/:id",
+          element: <MyProfile />,
         },
         {
           path: "Cart",
@@ -86,29 +76,46 @@ function App() {
           ),
         },
         {
-          path: "MyAds",
+          path: "EditProduct/:id",
           element: (
             <ProtectedRoute>
-              <MyAds />
+              <EditProduct />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "sell",
+          element: (
+            <ProtectedRoute>
+              <Sell />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "EditProfile",
+          element: (
+            <ProtectedRoute>
+              <EditProduct />
+            </ProtectedRoute>
+          ),
+        },
+
+        {
+          path: "ShippingDetails",
+          element: (
+            <ProtectedRoute>
+              <ShippingDetails />
             </ProtectedRoute>
           ),
         },
       ],
+      
     },
     {
       path: "sell",
       element: (
         <ProtectedRoute>
           <Sell />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "navcreate",
-      element: (
-        <ProtectedRoute>
-          
-          <NavCreate />
         </ProtectedRoute>
       ),
     },

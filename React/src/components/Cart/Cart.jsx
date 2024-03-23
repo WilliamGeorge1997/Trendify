@@ -3,7 +3,7 @@ import styles from "./Cart.module.css";
 import Loading from "../Loading/Loading";
 import { Link } from "react-router-dom";
 import { cartContext } from "./../../Context/CartContext";
-import { useState, Fragment , useEffect, useContext } from "react";
+import { useState, Fragment, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet";
 export default function Cart() {
   let { getLoggedUserCart, removeCartItem, updateProductQuantity, removeCart } =
@@ -126,7 +126,7 @@ export default function Cart() {
                     <div className="d-flex justify-content-between my-4">
                       <span className="fw-bold">Total items count</span>
                       <span className="fw-bold text-success">
-                        {cartDetails.total_count}{" "}
+                        {cartDetails.total_count}
                         <span>
                           {cartDetails.total_count === 1 ? "item" : "items"}
                         </span>
@@ -146,11 +146,15 @@ export default function Cart() {
                       </span>
                     </div>
                     <div className="my-4">
+
+                    <Link className={`${styles.continueBtn}`} to="/ShippingDetails">
                       <button
                         className={`btn main-bg-color text-white w-100 ${styles.countBtn}`}
                       >
                         PROCEED TO CHECKOUT
                       </button>
+                      </Link>
+
                     </div>
                     <div>
                       <Link className={`${styles.continueBtn}`} to="/Home">
@@ -164,7 +168,7 @@ export default function Cart() {
                 </Fragment>
               ) : (
                 <div className="h3 main-color col-12 text-center py-5 my-5">
-                  Your Cart is empty{" "}
+                  Your Cart is empty
                 </div>
               )}
             </div>

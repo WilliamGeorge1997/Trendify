@@ -7,22 +7,23 @@ import logo from "../../assets/images/logo.png";
 export default function NavBar() {
   let { userToken, setUserToken } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState("");
+  const { data: cartItemCount } = useCartItemCount();
+  const [cartCount, setCartCount] = useState(cartItemCount);
 
-  const { data: cartItemCount, isLoading, isError } = useCartItemCount();
-
-  let navigate = useNavigate();
   useEffect(() => {
-    if (searchValue.trim() !== "") {
-      navigate(`/Search/${searchValue}`);
-    } else {
-      setSearchValue(" ");
-       navigate(`/Search/${searchValue}`);
-      navigate("/Home");
-    }
-  }, [searchValue, navigate]);
+    setCartCount(cartItemCount);
+  }, [cartItemCount]);
+  
+ let navigate = useNavigate();
+useEffect(() => {
+  if (searchValue) {
+    navigate(`/Search/${searchValue}`);
+  }
+}, [searchValue, navigate]);
 
   function logout() {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("userId");
     setUserToken(null);
     navigate("/login");
   }
@@ -51,20 +52,20 @@ export default function NavBar() {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-              <input
-                className={`form-control me-1 ${styles.formControl}`}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                value={searchValue}
-                onChange={handleSearchChange}
-              />
-              <Link
-                to={"Search/" + searchValue}
-                className={` btn main-bg-color text-white ${styles.btn}`}
-              >
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </Link>
+            <input
+              className={`form-control me-1 ${styles.formControl}`}
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
+            <Link
+              to={"Search/" + searchValue}
+              className={` btn main-bg-color text-white ${styles.btn}`}
+            >
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {/* ----------------- ProfileLogout button----------------------- */}
               {userToken !== null ? (
@@ -85,8 +86,7 @@ export default function NavBar() {
                     </Link>
                     <ul className="dropdown-menu">
                       <li>
-                        <Link className="dropdown-item" to={"MyProfile"}>
-                          {/* <i className="fa-solid fa-eye me-2"></i> */}
+                        <Link className="dropdown-item" to={"MyProfile/0"}>
                           <i className="fa-regular fa-eye me-2"></i>
                           profile
                         </Link>
@@ -96,13 +96,6 @@ export default function NavBar() {
                         <Link className="dropdown-item" to={"EditProfile"}>
                           <i className="fas fa-user-edit me-2"></i>
                           Edit profile
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link className="dropdown-item" to={"MyAds"}>
-                          <i className="fa-solid fa-rectangle-ad me-2"></i>
-                          My Ads
                         </Link>
                       </li>
                       <li>
@@ -149,19 +142,26 @@ export default function NavBar() {
                 <Link className="nav-link" to={"Cart"}>
                   <i className="fa-solid fa-cart-shopping position-relative">
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
-                      {cartItemCount}
+                      {cartCount}
                     </span>
                   </i>
                 </Link>
               </li>
-              <div className="nav-item">
-                <Link
-                  className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
-                  to={"Sell"}
-                >
-                  Sell
-                </Link>
-              </div>{" "}
+
+              {userToken !== null ? (
+                <>
+                  <div className="nav-item">
+                    <Link
+                      className={`nav-link btn main-bg-color px-4 py-2 text-white ${styles.btn}`}
+                      to={"Sell"}
+                    >
+                      Sell
+                    </Link>
+                  </div>{" "}
+                </>
+              ) : (
+                ""
+              )}
               <div className="nav-item">
                 <Link
                   className={`nav-link btn main-bg-color ms-1 px-4 py-2 text-white ${styles.btn}`}

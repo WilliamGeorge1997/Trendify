@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
+import styles from "../Sell/Sell.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import styles from "./Sell.module.css";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Loading from "../Loading/Loading";
+import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const Sell = () => {
-  let token = localStorage.getItem("userToken");
+
+const EditProduct = () => {
+  const token = localStorage.getItem("userToken");
   const [error, setError] = useState(null);
-  const [isLoading, setisLoading] = useState(false);
-  let [cities, setCities] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [product, setProduct] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [isDirty, setIsDirty] = useState(false); 
+  const { id } = useParams();
 
   async function getCity() {
     try {
-      let { data } = await axios.get("http://127.0.0.1:8000/api/cities");
+      const { data } = await axios.get("http://127.0.0.1:8000/api/cities");
       setCities(data.cities);
     } catch (err) {
       setError(err.response.data.message);
@@ -28,10 +32,47 @@ const Sell = () => {
     getCity();
   }, []);
 
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/products/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const responseData = response.data.message;
+        setProduct(responseData);
+        setIsLoading(false);
+        console.log(responseData);
+      } catch (error) {
+        toast.error("Error fetching product:", error);
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, [id, token]);
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .required("Title is required, Please fill this field")
+      .max(255, "Title should be less than 255 characters."),
+    description: Yup.string()
+      .required("Description is required")
+      .min(20, "Description must be at least 20 characters"),
+    price: Yup.number()
+      .required("Price is required")
+      .positive("Please add valid price"),
+    category_id: Yup.string().required("Category is required"),
+    images: Yup.string().required("Please provide an image"),
+  });
+
   const handleSubmit = async (values, { resetForm }) => {
+    setIsLoading(true);
     try {
       let response = await axios.post(
-        "http://localhost:8000/api/products",
+        `http://localhost:8000/api/products/${id}/edit`,
         values,
         {
           headers: {
@@ -41,30 +82,16 @@ const Sell = () => {
         }
       );
       resetForm();
-      toast.success("AD posted successfully!");
+      toast.success("AD edited successfully!");
       console.log(response);
     } catch (error) {
-      toast.error("Failed to post product. Please try again later.");
+      toast.error("Failed to edit AD. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required(
-      "Title is required, Please fill this field"
-    ).max(255, "Title should be less than 255 characters."),
-    description: Yup.string()
-      .required("Description is required")
-      .min(20, "Description must be at least 20 characters"),
-    price: Yup.number()
-      .required("Price is required")
-      .positive("Please add valid price"),
-    category_id: Yup.string()
-    .required("Category is required"),
-    images: Yup.string()
-    .required("Please provide an image")
-  });
-
-  let formik = useFormik({
+  const formik = useFormik({
     initialValues: {
       title: "",
       description: "",
@@ -77,20 +104,38 @@ const Sell = () => {
     onSubmit: handleSubmit,
   });
 
-  if (!cities) {
+  useEffect(() => {
+    if (product) {
+      formik.setValues({
+        title: product.title || "",
+        description: product.description || "",
+        price: product.price || "",
+        location_id: product.location_id || "",
+        category_id: product.category_id || "",
+        images: product.images || [],
+      });
+    }
+  }, [product]);
+
+
+  const handleInputChange = () => {
+    if (!isDirty) {
+      setIsDirty(true);
+    }
+  };
+
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
     <>
       <Helmet>
-        <meta charSet="utf-8" />
-        <title>Sell Ad</title>
-        <link rel="canonical" href="http://mysite.com/example" />
+        <title>Edit AD</title>
       </Helmet>
 
       <div className={styles.sellPage}>
-        <h2 className="text-center">Post Your AD</h2>
+        <h2 className="text-center">Edit Your AD</h2>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <div className={styles.formGroup}>
             <label
@@ -113,7 +158,8 @@ const Sell = () => {
               id="title"
             />
             <p className="small fs-small">
-             Mention the key features of your item (e.g. brand, model, age, type)
+              Mention the key features of your item (e.g. brand, model, age,
+              type)
             </p>
             {formik.touched.title && formik.errors.title ? (
               <p className={`${styles.errorMessage} text-danger`}>
@@ -253,28 +299,40 @@ const Sell = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label
-              htmlFor="formFile"
-              className={`${styles.label} ${
-                formik.touched.images && formik.errors.images && styles.invalid
-              } w-100 h-100`}
-            >
-              <h6>Upload your images</h6>
-              <div className="d-flex justify-content-center align-items-center">
-                <div className="border rounded p-5">
-                  <i className="fa-regular fa-images"></i>
+            <h5>Upload you images</h5>
+            <div className="d-flex justify-content-center align-items-center mb-3">
+              <label
+                htmlFor="formFile"
+                className={`${styles.label} ${
+                  formik.touched.images &&
+                  formik.errors.images &&
+                  styles.invalid
+                }   h-100 cursor-pointer`}
+              >
+                <div className="d-flex justify-content-center align-items-center">
+                  <div className="border rounded p-5">
+                    <i className="fa-regular fa-images"></i>
+                  </div>
                 </div>
-              </div>
-            </label>
-            <p className="small fs-small text-center">
-              For the cover picture we recommend using the landscape mode.
-            </p>
+              </label>
+            </div>
+            <div className="row row-cols-6 justify-content-center">
+              {product?.images?.map((item, index) => (
+                <div key={index}>
+                  <img
+                    className="w-100"
+                    src={`http://127.0.0.1:8000/storage/${item.image_path}`}
+                    alt="images"
+                  ></img>
+                </div>
+              ))}
+            </div>
             <input
-              className={`${styles.inputField} form-control mb-2 d-none`}
+              className={`${styles.inputField} form-control d-none`}
               type="file"
               id="formFile"
               multiple
-              name="images[]"
+              name="images"
               accept="image/jpeg, image/png, image/jpg, image/gif, image/webp"
               onChange={(event) =>
                 formik.setFieldValue("images", event.target.files)
@@ -282,9 +340,7 @@ const Sell = () => {
               onBlur={formik.handleBlur}
             />
             {formik.touched.images && formik.errors.images ? (
-              <p className={`${styles.errorMessage} text-danger`}>
-                {formik.errors.images}
-              </p>
+              <p className={`${styles.errorMessage} text-danger`}></p>
             ) : null}
           </div>
 
@@ -304,19 +360,18 @@ const Sell = () => {
           ) : (
             <>
               <button
-                disabled={!(formik.isValid && formik.dirty)}
                 type="submit"
                 className={`btn ${styles.submitDisabledButton} w-100 mt-2`}
+                disabled={!(formik.isValid && formik.dirty)}
               >
-                Post AD
+                Edit AD
               </button>
-              </>
+            </>
           )}
-
         </form>
       </div>
     </>
   );
 };
 
-export default Sell;
+export default EditProduct;

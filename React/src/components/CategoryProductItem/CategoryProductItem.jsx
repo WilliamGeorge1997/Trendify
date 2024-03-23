@@ -3,14 +3,20 @@ import { favouriteContext } from "../../Context/FavouriteContext";
 import img from "../../assets/images/images.png";
 import { cartContext } from "../../Context/CartContext";
 import { useContext } from "react";
+import { AllProductContext } from "../../Context/ProductContext";
+import { Link } from 'react-router-dom';
 export default function CategoryProductItem(data) {
+      let { removeProduct } = useContext(AllProductContext);
+
   let { addToCart } = useContext(cartContext);
   let { addToFavourite } = useContext(favouriteContext);
-
+let UID = localStorage.getItem("userId");
   async function addProductToFavourite(productId) {
     let res = await addToFavourite(productId);
   }
-
+ async function removeItem(id) {
+   await removeProduct(id);
+ }
   async function addProduct(productId) {
     let res = await addToCart(productId);
   }
@@ -39,12 +45,43 @@ export default function CategoryProductItem(data) {
         </div>
         <div className="col-md-8 position-relative ">
           <div className="card-body">
-            {" "}
+                      <div className="d-flex justify-content-between align-items-center ">
             <p className="card-text fw-bold  main-color  mb-0">
               EGP {data.data.price}
             </p>
+            {UID == data.data.user.id ? (
+              <div class="btn-group">
+                <i
+                  type="button"
+                  class="fa-solid fa-ellipsis-vertical dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                ></i>
+                <ul class="dropdown-menu">
+                  <li>
+                    <Link
+                      to={`/EditProduct/${data.data.id}`}
+                      class="dropdown-item"
+                    >
+                      <i class="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      class="dropdown-item"
+                      onClick={() => removeItem(data.data.id)}
+                    >
+                      <i class="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              ""
+              )}
+              </div>
             <h5 className="card-title">
-              {data.data.title}{" "}
+              {data.data.title}
               {data.data.user.id > 1 ? (
                 " "
               ) : (

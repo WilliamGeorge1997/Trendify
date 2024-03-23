@@ -6,3 +6,6 @@
     text-decoration: none;
 }
 
+.card{
+    height: 500px !important;
+}
