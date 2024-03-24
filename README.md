@@ -8,8 +8,8 @@ Welcome to Trendify, an innovative ecommerce platform designed to revolutionize 
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Technologies Used](#TechnologiesUsed)
-3. [Getting Started](#gettingstarted)
-4. [Contributing](#Contributing)
+3. [Getting Started](#getting-started)
+4. [Technologies Used](#technologies-used)
 
 
 ---
