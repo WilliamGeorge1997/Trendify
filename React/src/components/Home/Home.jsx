@@ -210,6 +210,22 @@ export default function Home() {
                       </div>
                     </>
                   ))}
+          <div className="col-md-9">
+            <BestSeller></BestSeller>
+            <BestRate></BestRate>
+          </div>
+        </div>
+        <div className={styles.cover}>
+          <div>
+         
+            <h3 className="h1">SHOP WITH US</h3>
+            <p>#NEW SUMMER COLLECTION 2024</p>
+            <Link to={"/Categories/9/1"} className="btn btn-dark ">
+              SHOP NOW
+            </Link>
+          </div>
+        </div></Fragment>
+)}
 
                   {/* Women End */}
                 </div>
@@ -355,6 +371,7 @@ export default function Home() {
             </>
           </Fragment>
         )}
+
       </div>
     </Fragment>
   );
