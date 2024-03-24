@@ -61,6 +61,7 @@ export default function Categories() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className="container-fluid row">
+        <h3 className="fw-bold mb-3">Categories</h3>
         <div className="col-md-4">
           <FilterProductBar
             product={initialCatProducts}

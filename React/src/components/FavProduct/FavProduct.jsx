@@ -16,7 +16,6 @@ export default function FavProduct() {
   async function removeFavourite(productId) {
     const { data } = await removeLoggedUserFavourite(productId);
     setFavouriteDetails(data);
-    console.log(data);
   }
   async function getFavourites() {
     const { data } = await getLoggedUserFavourites();
@@ -52,7 +51,7 @@ export default function FavProduct() {
                   className={`card ${styles.card} d-flex justify-content-between `}
                 >
                   <Link
-                    to={`/Details/${product.id}`}
+                    to={"/Details/" + product.id}
                     className="text-decoration-none text-black"
                   >
                     <img

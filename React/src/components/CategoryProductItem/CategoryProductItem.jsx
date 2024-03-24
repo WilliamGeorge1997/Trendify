@@ -4,10 +4,10 @@ import img from "../../assets/images/images.png";
 import { cartContext } from "../../Context/CartContext";
 import { useContext } from "react";
 import { AllProductContext } from "../../Context/ProductContext";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 export default function CategoryProductItem(data) {
       let { removeProduct } = useContext(AllProductContext);
-
+ const navigate = useNavigate();
   let { addToCart } = useContext(cartContext);
   let { addToFavourite } = useContext(favouriteContext);
 let UID = localStorage.getItem("userId");
@@ -16,6 +16,7 @@ let UID = localStorage.getItem("userId");
   }
  async function removeItem(id) {
    await removeProduct(id);
+       navigate(0); 
  }
   async function addProduct(productId) {
     let res = await addToCart(productId);
@@ -92,22 +93,32 @@ let UID = localStorage.getItem("userId");
               )}
             </h5>
             <p className="card-text ">
-              {data.data.description.slice(0, 400) + "..."}
+              {data.data.description.slice(0, 200) + "..."}
             </p>
             {data.data.egypt_city?.city_name || data.data.user.id > 1 ? (
-              <p className="card-footer position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
+              <p className="card-footer border position-absolute bottom-0 end-0 start-0 m-0 d-flex justify-content-between fs-small small">
                 <span> {data.data.created_at?.split("T")[0]}</span>
                 <span> {data.data.egypt_city?.city_name}</span>
+                <Link
+                  className="text-decoration-none main-color"
+                  to={`/MyProfile/${data.data.user.id}`}
+                >
+                  {data.data.user.name}
+                </Link>
               </p>
             ) : (
               ""
             )}
           </div>
-          <div className="position-absolute button-0 ">
+          <div className="button-0 ">
             {data.data.user.id > 1 ? (
-              <button className="m-2 btn box-shadow shadow  main-bg-color  rounded">
-                <i className="fa-solid text-white fa-phone"></i>
-              </button>
+        
+                  <Link
+                    to={`tel:${data.data.user.phone}`}
+                    className="m-2 btn box-shadow shadow  main-bg-color  rounded"
+                  >
+                    <i className="fa-solid text-white fa-phone"></i>
+                  </Link>
             ) : (
               <button
                 className="m-2 btn box-shadow shadow  main-bg-color rounded"

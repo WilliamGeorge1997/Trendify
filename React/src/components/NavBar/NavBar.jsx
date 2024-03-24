@@ -81,7 +81,7 @@ export default function NavBar() {
                       <span
                         className={`main-color ${styles.user} text-center `}
                       >
-                        <i class="fa-solid fa-user"></i>{" "}
+                        <i className="fa-solid fa-user"></i>{" "}
                       </span>
                     </Link>
                     <ul className="dropdown-menu">
@@ -141,9 +141,9 @@ export default function NavBar() {
               <li className="nav-item mx-2">
                 <Link className="nav-link" to={"Cart"}>
                   <i className="fa-solid fa-cart-shopping position-relative">
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
+                  {/*  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill main-bg-color ">
                       {cartCount}
-                    </span>
+                    </span>*/} 
                   </i>
                 </Link>
               </li>
