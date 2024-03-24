@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./ProductItem.module.css";
 import { cartContext } from "../../Context/CartContext";
 import { AllProductContext } from "../../Context/ProductContext";
@@ -8,7 +8,7 @@ import { Fragment, useContext } from "react";
 import img from "../../assets/images/images.png";
 export default function ProductItem({ itemData }) {
   let { removeProduct } = useContext(AllProductContext);
-
+  const navigate = useNavigate();
   let { addToCart } = useContext(cartContext);
   let { addToFavourite } = useContext(favouriteContext);
   let UID = localStorage.getItem("userId");
@@ -17,6 +17,7 @@ export default function ProductItem({ itemData }) {
   }
   async function removeItem(id) {
     await removeProduct(id);
+       navigate(0); 
   }
   async function addProduct(productId) {
     let res = await addToCart(productId);

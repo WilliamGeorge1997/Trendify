@@ -39,9 +39,9 @@ export default function Search() {
       {product.status == 200 ? (
         <div className="container">
           <h3 className="fw-bold mb-3">Search</h3>
-          <Link to={"/Home"} className="text-black">
+          <button to={"/Home"} className="text-black">
             <i className="fa-solid m-3 fa-x"></i>
-          </Link>
+          </button>
           {searchResults.length ? (
             <div className="row row-cols-lg-4 row-cols-md-3 ">
               {searchResults.map((item) => (

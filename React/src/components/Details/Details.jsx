@@ -11,12 +11,12 @@ import Loading from "../Loading/Loading";
 import img from "../../assets/images/images.png";
 import toast from "react-hot-toast";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Details() {
   let { removeProduct } = useContext(AllProductContext);
-
+ const navigate = useNavigate();
   let { addToFavourite } = useContext(favouriteContext);
   let UID = localStorage.getItem("userId");
   async function addProductToFavourite(productId) {
@@ -24,6 +24,7 @@ export default function Details() {
   }
   async function removeItem(id) {
     await removeProduct(id);
+        navigate(0); 
   }
   function fetchProduct11(productId) {
     const res = axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
