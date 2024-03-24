@@ -38,6 +38,7 @@ export default function Search() {
       </Helmet>
       {product.status == 200 ? (
         <div className="container">
+          <h3 className="fw-bold mb-3">Search</h3>
           <Link to={"/Home"} className="text-black">
             <i className="fa-solid m-3 fa-x"></i>
           </Link>

@@ -81,7 +81,7 @@ export default function NavBar() {
                       <span
                         className={`main-color ${styles.user} text-center `}
                       >
-                        <i class="fa-solid fa-user"></i>{" "}
+                        <i className="fa-solid fa-user"></i>{" "}
                       </span>
                     </Link>
                     <ul className="dropdown-menu">

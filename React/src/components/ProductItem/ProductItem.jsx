@@ -24,7 +24,7 @@ export default function ProductItem({ itemData }) {
   return (
     <div className={`card ${styles.card} d-flex justify-content-between `}>
       <Link
-        to={"/Details/" + itemData.id}
+        to={`/Details/${itemData.id}`}
         className="text-decoration-none text-black"
       >
         <img
@@ -44,28 +44,28 @@ export default function ProductItem({ itemData }) {
               EGP {itemData.price}
             </p>
             {UID == itemData.user.id ? (
-              <div class="btn-group">
+              <div className="btn-group">
                 <i
                   type="button"
-                  class="fa-solid fa-ellipsis-vertical dropdown-toggle"
+                  className="fa-solid fa-ellipsis-vertical dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 ></i>
-                <ul class="dropdown-menu">
+                <ul className="dropdown-menu">
                   <li>
                     <Link
                       to={`/EditProduct/${itemData.id}`}
-                      class="dropdown-item"
+                      className="dropdown-item"
                     >
-                      <i class="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
+                      <i className="fa-regular fa-pen-to-square text-black text-decoration-none"></i>
                     </Link>
                   </li>
                   <li>
                     <Link
-                      class="dropdown-item"
+                      className="dropdown-item"
                       onClick={() => removeItem(itemData.id)}
                     >
-                      <i class="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
+                      <i className="fa-regular fa-solid fa-trash fa-pen-to-square text-danger text-decoration-none"></i>
                     </Link>
                   </li>
                 </ul>

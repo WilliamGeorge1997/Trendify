@@ -25,6 +25,7 @@ export default function Ads() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className=" container">
+        <h3 className="fw-bold mb-3">Ads</h3>{" "}
         <div className="row">
           <div className="col-3">
             <CategoryBar label={0} />
