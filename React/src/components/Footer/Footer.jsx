@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
+
 
 export default function Footer() {
   return (
@@ -12,7 +14,10 @@ export default function Footer() {
               <ul className={styles.unorderedList}>
                 <li>About Trendify Group</li>
                 <li>Careers</li>
-                <li>Contact Us</li>
+
+                <li> <Link to={"/ContactUs"} className=" text-black ">
+                      Contact Us
+                    </Link></li>
                 <li>Trendify for Businesses</li>
               </ul>
             </div>

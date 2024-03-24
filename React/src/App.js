@@ -96,6 +96,15 @@ function App() {
             </ProtectedRoute>
           ),
         },
+        {
+          path: "contactus",
+          element: (
+            <ProtectedRoute>
+              
+              <ContactUs />
+            </ProtectedRoute>
+          ),
+        },
       ],
     },
     {
@@ -115,15 +124,7 @@ function App() {
         </ProtectedRoute>
       ),
     },
-    {
-      path: "contactus",
-      element: (
-        <ProtectedRoute>
-          
-          <ContactUs />
-        </ProtectedRoute>
-      ),
-    },
+    
   ]);
 
   return (
