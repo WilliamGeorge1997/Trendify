@@ -16,8 +16,16 @@ import sale3 from "../../assets/images/happy-running-kid-with-shopping-packages-
 import BestRate from "../BestRate/BestRate";
 import testimonial1 from "../../assets/images/testimonial-1.jpg";
 import testimonial2 from "../../assets/images/testimonial-2.jpg";
+import casio from "../../assets/images/casio.png";
+import samsung from "../../assets/images/samsung.webp";
+import apple from "../../assets/images/apple.png";
+import addidas from "../../assets/images/addidas.png";
+import dell from "../../assets/images/dell.png";
 
 export default function Home() {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   let { fetchProducts } = useContext(AllProductContext);
   const [product, setProduct] = useState([]);
   async function pro() {
@@ -32,6 +40,10 @@ export default function Home() {
   const womenDresses = product?.products?.filter(
     (item) => item.category_id == 9
   );
+  const newArrivals = product?.products
+    ?.filter((item) => item.user_id == 1)
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .slice(0, 8);
 
   return (
     <Fragment>
@@ -55,6 +67,49 @@ export default function Home() {
               <div className="col-md-9">
                 <BestSeller></BestSeller>
                 <BestRate></BestRate>
+                {/* Start */}
+                <section className="mt-5">
+                  <h3>New Arrivals</h3>
+
+                  <div className="container mt-3">
+                    <div className="row">
+                      {newArrivals?.map((item) => (
+                        <div
+                          key={item.id}
+                          className="col-sm-6 col-md-4 col-lg-3 p-3"
+                        >
+                          <Link
+                            to={`/Details/${item.id}`}
+                            className="text-dark text-decoration-none"
+                          >
+                            <div className="dataContainer">
+                              <div className="border  d-flex">
+                                <div className="w-50">
+                                  <img
+                                    src={`http://127.0.0.1:8000/storage/${item.images[0].image_path}`}
+                                    alt=""
+                                    className="w-100 object-fit-scale"
+                                    width={100}
+                                    height={100}
+                                  />
+                                </div>
+                                <div className="d-flex justify-center align-items-center">
+                                  <div>
+                                    <h6>{item.title.slice(0, 10)}...</h6>
+                                    <span className="main-color">
+                                      EGP {item.price}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+                {/* End */}
               </div>
             </div>
             {/* men */}
@@ -196,9 +251,11 @@ export default function Home() {
                           src={testimonial1}
                           className="text-center rounded-circle mb-4"
                           alt="testimonial-2"
+                          width={100}
+                          height={100}
                         />
-                        <h3 className="mb-4 h4">XAVI ALONSO</h3>
-                        <p className="fs-5 fw-light col-md-7 mx-auto">
+                        <h5 className="mb-4 h4">XAVI ALONSO</h5>
+                        <p className="fs-6 fw-light col-md-7 mx-auto">
                           "Thanks to Trendify, my online shopping experience has
                           been elevated with their seamless interface! Highly
                           recommend for anyone seeking style and convenience.
@@ -210,14 +267,88 @@ export default function Home() {
                           src={testimonial2}
                           className="text-center rounded-circle mb-4"
                           alt="testimonial-4"
+                          width={100}
+                          height={100}
                         />
-                        <h3 className="mb-4 h4">MARTA SOCRATE</h3>
-                        <p className="fs-5 fw-light col-md-7 mx-auto">
+                        <h5 className="mb-4 h4">MARTA SOCRATE</h5>
+                        <p className="fs-6 fw-light col-md-7 mx-auto">
                           "Trendify has revolutionized my shopping habits with
                           their intuitive platform and trend-setting products.
                           Grateful for the convenience and style they bring to
                           my fingertips!"
                         </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section className="text-center">
+                <Link
+                  onClick={scrollToTop}
+                  to="/FilterProduct/1"
+                  className="btn main-bg-color px-4 my-5 py-3"
+                >
+                  DISCOVER MORE
+                </Link>
+              </section>
+              <section className="secondary-bg-color">
+                <div className="cotainer">
+                  <div className="row">
+                    <div className="d-flex justify-content-center align-items-center">
+                      <div className="col-md-2">
+                        <div>
+                          <img
+                            src={samsung}
+                            alt=""
+                            className="w-100 object-fit-scale"
+                            width={100}
+                            height={200}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-2">
+                        <div>
+                          <img
+                            src={casio}
+                            alt=""
+                            className="w-100 object-fit-scale"
+                            width={100}
+                            height={200}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-2">
+                        <div>
+                          <img
+                            src={addidas}
+                            alt=""
+                            className="w-100 object-fit-scale"
+                            width={100}
+                            height={80}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-2">
+                        <div>
+                          <img
+                            src={apple}
+                            alt=""
+                            className="w-100 object-fit-scale"
+                            width={100}
+                            height={80}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-2">
+                        <div>
+                          <img
+                            src={dell}
+                            alt=""
+                            className="w-100 object-fit-scale"
+                            width={100}
+                            height={100}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
