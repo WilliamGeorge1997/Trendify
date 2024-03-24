@@ -1,14 +1,33 @@
 import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Loading from "./../Loading/Loading";
 import styles from "./Success.module.css";
 const SuccessPage = () => {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
+  function addPayment() {
+    return axios
+      .post("http://127.0.0.1:8000/api/payment", null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      })
+      .then((res) => res)
+      .catch((err) => err);
+  }
+
+  function deleteShipping() {
+    return axios
+      .delete("http://127.0.0.1:8000/api/shipping/delete", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      })
+      .then((res) => res)
+      .catch((err) => err);
+  }
+  function deleteCart() {
+    return axios
       .delete(`http://127.0.0.1:8000/api/carts/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -17,9 +36,16 @@ const SuccessPage = () => {
       .then((response) => {
         window.location.href = "/home";
       })
-      .catch((error) => {
-        console.error("");
-      });
+      .catch((error) => {});
+  }
+
+  useEffect(() => {
+    async function success() {
+      await addPayment();
+      await deleteShipping();
+      await deleteCart();
+    }
+    success();
   }, []);
 
   return (
