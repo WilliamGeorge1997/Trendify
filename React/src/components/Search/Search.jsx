@@ -43,9 +43,11 @@ export default function Search() {
       </Helmet>
       {product.status === 200 ? (
         <div className="container">
+
           <Link to={"/Home"} className="text-black">
             <i className="fa-solid m-3 fa-x" onClick={clearSearch}></i>
           </Link>
+
           {searchResults.length ? (
             <div className="row row-cols-lg-4 row-cols-md-3 ">
               {searchResults.map((item) => (

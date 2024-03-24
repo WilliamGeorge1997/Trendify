@@ -61,11 +61,11 @@ function MyProfile() {
         <title>Profile</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      <main className={`container my-5  ${styles.myProfileForm} w-75 m-auto`}>
+      <main className={`container-fluid my-5  ${styles.myProfileForm} `}>
         <div className="row">
-          <div className="col-md-2">
-            <div className="  mr-3">
-              <div className="mb-2 d-flex flex-column align-items-center">
+          <div className="col-md-3">
+            <div className="  ms-3">
+              <div className="mb-2 d-flex flex-column align-items-center text-center">
                 {/* ---------------Display the user's avatar  ------------  */}
                 {user.avatar ? (
                   <img
@@ -87,7 +87,7 @@ function MyProfile() {
 
               {user.gender !== null ? (
                 <Fragment>
-                  <div className="mb-2">
+                  <div className="mb-2 text-center">
                     <span className=" fw-bold">Gender:</span>
                     <span className="text-muted"> {user.gender} </span>
                   </div>
@@ -100,7 +100,7 @@ function MyProfile() {
 
               {user.date_of_birth !== null ? (
                 <Fragment>
-                  <div className="mb-2">
+                  <div className="mb-2 text-center">
                     <span className="fw-bold">BirthDate: </span>
                     <span className="text-muted">{user.date_of_birth}</span>
                   </div>
@@ -112,7 +112,7 @@ function MyProfile() {
 
               {user.about !== null ? (
                 <Fragment>
-                  <div className="mb-2 pe-5">
+                  <div className="mb-2 text-center">
                     <span className="fw-bold">About: </span>
                     <span className="text-muted">{user.about} </span>
                   </div>
@@ -123,7 +123,7 @@ function MyProfile() {
               {/* ---------------Display the user's phone if exists  ------------  */}
 
               {user.phone !== null ? (
-                <div className="mb-2 ">
+                <div className="mb-2 text-center">
                   <span className="fw-bold">Phone: </span>
                   <span className="text-muted">{user.phone}</span>
                 </div>
@@ -133,7 +133,7 @@ function MyProfile() {
             </div>
           </div>
 
-          <div className="col-md-10">
+          <div className="col-md-9">
             {/* ---------------Display the user's name  ------------  */}
             <h2 className="d-inline "> {user.name}</h2>
             <hr className="mt-4"></hr>
@@ -150,19 +150,21 @@ function MyProfile() {
                       type="image/png"
                     />
 
-                  <img
-                    src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
-                    alt="Not found"
-                    className="not-found-image"
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                </picture>
-              </div>
-            
-              <div className="text-center">
-                <span className="no-ads-text highlight">There are no ads</span>
-              </div>
-             
+                    <img
+                      src="https://www.dubizzle.com.eg/assets/iconNotFound.6d0163dc18bc6bc7e86f85ca0835df6d.webp"
+                      alt="Not found"
+                      className="not-found-image"
+                      style={{ width: "200px", height: "200px" }}
+                    />
+                  </picture>
+                </div>
+
+                <div className="text-center">
+                  <span className="no-ads-text highlight">
+                    There are no ads
+                  </span>
+                </div>
+
                 <div className="text-center">
                   <span className="no-ads-text">
                     When users post ads, they will appear here

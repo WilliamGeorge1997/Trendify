@@ -11,12 +11,12 @@ import Loading from "../Loading/Loading";
 import img from "../../assets/images/images.png";
 import toast from "react-hot-toast";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 export default function Details() {
   let { removeProduct } = useContext(AllProductContext);
-
+ const navigate = useNavigate();
   let { addToFavourite } = useContext(favouriteContext);
   let UID = localStorage.getItem("userId");
   async function addProductToFavourite(productId) {
@@ -24,10 +24,10 @@ export default function Details() {
   }
   async function removeItem(id) {
     await removeProduct(id);
+        navigate(0); 
   }
   function fetchProduct11(productId) {
     const res = axios.get(`http://127.0.0.1:8000/api/products/${productId}`);
-    console.log(res);
     return res;
   }
 
@@ -68,6 +68,7 @@ export default function Details() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className="container  mb-5">
+        <h3 className="fw-bold mb-3">Details Product</h3>
         <div className="card mb-5">
           <div className="row g-0 mb-5">
             <div className="col-md-6 position-relative">
@@ -178,7 +179,10 @@ export default function Details() {
               </div>
               <div>
                 {product.user.id > 1 ? (
-                  <Link to={`tel:${product.user.phone}`} className="m-2 btn box-shadow shadow  main-bg-color  rounded">
+                  <Link
+                    to={`tel:${product.user.phone}`}
+                    className="m-2 btn box-shadow shadow  main-bg-color  rounded"
+                  >
                     <i className="fa-solid text-white fa-phone"></i>
                   </Link>
                 ) : (

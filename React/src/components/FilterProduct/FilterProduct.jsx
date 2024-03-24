@@ -31,9 +31,9 @@ export default function FilterProduct() {
 
   }, []);
   const initialFilProducts = product?.products?.filter((item) => {
-    if (pro == 0) {
+    if (pro === 0) {
       return parseInt(item.user.id) > 1;
-    } else if (pro == 1) {
+    } else if (pro === 1) {
       return parseInt(item.user.id) === 1;
     }
   });
@@ -53,6 +53,7 @@ export default function FilterProduct() {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <div className=" container-fluid row ">
+        <h3 className="fw-bold mb-3">Products Filter</h3>
         <div className="col-md-4 ">
           <FilterProductBar
             product={initialFilProducts}
@@ -69,7 +70,7 @@ export default function FilterProduct() {
           ) : (
             <div className=" row-cols-md-2 row row-cols-lg-3 ">
               {finalProducts?.map((item) => (
-                <div className="p-3"   key={item.id}>
+                <div className="p-3" key={item.id}>
                   <ProductItem itemData={item} />
                 </div>
               ))}
