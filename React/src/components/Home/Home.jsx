@@ -9,9 +9,6 @@ import Categories from "../Categories/Categories";
 import CategoryBar from "../CategoryBar/CategoryBar";
 import Loading from "../Loading/Loading";
 import BestSeller from "../BestSeller/BestSeller";
-import sale1 from "../../assets/images/bb.jpg"
-import sale2 from "../../assets/images/cc.jpg";
-import sale3 from "../../assets/images/happy-running-kid-with-shopping-packages-after-successful-day-in-mall-seasonal-discounts.png";
 
 import BestRate from "../BestRate/BestRate";
 import testimonial1 from "../../assets/images/testimonial-1.jpg";
