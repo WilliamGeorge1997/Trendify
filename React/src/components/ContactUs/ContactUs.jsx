@@ -26,14 +26,12 @@ export default function ContactUs() {
       .catch((err) => {
         setisLoading(false);
         setError(err.response.data.message);
-        console.log(err);
       });
      if (response.status === 200) {
        setisLoading(false);
      // navigate("/login");
       setSuccessMsg(response.data.message);
   }
-    console.log(response);
 
   }
 
@@ -80,8 +78,8 @@ export default function ContactUs() {
   });
 
   return (
-    <>
-      <div className="w-50 mx-auto py-5">
+    <div className="container">
+      <div className="w-75 mx-auto py-5">
         <h2 className="mb-4">Submit a request</h2>
 
         <form onSubmit={formik.handleSubmit}>
@@ -259,6 +257,6 @@ Product
            )} 
         </form>
       </div>
-    </>
+    </div>
   );
 }

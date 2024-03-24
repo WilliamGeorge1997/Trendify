@@ -1,5 +1,9 @@
 .footerBg {
   background-color: #f6f6f6;
+  /* bottom: -300px;
+  left: 0;
+  right: 0;
+  position: absolute; */
 }
 .secondaryFooterBg {
   background-color: #edeeee;
@@ -25,4 +29,8 @@
   height: 2.5rem;
   border-radius: 50%;
   font-size: 1.25rem;
+}
+
+.linkable:hover {
+  color: #cd0000 !important;
 }

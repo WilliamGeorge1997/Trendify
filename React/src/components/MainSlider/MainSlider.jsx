@@ -1,21 +1,23 @@
 import React from "react";
 import Slider from "react-slick";
 import styles from "./MainSlider.module.css";
-import img1 from "../../assets/images/WhatsApp Image 2024-03-18 at 11.10.41 PM.jpeg";
-import img2 from "../../assets/images/WhatsApp Image 2024-03-18 at 10.53.25 PM.jpeg";
-import img3 from "../../assets/images/WhatsApp Image 2024-03-18 at 11.25.43 PM.jpeg";
-import img4 from "../../assets/images/WhatsApp Image 2024-03-18 at 11.30.49 PM.jpeg";
+import img1 from "../../assets/images/s1.png";
+import img2 from "../../assets/images/s2.jpg";
+import img3 from "../../assets/images/s3.png";
+import img4 from "../../assets/images/s4.png";
 
 export default function MainSlider() {
   var settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 100,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
   return (
-    <div className={`${styles.MainSlider}`}>
+    <div className="container-fluid">
       <Slider {...settings}>
         <div>
           <img src={img1} className={`w-100 ${styles.img}`} alt="img1" />
@@ -29,7 +31,6 @@ export default function MainSlider() {
         <div>
           <img src={img4} className={`w-100 ${styles.img}`} alt="img1" />
         </div>
- 
       </Slider>
     </div>
   );

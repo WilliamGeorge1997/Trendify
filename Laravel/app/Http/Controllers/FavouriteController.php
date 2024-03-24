@@ -54,7 +54,7 @@ class FavouriteController extends Controller
         try {
             $user = JWTAuth::parseToken()->authenticate();
 
-            $favoriteProducts = $user->favouriteProducts()->with('images','EgyptCity')->get();
+            $favoriteProducts = $user->favouriteProducts()->with('images','EgyptCity','user')->get();
 
             if ($favoriteProducts->isEmpty()) {
                 return response()->json(['message' => 'No favorite products found.'], 404);
@@ -87,7 +87,7 @@ class FavouriteController extends Controller
             $user->favouriteProducts()->detach($product->id);
 
 
-            $favoriteProducts = $user->favouriteProducts()->with('images','EgyptCity')->get();
+            $favoriteProducts = $user->favouriteProducts()->with('images', 'EgyptCity')->get();
 
 
             $user->favorite_products = $favoriteProducts;

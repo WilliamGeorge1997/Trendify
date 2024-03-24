@@ -8,6 +8,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Models\Product;
+
 
 class UserController extends Controller
 {
@@ -123,7 +125,7 @@ class UserController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 $data = [
                     'status' => 401,
-                    'message' => 'Invalid credentials',
+                    'message' => 'Wrong email or password.',
                 ];
                 return response()->json($data, 401);
             }
@@ -147,8 +149,10 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'success',
             'user' => [
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'id'=>$user->id,
             ],
             'token' => $token,
 
@@ -160,10 +164,21 @@ class UserController extends Controller
 
     public function updateuser(Request $request)
     {
+
+        try {
+
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (\Exception $e) {
+            $data = [
+                'status' => 401,
+                'message' => 'Unauthorized',
+            ];
+            return response()->json($data, 401);
+        }
         $validator = Validator::make($request->all(), [
             'gender' => 'nullable|in:male,female',
             'about' => 'nullable|max:250',
-            'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users',
+            'phone' => 'required|regex:/^\+?\d{10,15}$/|unique:users,phone,' . $user->id,
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'date_of_birth' => 'nullable|date',
         ], [
@@ -171,7 +186,6 @@ class UserController extends Controller
             'about.max' => 'The about field must not exceed 250 characters.',
             'phone.required' => 'The phone field is required.',
             'phone.regex' => 'Please enter a valid phone number.',
-            'phone.unique' => 'Phone number already exists.',
             'avatar.image' => 'The avatar must be an image file.',
             'avatar.mimes' => 'The avatar must be a file of type: jpeg, png, jpg, gif, webp.',
             'avatar.max' => 'The avatar may not be greater than 2MB in size.',
@@ -188,6 +202,7 @@ class UserController extends Controller
         }
 
         try {
+
             $user = JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
             $data = [
@@ -196,6 +211,10 @@ class UserController extends Controller
             ];
             return response()->json($data, 401);
         }
+
+        $validator->sometimes('phone', 'unique:users,phone,' . $user->id, function ($input) use ($user) {
+            return $input->phone !== $user->phone;
+        });
 
         if ($request->filled('gender')) {
             $user->gender = $request->gender;
@@ -229,16 +248,20 @@ class UserController extends Controller
     }
 
 
+
+
     public function profile(Request $request)
     {
         try {
-            $token = $request->bearerToken();
-            $user = JWTAuth::parseToken()->authenticate($token);
+            $user = JWTAuth::parseToken()->authenticate();
 
             if (!$user) {
                 return response()->json(['status' => 404, 'message' => 'User not found'], 404);
             }
 
+            $products = Product::where('user_id', $user->id)
+            ->with(['images', 'EgyptCity', 'user'])
+            ->get();
             $userData = [
                 'id' => $user->id,
                 'name' => $user->name,
@@ -249,17 +272,13 @@ class UserController extends Controller
                 'date_of_birth' => $user->date_of_birth,
                 'about' => $user->about,
                 'role' => $user->role,
+                'products' => $products,
             ];
 
             return response()->json(['status' => 200, 'user' => $userData], 200);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token expired'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['status' => 401, 'message' => 'Token invalid'], 401);
-        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['status' => 500, 'message' => 'Token absent'], 500);
+        } catch (JWTException $e) {
+            return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
         } catch (\Exception $e) {
-
             return response()->json(['status' => 500, 'message' => 'Internal Server Error'], 500);
         }
     }
@@ -270,7 +289,7 @@ class UserController extends Controller
         try {
             $user = User::with([
                 'products' => function ($query) {
-                    $query->with('images', 'EgyptCity');
+                    $query->with('images', 'EgyptCity','user');
                 }
             ])->findOrFail($request->user_id);
 

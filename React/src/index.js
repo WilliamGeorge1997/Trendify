@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import UserContextProvider from "./Context/UserContext";
-import AllProductContextProvider from "./Context/ProductContext";
+import AllProductContextProvider from "./Context/ProductContext.js";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

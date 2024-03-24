@@ -15,7 +15,7 @@ class ContactusController extends Controller
     try {
         $user = JWTAuth::parseToken()->authenticate();
     } catch (\Exception $e) {
-        return response()->json(['status' => 401, 'message' => 'Unauthorized'], 401);
+        return response()->json(['status' => 401, 'message' => 'Please, login first.'], 401);
     }
 
     $validator = Validator::make($request->all(), [

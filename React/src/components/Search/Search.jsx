@@ -1,34 +1,63 @@
-import React from 'react'
-import styles from './Search.module.css';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { AllProductContext } from '../../Context/ProductContext';
-import { useContext } from 'react';
-import ProductItem from '../ProductItem/ProductItem';
+import React, { Fragment,  useState, useEffect, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
+import { AllProductContext } from "../../Context/ProductContext";
+import ProductItem from "../ProductItem/ProductItem";
+import { Helmet } from "react-helmet";
+import Loading from '../Loading/Loading';
 
 export default function Search() {
-  let { key } = useParams();
-  let { product } = useContext(AllProductContext);
-    const [searchResults, setSearchResults] = useState([]);
+  const { key } = useParams();
+  const { fetchProducts } = useContext(AllProductContext);
+  const [product, setProduct] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+    async function fetchData() {
+      try {
+        const products = await fetchProducts();
+        setProduct(products);
+        const filteredResults = products.products.filter(
+          (item) =>
+            item.title.toLowerCase().includes(key.toLowerCase()) ||
+            item.description.toLowerCase().includes(key.toLowerCase())
+        );
+        setSearchResults(filteredResults);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
   useEffect(() => {
-    let filteredResults=[];
-    key==="" ? filteredResults = product.products:
-  filteredResults = product.products.filter(
-      (item) =>
-        item.title.toLowerCase().includes(key.toLowerCase()) ||
-        item.description.toLowerCase().includes(key.toLowerCase())
-    );  
-    setSearchResults(filteredResults);
-  }, [key]);
+
+    fetchData();
+  }, [fetchProducts, key]);
+
   return (
-    <div className='container'>
-      <div className="row row-cols-lg-4 row-cols-md-3 ">
-        {searchResults.map((item) => (
-          <div className="p-3">
-            <ProductItem key={item.id} itemData={item} />
-          </div>
-        ))}
-      </div>
-    </div>
+    <Fragment>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Search</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      {product.status == 200 ? (
+        <div className="container">
+          <Link to={"/Home"} className="text-black">
+            <i className="fa-solid m-3 fa-x"></i>
+          </Link>
+          {searchResults.length ? (
+            <div className="row row-cols-lg-4 row-cols-md-3 ">
+              {searchResults.map((item) => (
+                <div key={item.id} className="p-3">
+                  <ProductItem itemData={item} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="h3 main-color col-12 text-center py-5 my-5">
+              No product matches the search query.
+            </div>
+          )}
+        </div>
+      ) : (
+        <Loading></Loading>
+      )}
+    </Fragment>
   );
 }

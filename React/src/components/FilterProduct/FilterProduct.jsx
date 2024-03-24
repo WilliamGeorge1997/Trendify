@@ -3,35 +3,46 @@ import ProductItem from "../ProductItem/ProductItem";
 import { AllProductContext } from "../../Context/ProductContext";
 import Categories from "../Categories/Categories";
 import { Helmet } from "react-helmet";
-
 import FilterProductBar from "../FilterProductBar/FilterProductBar";
 import Loading from "../Loading/Loading";
 import { useParams } from "react-router-dom";
-
 export default function FilterProduct() {
-  let { pro } = useParams();
+  const { pro } = useParams();
+  let { fetchProducts } = useContext(AllProductContext);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [finalProducts, setFinalProducts] = useState([]);
+  const [product, setProduct] = useState([]);
+  async function prod() {
+    let product = await fetchProducts();
+    setProduct(product);
+    setFinalProducts(product.products);
+    const initialFilProducts = product?.products?.filter((item) => {
+      if (pro == 0) {
+        return parseInt(item.user.id) > 1;
+      } else if (pro == 1) {
+        return parseInt(item.user.id) === 1;
+      }
+    });
+    setFinalProducts(initialFilProducts);
+  }
+  useEffect(() => {
+    prod();
+  setFinalProducts(initialFilProducts);
 
-  const { product } = useContext(AllProductContext);
-
-  const initialFilProducts = product.products.filter((item) => {
+  }, []);
+  const initialFilProducts = product?.products?.filter((item) => {
     if (pro === 0) {
-      console.log(item.user_id);
-      return item.user_id > 1;
+      return parseInt(item.user.id) > 1;
     } else if (pro === 1) {
-            console.log(item.user_id);
-
-      return item.user_id === 1;
+      return parseInt(item.user.id) === 1;
     }
   });
-console.log(initialFilProducts);
-  const [filteredProducts, setFilteredProducts] = useState(initialFilProducts);
-  const [products, setProducts] = useState(initialFilProducts);
-
   const handleFilterChange = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
   };
+
   useEffect(() => {
-    setProducts(filteredProducts);
+    setFinalProducts(filteredProducts);
   }, [filteredProducts]);
 
   return (
@@ -46,19 +57,23 @@ console.log(initialFilProducts);
           <FilterProductBar
             product={initialFilProducts}
             onFilterChange={handleFilterChange}
-          >
-            {" "}
-          </FilterProductBar>
+          ></FilterProductBar>
         </div>
-        <div className="row row-cols-lg-3 col-md-8 row-cols-md-2 ">
+        <div className="col-md-8 ">
           {product.status !== 200 ? (
             <Loading />
+          ) : finalProducts?.length == 0 ? (
+            <div className="h3 main-color text-center my-5">
+              No products in this category.
+            </div>
           ) : (
-            products.map((item) => (
-              <div className="p-3">
-                <ProductItem key={item.id} itemData={item} />
-              </div>
-            ))
+            <div className=" row-cols-md-2 row row-cols-lg-3 ">
+              {finalProducts?.map((item) => (
+                <div className="p-3"   key={item.id}>
+                  <ProductItem itemData={item} />
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
