@@ -3,6 +3,9 @@ import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <footer className={` border-top ${styles.footerBg} `}>
       <div className="container">
@@ -13,6 +16,7 @@ export default function Footer() {
               <ul className={styles.unorderedList}>
                 <li>
                   <Link
+                    onClick={scrollToTop}
                     className={`${styles.linkable} text-decoration-none text-black`}
                     to="/about"
                   >
@@ -22,6 +26,7 @@ export default function Footer() {
                 <li>Careers</li>
                 <li>
                   <Link
+                    onClick={scrollToTop}
                     className={`${styles.linkable} text-decoration-none text-black`}
                     to="/contactus"
                   >
