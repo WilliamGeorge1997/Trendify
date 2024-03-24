@@ -61,7 +61,7 @@ function App() {
         { path: "*", element: <ErrorPage /> },
         {
           path: "FavProduct",
-          element:<ProtectedRoute><FavProduct/></ProtectedRoute>  ,
+          element:<ProtectedRoute> <FavProduct/> </ProtectedRoute>  ,
         },
         {
           path: "EditProfile",

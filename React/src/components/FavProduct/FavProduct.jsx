@@ -4,7 +4,6 @@ import { favouriteContext } from "./../../Context/FavouriteContext";
 import { Link } from "react-router-dom";
 import styles from "./FavProduct.module.css";
 import { Helmet } from "react-helmet";
-import ProductItem from "../ProductItem/ProductItem";
 import { cartContext } from "../../Context/CartContext";
 import Loading from "../Loading/Loading";
 
@@ -17,17 +16,16 @@ export default function FavProduct() {
   async function removeFavourite(productId) {
     const { data } = await removeLoggedUserFavourite(productId);
     setFavouriteDetails(data);
+    console.log(data);
   }
   async function getFavourites() {
     const { data } = await getLoggedUserFavourites();
     setFavouriteDetails(data);
-
   }
 
   async function addProduct(productId) {
     let res = await addToCart(productId);
   }
-    getFavourites();
   useEffect(() => {
     getFavourites();
   }, []);
@@ -54,7 +52,7 @@ export default function FavProduct() {
                   className={`card ${styles.card} d-flex justify-content-between `}
                 >
                   <Link
-                    to={"/Details/" + product.id}
+                    to={`/Details/${product.id}`}
                     className="text-decoration-none text-black"
                   >
                     <img
@@ -104,7 +102,8 @@ export default function FavProduct() {
                             className="text-decoration-none main-color"
                             to={`/MyProfile/${product.user.id}`}
                           >
-                  {         product.user.name}                          </Link>
+                            {product.user.name}{" "}
+                          </Link>
                         </h6>
                       ) : (
                         ""

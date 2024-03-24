@@ -31,9 +31,9 @@ export default function FilterProduct() {
 
   }, []);
   const initialFilProducts = product?.products?.filter((item) => {
-    if (pro == 0) {
+    if (pro === 0) {
       return parseInt(item.user.id) > 1;
-    } else if (pro == 1) {
+    } else if (pro === 1) {
       return parseInt(item.user.id) === 1;
     }
   });

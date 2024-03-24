@@ -35,7 +35,7 @@ class Login
             if (!$token = JWTAuth::attempt($credentials)) {
                 $data = [
                     'status' => 401,
-                    'message' => 'Invalid credentials',
+                    'message' => 'Wrong email or password.',
                 ];
                 return response()->json($data, 401);
             }
@@ -62,6 +62,7 @@ class Login
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'id' => $user->id,
             ],
             'token' => $token,
 
