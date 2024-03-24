@@ -9,6 +9,7 @@ import Categories from "../Categories/Categories";
 import CategoryBar from "../CategoryBar/CategoryBar";
 import Loading from "../Loading/Loading";
 import BestSeller from "../BestSeller/BestSeller";
+
 import BestRate from "../BestRate/BestRate";
 import testimonial1 from "../../assets/images/testimonial-1.jpg";
 import testimonial2 from "../../assets/images/testimonial-2.jpg";
@@ -254,7 +255,8 @@ export default function Home() {
                         <p className="fs-6 fw-light col-md-7 mx-auto">
                           "Thanks to Trendify, my online shopping experience has
                           been elevated with their seamless interface! Highly
-                          recommend for anyone seeking style and convenience."
+                          recommend for anyone seeking style and convenience.
+                          They are Amazing!!"
                         </p>
                       </div>
                       <div className="carousel-item text-center">
@@ -270,7 +272,7 @@ export default function Home() {
                           "Trendify has revolutionized my shopping habits with
                           their intuitive platform and trend-setting products.
                           Grateful for the convenience and style they bring to
-                          my fingertips!".
+                          my fingertips!"
                         </p>
                       </div>
                     </div>
