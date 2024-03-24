@@ -1,22 +1,39 @@
 .Home {
-    background-color: #000;
+  background-color: #000;
 }
 
 .container {
-    width: 98%;
-    margin: auto;
+  width: 98%;
+  margin: auto;
 }
 
 .cover {
-    color: white;
-    display: flex;align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 300px;
-    width: 100%;
-    background-image: url("../../assets/images/100.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 300px;
+  width: 100%;
+  background-image: url("../../assets/images/100.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
+.menCover {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 300px;
+  width: 100%;
+  background-image: url("../../assets/images/men.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
