@@ -107,15 +107,6 @@ function App() {
       ),
     },
     {
-      path: "navcreate",
-      element: (
-        <ProtectedRoute>
-          
-          <NavCreate />
-        </ProtectedRoute>
-      ),
-    },
-    {
       path: "contactus",
       element: (
         <ProtectedRoute>
