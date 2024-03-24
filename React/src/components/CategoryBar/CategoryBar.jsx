@@ -6,18 +6,18 @@ import { Link } from "react-router-dom";
 export default function CategoryBar(label) {
   return (
     <Fragment>
-      <div className={`text-black my-4 justify-content-around ${styles.border}`}>
-        <div className=" align-items-center">
-          <Link
-            to={`/FilterProduct/${label.label}`}
-            className="text-decoration-none text-black"
-          >
+      <div
+        className={`text-black my-4 justify-content-around ${styles.border}`}
+      >
+        <div className="mb-3 align-items-center">
+          <Link to={`/FilterProduct/${label.label}`} className={styles.button}>
             <i className="fa-solid fa-bars  mb-2 me-2"></i>All
           </Link>
         </div>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled ">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
+              {" "}
               <i className="fa-solid fa-laptop  me-2"></i>
               Electronic
             </p>
@@ -43,9 +43,10 @@ export default function CategoryBar(label) {
             </div>
           </li>
         </ul>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled ">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
+              {" "}
               <i className="fa-solid fa-gift  me-2"></i>
               Personal care
             </p>
@@ -71,9 +72,10 @@ export default function CategoryBar(label) {
             </div>
           </li>
         </ul>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
+              {" "}
               <i className="fa-solid fa-house me-2"></i>
               Home supplies
             </p>
@@ -107,9 +109,10 @@ export default function CategoryBar(label) {
             </div>
           </li>
         </ul>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled ">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
+              {" "}
               <i className="fa-solid fa-person-dress  me-2"></i>
               Women
             </p>
@@ -167,9 +170,10 @@ export default function CategoryBar(label) {
             </div>
           </li>
         </ul>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
+              {" "}
               <i className="fa-solid fa-person me-2"></i>
               Men
             </p>
@@ -203,9 +207,9 @@ export default function CategoryBar(label) {
             </div>
           </li>
         </ul>
-        <ul className="list-unstyled mb-0">
+        <ul className="list-unstyled ">
           <li>
-            <p className="btn text-black mb-0 ">
+            <p className={styles.buttonLink}>
               <i className="fa-solid fa-car me-1"></i> Transportation
             </p>
             <div>
