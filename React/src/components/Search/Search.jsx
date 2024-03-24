@@ -1,4 +1,4 @@
-import React, { Fragment,  useState, useEffect, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AllProductContext } from "../../Context/ProductContext";
 import ProductItem from "../ProductItem/ProductItem";
@@ -10,24 +10,29 @@ export default function Search() {
   const { fetchProducts } = useContext(AllProductContext);
   const [product, setProduct] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-    async function fetchData() {
-      try {
-        const products = await fetchProducts();
-        setProduct(products);
-        const filteredResults = products.products.filter(
-          (item) =>
-            item.title.toLowerCase().includes(key.toLowerCase()) ||
-            item.description.toLowerCase().includes(key.toLowerCase())
-        );
-        setSearchResults(filteredResults);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    }
-  useEffect(() => {
 
+  async function fetchData() {
+    try {
+      const products = await fetchProducts();
+      setProduct(products);
+      const filteredResults = products.products.filter(
+        (item) =>
+          item.title.toLowerCase().includes(key.toLowerCase()) ||
+          item.description.toLowerCase().includes(key.toLowerCase())
+      );
+      setSearchResults(filteredResults);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }
+
+  useEffect(() => {
     fetchData();
   }, [fetchProducts, key]);
+
+  const clearSearch = () => {
+    window.location.href = '/Home';
+  };
 
   return (
     <Fragment>
@@ -36,10 +41,10 @@ export default function Search() {
         <title>Search</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
-      {product.status == 200 ? (
+      {product.status === 200 ? (
         <div className="container">
           <Link to={"/Home"} className="text-black">
-            <i className="fa-solid m-3 fa-x"></i>
+            <i className="fa-solid m-3 fa-x" onClick={clearSearch}></i>
           </Link>
           {searchResults.length ? (
             <div className="row row-cols-lg-4 row-cols-md-3 ">
@@ -56,7 +61,7 @@ export default function Search() {
           )}
         </div>
       ) : (
-        <Loading></Loading>
+        <Loading />
       )}
     </Fragment>
   );

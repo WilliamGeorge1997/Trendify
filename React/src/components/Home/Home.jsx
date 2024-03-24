@@ -47,7 +47,7 @@ export default function Home() {
         <div className={styles.cover}>
           <div>
          
-            <h3 className="h1">SHOP WITH AS</h3>
+            <h3 className="h1">SHOP WITH US</h3>
             <p>#NEW SUMMER COLLECTION 2024</p>
             <Link to={"/Categories/9/1"} className="btn btn-dark ">
               SHOP NOW
