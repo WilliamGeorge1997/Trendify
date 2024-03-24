@@ -78,7 +78,42 @@ function App() {
           path: "ShippingDetails",
           element: <ProtectedRoute><ShippingDetails/></ProtectedRoute> ,
         },
+        {
+          path: "contactus",
+          element: (
+            <ProtectedRoute>
+              
+              <ContactUs />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "contactus",
+          element: (
+            <ProtectedRoute>
+              
+              <ContactUs />
+            </ProtectedRoute>
+          ),
+        },
       ],
+    },
+    {
+      path: "sell",
+      element: (
+        <ProtectedRoute>
+          <Sell />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "contactus",
+      element: (
+        <ProtectedRoute>
+          
+          <ContactUs />
+        </ProtectedRoute>
+      ),
     },
   ]);
 
