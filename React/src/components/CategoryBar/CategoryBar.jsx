@@ -10,8 +10,11 @@ export default function CategoryBar(label) {
         className={`text-black my-4 justify-content-around ${styles.border}`}
       >
         <div className="mb-3 align-items-center">
-          <Link to={`/FilterProduct/${label.label}`} className={styles.button}>
-            <i className="fa-solid fa-bars  mb-2 me-2"></i>All
+          <Link
+            to={`/FilterProduct/${label.label}`}
+            className=" text-black text-decoration-none "
+          >
+            <i className="fa-solid fa-bars mb-2 me-2"></i>All
           </Link>
         </div>
         <ul className="list-unstyled ">
