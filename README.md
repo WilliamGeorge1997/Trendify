@@ -5,6 +5,9 @@ Welcome to Trendify, an innovative ecommerce platform designed to revolutionize 
 
 ---
 
+https://github.com/WilliamGeorge1997/Trendify/assets/117861843/007cba35-8511-4c1f-a51d-a7523dbcb764
+
+---
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Technologies Used](#TechnologiesUsed)
